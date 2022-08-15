@@ -40,8 +40,15 @@ function HeadNav() {
 
     return (
         <>
-            <Disclosure as="nav" className="bg-sky-200">
-                <div > 这里是菜单Menu Meun.Button
+            <Disclosure as="nav" className="bg-blue-900 text-blue-50">
+        <div className="bg-blue-900 pl-6 pr-6 px-10 text-blue-50 w-24">
+          <div className="border-b-4 py-1"></div>
+          <div className="border-b-2">2022</div>
+          <div className="border-b-2">2021</div>
+          <div className="border-b-2">2020</div>
+          <div className="border-b-2">这里打算做header，竖着的header</div>
+        </div>
+                <div > 菜单
                 </div>
 
                 <div > 这里是userNavigation, 点击按钮放出下栏：
