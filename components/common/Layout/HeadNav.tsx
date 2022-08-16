@@ -12,8 +12,8 @@ const user = {
 
 const navigation = [
     { name: '主頁', href: '/', current: false },
-    { name: '文檔類型', href: '/classification', current: false },
-    { name: '文檔搜尋', href: '/search', current: false }
+    { name: '文檔類型', href: '/', current: false },
+    { name: '文檔搜尋', href: '/', current: false }
 ];
 const userNavigation = [
     //{ name: 'Your Profile', href: '#' },
@@ -40,18 +40,19 @@ function HeadNav() {
 
     return (
         <>
-            <Disclosure as="nav" className="bg-blue-900 text-blue-50">
-        <div className="bg-blue-900 pl-6 pr-6 px-10 text-blue-50 w-24">
-          <div className="border-b-4 py-1"></div>
-          <div className="border-b-2">2022</div>
-          <div className="border-b-2">2021</div>
-          <div className="border-b-2">2020</div>
-          <div className="border-b-2">这里打算做header，竖着的header</div>
-        </div>
-                <div > 菜单
-                </div>
+            <Disclosure as="nav" 
+                className="min-h-3/5 w-1/10 h-full overflow-hidden fixed left-0 top-24 rounded-tr-3xl bg-blue-900 text-blue-50 shadow-2xl 
+                transition duration-300 ease-out 
+                hover:bg-orange-600">
+                {/* <div className="flex h-screen"> */}
+                    <div className="h-2/3 flex flex-col justify-around mx-10 ">
+                        <div className="my-10"> ICON/LOGO </div>
+                        <div className="my-10"> Menu btns</div>
+                        <div className="my-10">UserNav</div>
+                    </div>
+                {/* </div> */}
 
-                <div > 这里是userNavigation, 点击按钮放出下栏：
+                {/* <div > 这里是userNavigation, 点击按钮放出下栏：
                     <Disclosure.Button className="py-2">
                         User Name
                     </Disclosure.Button>
@@ -60,7 +61,7 @@ function HeadNav() {
                         User navigation contents
                     </Disclosure.Panel>
 
-                </div>
+                </div> */}
             </Disclosure>
         </>
     );

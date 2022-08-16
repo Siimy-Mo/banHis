@@ -10,7 +10,7 @@ function SimpleLayout(props: SimpleLayoutProps) {
     const { children } = props;
     return (
         <>
-            {/* <HeadNav /> */}
+            <HeadNav />
             {children}
             <Footer />
         </>

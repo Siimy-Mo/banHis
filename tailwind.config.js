@@ -374,6 +374,7 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      garamond: ["Cormorant Garamond"],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

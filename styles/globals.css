@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond");
+
 /* $icy-morn:#afd2d3;
 $peachy-dust:#debdb3;
 $first-date:#f4b09e;
@@ -60,3 +62,26 @@ transition hover:bg-indigo-900 hover:text-blue-50 }
 /* .card {
   @apply border border-red-300 rounded-lg overflow-hidden;
 } */
+@layer utilities{
+  .todoItem_focus {
+    position: relative;
+  }
+    .todoItem_focus::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgb(49 46 129);
+      transition: 250ms ease-out;
+      transform-origin: center;
+      transform: scalex(0);
+    }
+
+    .todoItem_focus:hover:after, .todoItem_focus:focus:after {
+      transform: scalex(1);
+
+  }
+}
+
