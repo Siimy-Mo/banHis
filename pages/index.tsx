@@ -10,53 +10,112 @@ import { listeners } from 'process';
 import { useRouter } from 'next/router';
 
 import { useInputValue } from '../hooks/useFetchData';
+import { fs } from 'memfs';
 
+const STORAGE_KEY = 'todo-P7oZi9sLs'
 
+function classNames(...classes: any) {
+  return classes.filter(Boolean).join(' ');
+}
 
 const Home: NextPage = () => {
   // 声明变量，默认[]，setXXX是改变量的自定义函数set(count+1)
-  const newTodo = useInputValue('');
-
   const router = useRouter();
-  const [addLoading, setAddLoading] = useState(false);
   const [count, setcount] = useState(0)
   const [msg, setMessage] = useState('')
-  const [todoList, setTodoList] = useState([
-    { id:0,completed: false, text: '恰饭' },
-    { id:1,completed: false, text: '睡觉' },
-    { id:2,completed: false, text: '摸鱼' },
-  ]);
+  const [ifLocal, setifLocal] = useState(false)
+  const [todoList, setTodoList] = useState([{
+    id: 0,
+    completed: false,
+    text: msg,
+  }]);
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value)
+  }
 
   const handleAddTodo = () => {
     // 非空判定
     if (msg.trim() === '') return
 
-    console.log('非空判定！')
+    var lastid = 0
+    todoList.map((todo, index) => {
+        lastid = (todo.id > lastid) ? todo.id: lastid
+      return lastid
+    });
 
-    let lastid = (todoList.length==0)? 0: todoList[todoList.length-1].id+1
-  
     const todoToServer = {
-      id:lastid,
+      id: lastid,
       completed: false,
       text: msg,
     };
-    setTodoList([...todoList, todoToServer])
 
-    // localStorage.setItem(lastid, todoToServer)
-    // console.log(localStorage)
+    setTodoList([...todoList, todoToServer])
+    console.log('list add!')
     setMessage('')
+    // setTodoAction(true)
   };
 
   const handleRemoveTodo = (index) => {
-    console.log('index: ',index)
     const newList = todoList.filter((item) => item.id !== index);
 
     setTodoList(newList);
+    console.log('list remove!')
+    // setTodoAction(true)
   };
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value)
-  }
+
+
+  const handleCompleteTodo = (targetIdx) => {
+    const tmpTodos = todoList.map((todo, index) => {
+      const tmpTodo = todo;
+      if (tmpTodo.id == targetIdx) {
+        tmpTodo.completed = !todoList[index].completed
+      }
+      return tmpTodo
+    });
+    setTodoList(tmpTodos);
+    
+    // resetIndex
+    const falseTodo = tmpTodos.filter((item) => item.completed !== true);
+    const trueTodo = tmpTodos.filter((item) => item.completed === true);
+    setTodoList([...falseTodo,...trueTodo]);
+
+  };
+
+
+  const renderCompleteTodos = () => {
+    const completedTodos = todoList.filter((item) => item.completed == true);
+    return (completedTodos.length)
+  };
+  //副作用？纯函数/引用外部函数，和外部交互，同样的input->output
+  // 1.修改dom 2.修改全局变量 3.ajax请求，4计时器 5存储
+  // 真实dom构建之后运用，didmount,异步hook
+  useEffect(() => {
+    const data = localStorage.getItem(STORAGE_KEY);
+    const todoToServer = {
+      id: 'lastid',
+      completed: false,
+      text: msg,
+    };
+
+    if (data) {
+      setTodoList(JSON.parse(data))
+    }
+    setifLocal(true)
+
+    //读取权限
+    axios.defaults.headers.common['authorization'] =
+      localStorage.getItem('authorization') || '';
+
+  }, []);
+
+  useEffect(() => {
+    if (ifLocal) {
+      console.log('更新local')
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(todoList));
+    }
+  });
+
 
 
   return (
@@ -68,57 +127,63 @@ const Home: NextPage = () => {
       </Head>
 
       {/* 右侧底纹 */}
-        <div className="flex h-screen w-screen bg-rose-50 text-indigo-900">
-          {/* 界面 */}
-          <div className="w-1/10"></div>
-          <div className="
+      <div className="flex h-screen w-screen bg-rose-50 text-indigo-900">
+        {/* 界面 */}
+        <div className="w-1/10"></div>
+        <div className="
                 min-h-50vh overflow-hidden shadow-2xl 
                 m-auto px-20 py-10 rounded-lg bg-red-400">
 
-            <h1 className='pt-5 pl-5 mb-5 font-["Cambria"] font-black text-3xl '>TodoList</h1>
+          <h1 className='pt-5 pl-5 mb-5 font-["Cambria"] font-black text-3xl '>TodoList</h1>
 
-            <div className="flex gap-4 " >
-              <form>
-                <label>
-                  <input
-                    placeholder="Type here to add new task item.."
-                    className="inputText"
-                    value={msg || ""}
-                    autoFocus
-                    type='text' onChange={onChange} />
-                </label>
-                <button type="button" className="btn" onClick={handleAddTodo}>Sumbit</button>
-                <button type="button" className="btn" onClick={() => { setcount(count + 1); }} >Count</button>
+          <div className="flex gap-4 " >
+            <form>
+              <label>
+                <input
+                  placeholder="Type here to add new task item.."
+                  className="inputText"
+                  value={msg || ""}
+                  autoFocus
+                  type='text' onChange={onChange} />
+              </label>
+              <button type="button" className="btn" onClick={handleAddTodo}>Sumbit</button>
+              <button type="button" className="btn" onClick={() => { setcount(count + 1); }} >Count</button>
 
-              </form>
-              <div>Count: {count}</div>
-            </div>
-
-
-            <div className="mt-4 border-red-800">
-              <ul
-                role="list"
-                // className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-                className="flex-col"
-              >
-                {
-                  todoList.map((todo, index) => {
-
-                    return (
-                      <li key={todo.id} className="todolist_li relative" >
-                        <button type='button'className='todoItem_focus '>{todo.text}</button>
-                        <button type="button" onClick={() => handleRemoveTodo(todo.id)}>Delete</button>
-
-                      </li>
-                    )
-                  })
-                }
-              </ul>
-            </div>
+            </form>
+            <div>Count: {count}</div>
           </div>
+
+
+          <div className="mt-4 border-red-800">
+            <ul
+              role="list"
+              className="flex-col"
+            >
+              {
+                todoList.map((todo, index) => {
+
+                  return (
+                    <li key={todo.id} className="todolist_li relative" >
+                      <button type='button'
+                        className={classNames('todoItem_focus',todo.completed===true ? 'line-through':'')}
+                        onClick={() => handleCompleteTodo(todo.id)}>{todo.text}</button>
+                      <button type="button" onClick={() => handleRemoveTodo(todo.id)}>Delete</button>
+
+                    </li>
+                  )
+                })
+              }
+            </ul>
+
+          </div>
+          <div className='mt-4'>
+            <p className='inline' >Total items:&nbsp;{renderCompleteTodos()}</p>&nbsp;&nbsp;&nbsp;&nbsp;
+            <p className='inline'>Total items:&nbsp;{todoList.length}</p>
+          </div>
+        </div>
         <div className="w-1/6"></div>
 
-        </div>
+      </div>
 
 
     </div>
