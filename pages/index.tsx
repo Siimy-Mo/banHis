@@ -37,14 +37,13 @@ const Home: NextPage = () => {
     // 非空判定
     if (msg.trim() === '') return
 
-    var lastid = 0
+    var lastid = -1
     todoList.map((todo, index) => {
-      lastid = (todo.id > lastid) ? todo.id : lastid
-      return lastid
+      lastid = (todo.id >= lastid) ? todo.id : lastid
     });
 
     const todoToServer = {
-      id: lastid,
+      id: lastid+1,
       completed: false,
       text: msg,
     };
@@ -110,7 +109,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (ifLocal) {
-      console.log('更新local')
       localStorage.setItem(STORAGE_KEY, JSON.stringify(todoList));
     }
   });
@@ -134,7 +132,7 @@ const Home: NextPage = () => {
           <h1 className='pt-5 pl-5 mb-5 font-["Cambria"] font-black text-3xl dark:text-white '>TodoList</h1>
 
           <div className="flex flex-col gap-4 " >
-            <form>
+            {/* <form>
               <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">S^^earch</label>
 
               <div className="relative">
@@ -158,9 +156,9 @@ const Home: NextPage = () => {
 
 
               </div>
-            </form>
+            </form> */}
 
-            {/* <form>
+            <form>
               <label>
                 <input
                   placeholder="Type here to add new task item.."
@@ -170,7 +168,7 @@ const Home: NextPage = () => {
                   type='text' onChange={onChange} />
               </label>
               <button type="button" className="btn" onClick={handleAddTodo}>Sumbit</button>
-            </form> */}
+            </form>
             
           </div>
 
