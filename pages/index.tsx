@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     });
 
     const todoToServer = {
-      id: lastid+1,
+      id: lastid + 1,
       completed: false,
       text: msg,
     };
@@ -124,52 +124,37 @@ const Home: NextPage = () => {
       </Head>
 
       {/* 右侧底纹 */}
-      <div className="shrink-0 w-screen overflow-hidden text-indigo-900 bg-lime-500
-                      flex items-center md:pl-64 md:py-20">
-        <div className="shadow-2xl bg-red-400 rounded-lg max-w-screen-lg min-w-md
+      <div className="text-indigo-900 bg-lime-500 h-full absolute w-full
+                      flex items-center md:pl-64">
+        <div className="shadow-2xl bg-red-400 rounded-lg w-2/3
                 px-8 md:px-20 py-10">
 
           <h1 className='pt-5 pl-5 mb-5 font-["Cambria"] font-black text-3xl dark:text-white '>TodoList</h1>
 
-          <div className="flex flex-col gap-4 " >
-            {/* <form>
-              <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">S^^earch</label>
-
-              <div className="relative">
+          <div className="" >
+            <form className="flex items-center">
+              <label htmlFor="simple-search" className="sr-only">Search</label>
+              <div className="relative w-full">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <svg aria-hidden="true" className="w-5 h-5 text-indigo-900 dark:text-indigo-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  <svg aria-hidden="true" className="w-5 h-5 text-indigo-900 dark:text-indigo-900" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                 </div>
-                <input type="search" id="default-search"
-                  className="w-full p-4 pl-10  text-sm bg-transparent placeholder-blue-50 text-gray-900 rounded-lg 
-                  border border-blue-50 focus:ring-blue-500 focus:border-indigo-900 focus:outline-none
-                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required
-                  onChange={onChange} />
-
-
-                <button type="submit" 
-                className="absolute right-2.5 bottom-2 transition border-indigo-900 border border-solid rounded-3xl
-                hover:bg-indigo-900 focus:ring-4 focus:outline-none focus:ring-blue-300 hover:text-blue-50
-                font-medium text-sm px-4 py-2 
-                dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={handleAddTodo}>Submit</button>
-
-
+                <input type="text" id="simple-search" 
+                className="w-full p-3 pl-10  text-sm bg-transparent placeholder-blue-50 text-gray-900 rounded-lg 
+                border border-blue-50 focus:ring-blue-500 focus:border-indigo-900 focus:outline-none
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required
+                   onChange={onChange} />
               </div>
-            </form> */}
 
-            <form>
-              <label>
-                <input
-                  placeholder="Type here to add new task item.."
-                  className="inputText"
-                  value={msg || ""}
-                  autoFocus
-                  type='text' onChange={onChange} />
-              </label>
-              <button type="button" className="btn" onClick={handleAddTodo}>Sumbit</button>
+              <button type="submit" 
+              className="font-medium text-sm px-4 py-3 ml-2 transition border-indigo-900 border border-solid rounded-2xl
+              hover:bg-indigo-900 focus:ring-2 focus:outline-none focus:ring-indigo-500 hover:text-blue-50
+                dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={handleAddTodo}>
+                Sumbit
+              </button>
             </form>
-            
+
           </div>
 
 

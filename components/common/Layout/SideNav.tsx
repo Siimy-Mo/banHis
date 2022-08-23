@@ -113,7 +113,7 @@ function HeadNav() {
               </li>
               <li>
 
-                <button className="md:hover:text-blue-900" onClick={() => router.push('/login')}>登出</button>
+                <button className="md:hover:text-blue-900 mb-32" onClick={() => router.push('/login')}>登出</button>
               </li>
             </ul>
 
