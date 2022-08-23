@@ -17,7 +17,6 @@ function SimpleLayout(props: SimpleLayoutProps) {
                     <SideNav />
                 </div> */}
                 <SideNav />
-
                 {children}
             </div>
             <Footer />
