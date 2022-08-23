@@ -17,6 +17,7 @@ $white: #f6f6f6; */
     body {
       padding: 0;
       margin: 0;
+      background:#fff1f2;
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
@@ -41,8 +42,8 @@ $white: #f6f6f6; */
 transition hover:bg-indigo-900 hover:text-blue-50 }
 
 .inputText {
-  @apply w-full text-sm mx-5 my-2 px-4 py-3 bg-transparent placeholder-blue-50 rounded-xl border border-solid transition 
-  focus:border-indigo-900 focus:placeholder-indigo-900 focus:outline-none }
+  @apply block text-sm mx-5 my-2 px-4 py-3 bg-transparent placeholder-blue-50 rounded-xl border border-solid transition 
+  focus:border-indigo-900 focus:outline-none }
   
   .todolist_li {
     @apply flex justify-between items-center p-2 mb-2 last:mb-0
