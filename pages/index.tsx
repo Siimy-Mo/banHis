@@ -6,11 +6,10 @@ import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import useAxios from 'axios-hooks';
-import { listeners } from 'process';
+// import { listeners } from 'process';
 import { useRouter } from 'next/router';
 
-import { useInputValue } from '../hooks/useFetchData';
-import { fs } from 'memfs';
+// import { fs } from 'memfs';
 
 const STORAGE_KEY = 'todo-P7oZi9sLs'
 
@@ -54,7 +53,7 @@ const Home: NextPage = () => {
     // setTodoAction(true)
   };
 
-  const handleRemoveTodo = (index) => {
+  const handleRemoveTodo = (index:any) => {
     const newList = todoList.filter((item) => item.id !== index);
 
     setTodoList(newList);
@@ -63,7 +62,7 @@ const Home: NextPage = () => {
   };
 
 
-  const handleCompleteTodo = (targetIdx) => {
+  const handleCompleteTodo = (targetIdx:any) => {
     const tmpTodos = todoList.map((todo, index) => {
       const tmpTodo = todo;
       if (tmpTodo.id == targetIdx) {
@@ -90,11 +89,6 @@ const Home: NextPage = () => {
   // 真实dom构建之后运用，didmount,异步hook
   useEffect(() => {
     const data = localStorage.getItem(STORAGE_KEY);
-    const todoToServer = {
-      id: 'lastid',
-      completed: false,
-      text: msg,
-    };
 
     if (data) {
       setTodoList(JSON.parse(data))
