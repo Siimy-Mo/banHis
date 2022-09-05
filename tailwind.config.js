@@ -14,6 +14,11 @@ module.exports = {
       '2xl': '1536px',
     },
     colors: ({ colors }) => ({
+      'themeSecondary':'#38bfa7',
+      'themeOther1':'#586994',
+      'themeOther2':'#8fe1a2',
+      'themeAnother':'#fe938c',
+      'themeforeground':'#ebe8d8',
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,
