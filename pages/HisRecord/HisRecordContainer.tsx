@@ -9,7 +9,6 @@ const STORAGE_KEY = 'todo-P7oZi9sLs'
 
 export default function LoginContainer() {
     const router = useRouter();
-
     useEffect(() => {
         localStorage.setItem('authorization', 'token');
         localStorage.setItem('email', 'email');
