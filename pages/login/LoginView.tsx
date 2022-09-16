@@ -41,7 +41,7 @@ export default function LoginView(props: LoginViewProps) {
                         <div className="mx-6 shadow-xl
                                 bg-gradient-to-r from-themeSecondary to-themeOther2
                                 hover:bg-gradient-to-bl font-medium rounded-lg text-md px-4 py-6"> */}
-                        <h1 className='mb-4 pl-16 font-["Cambria"] font-black text-3xl text-themeSecondary'>Login</h1>
+                        <h1 className='md:my-4 my-8 mt-12 pl-16 font-["Cambria"] font-black text-3xl text-themeSecondary'>Login</h1>
                         <div className="mx-6 shadow-xl min-w-min
                                 bg-themeOther1 font-medium rounded-lg text-md px-12 pt-8 pb-4">
 
