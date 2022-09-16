@@ -100,8 +100,8 @@ function HeadNav() {
           <div className="w-full md:block md:w-auto" id="navbar-default">
             <ul className="flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:space-y-8 md:mt-0 md:font-medium md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {navigation.map( (item) => (
-                <li>
-                <a key={item.name}
+                <li key={item.name}>
+                <a
                     href={item.href}
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:text-orange-500 md:p-0 dark:text-white md:hover:text-blue-900"
                     aria-current={item.current ? 'page' : undefined}
@@ -109,7 +109,7 @@ function HeadNav() {
                     </a>
               </li>
               ))}
-              
+
               <li>
                 <button className="md:hover:text-blue-900 mb-32" onClick={() => router.push('/login')}>登出</button>
               </li>
