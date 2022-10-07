@@ -4,6 +4,15 @@ import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import hisData from '../../public/banRecord.json';  // data 多了之后要学缓处理。
 
+
+// 加载json数据之后 需要做的事情：
+// 0.设置加载前的占位组件
+// 1.访问数据，获取时间，计算时间点到left的距离，分别添加到横向时间线的li中。
+//     （tailwind是固定值，要看看怎么做成px。
+// 2.横向时间线是加载之后overflow-hidden了前后的节点，是否全部加载是要考虑的。
+//     不过好像原来只是单纯用来做年份标记，不需要这么详细！！！
+// 3.data-date值用于横竖 时间线的交互联动。
+
 interface LoginViewProps {
     handleSignIn: FormEventHandler;
 }
@@ -13,12 +22,6 @@ export default function LoginView(props: LoginViewProps) {
     // export default function LoginView() {
     const { handleSignIn } = props;
     const [msg, setMessage] = useState('')
-
-    // useEffect(() => {
-    //     console.log(hisData[0])
-    // },[])
-
-
 
     return (
         <>
@@ -38,29 +41,68 @@ export default function LoginView(props: LoginViewProps) {
 
 
                 {/* https://codepen.io/ritz078/pen/LGRWjE  class=timeline*/}
-                <div className='relative h-28 w-4/5 mx-auto my-0'>
-                    {/* 一个横向的时间线来跳转year Unit
-                    data-date 用于和下方div<class="events-content">的li标签的的属性绑定 */}
-                    {/* <div className='relative h-full mx-10 my-0'>
-                        <div className='absolute z-10 left-0 top-12 h-0.5 transition-transform duration-500'>
-                            <ol className=''>
-                                <li><a href="#0" data-date="16/01/2014">16 Jan</a></li>
-                                <li><a href="#0" data-date="17/01/2014">17 Jan</a></li>
-                                <li><a href="#0" data-date="18/01/2014">18 Jan</a></li>
+                {/* 一个横向的时间线来跳转year Unit
+                data-date 用于和下方div<class="events-content">的li标签的的属性绑定 */}
+                <div className='relative h-28 w-4/5 my-0 mx-auto'>
 
+                    {/* events-wrapper 两侧渐变的伪类*/}
+                    <div className='relative h-full my-0 mx-10 overflow-hidden'>
+                        <span className='content-none absolute z-20 top-0 h-full w-5
+                            left-0 bg-gradient-to-r from-bgColor to-transparent text-transparent'>白色渐变</span>
+
+                        {/* events */}
+                        <div className='absolute z-10 left-0 top-14 h-0.5 w-full bg-white transition-transform duration-500'>
+                            <ol>
+                                {/* 一个选项单位  额外class 有selected pass 选项,要计算left*/}
+                                <li>
+                                    <a href="#0" data-date="16/01/2014"
+                                        className='absolute bottom-0 z-20 text-center text-lg pb-4 text-themeOther1 transformZ0
+                                        left-10'>
+                                        16 Jan
+                                        <span className='content-none absolute left-1/2 right-auto -translate-x-1/2
+                                        -bottom-1 h-3 w-3 rounded-full bg-white border-2 border-solid border-themeOther1 transition-colors
+                                        hover:bg-themeOther1 text-transparent '>a的伪类after</span>
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#0" data-date="17/01/2014"
+                                        className='absolute bottom-0 z-20 text-center text-lg pb-4 text-themeOther1 transformZ0
+                                        left-36'>
+                                        17 Jan
+                                        <span className='content-none absolute left-1/2 right-auto -translate-x-1/2
+                                        -bottom-1 h-3 w-3 rounded-full bg-white border-2 border-solid border-themeOther1 transition-colors
+                                        hover:bg-themeOther1 text-transparent '>a的伪类after</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0" data-date="18/01/2014"
+                                        className='absolute bottom-0 z-20 text-center text-lg pb-4 text-themeOther1 transformZ0
+                                        left-96'>
+                                        18 Jan
+                                        <span className='content-none absolute left-1/2 right-auto -translate-x-1/2
+                                        -bottom-1 h-3 w-3 rounded-full bg-white border-2 border-solid border-themeOther1 transition-colors
+                                        hover:bg-themeOther1 text-transparent '>a的伪类after</span>
+                                    </a>
+                                </li>
                             </ol>
+
+                            <span className='absolute z-10 left-0 top-0 h-full w-full bg-themeOther1
+                                scale-x-10 origin-left-center transition-transform duration-300 text-transparent'>水平线</span>
                         </div>
 
-                    </div> */}
+                        <span className='content-none absolute z-20 top-0 h-full w-5
+                            right-0 bg-gradient-to-l from-bgColor to-transparent text-transparent'>白色渐变</span>
+                    </div>
 
-                    <ul className='timeline-navigation'>
-                        <li >
-                            <span className='content-none absolute h-4 w-4 left-1/2 top-1/2 bottom-auto right-auto -translate-x-1/2 -translate-y-1/2'></span> {/*As before */}
+
+                    <ul>
+                        <li>
                             <a href="#0" className='absolute z-10 top-1/2 bottom-auto -translate-y-1/2 h-8 w-8 
                                 overflow-hidden text-transparent indent1_1 whitespace-nowrap rounded-full border-2 border-solid border-themeOther1 transition-colors 
                                 left-0'>Prev</a></li>
                         <li>
-                            <span className='content-none absolute h-4 w-4 left-1/2 top-1/2 bottom-auto right-auto -translate-x-1/2 -translate-y-1/2'></span> {/*As before */}
                             <a href="#0" className='absolute z-10 top-1/2 bottom-auto -translate-y-1/2 h-8 w-8 
                                 overflow-hidden text-transparent indent1_1 whitespace-nowrap rounded-full border-2 border-solid border-themeOther1 transition-colors
                                 right-0'>Next</a></li>

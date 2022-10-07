@@ -37,17 +37,6 @@
   /*UI配色參考 https://codepen.io/oliviale/pen/mgWjpq */
 
 
-  /* 番剧历史 */
-  .timelinePoints a{
-    @apply absolute bottom-0 z-20 text-center text-lg pb-4 text-lime-700 transformZ0
-  }
-
-  .timelinePoints a::after{
-    @apply content-none absolute left-1/2 right-auto -translate-x-1/2 -bottom-1 h-3 w-3 rounded-full bg-themeAnother
-    hover:bg-lime-400
-  }
-
-
   .btn {
   @apply text-sm mx-5 my-2 rounded-3xl px-5 py-2 cursor-pointer border-indigo-900 border border-solid tracking-tight
 transition hover:bg-indigo-900 hover:text-blue-50 }

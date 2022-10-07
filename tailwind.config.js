@@ -14,6 +14,7 @@ module.exports = {
       '2xl': '1536px',
     },
     colors: ({ colors }) => ({
+      'bgColor':'#fff1f2',
       'themeSecondary':'#38bfa7',
       'themeOther1':'#586994',
       'themeOther2':'#8fe1a2',
@@ -840,6 +841,7 @@ module.exports = {
       'bottom-left': 'bottom left',
       left: 'left',
       'top-left': 'top left',
+      'top-center': 'top center',
     },
     transitionDelay: {
       75: '75ms',
