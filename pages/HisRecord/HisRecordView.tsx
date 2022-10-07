@@ -13,6 +13,12 @@ import hisData from '../../public/banRecord.json';  // data 多了之后要学�
 //     不过好像原来只是单纯用来做年份标记，不需要这么详细！！！
 // 3.data-date值用于横竖 时间线的交互联动。
 
+const banList = [
+    { name: '标题1', date: '2013 - present',content:'content........', side: 'L' },
+    { name: '标题2', date: '2013 - present',content:'content........', side: 'R' },
+    { name: '标题3', date: '2013 - present',content:'content........', side: 'L' }
+];
+
 interface LoginViewProps {
     handleSignIn: FormEventHandler;
 }
@@ -111,9 +117,48 @@ export default function LoginView(props: LoginViewProps) {
 
 
                 {/* timeLime reference: https://codepen.io/NilsWe/pen/Axdozd */}
+                {/* div的class应该是ul的, 左右有些数值不对 */}
+                <div className='relative w-4/5 my-0 mx-auto py-4 px-0 list-none'>
+                    <span className='absolute left-1/2 top-0 content-none block w-2 h-full -ml-1
+                            bg-themeOther1 text-transparent'>时间线</span>
+                    <span className='content-none absolute z-0 top-0 h-1/6 w-full
+                            bg-gradient-to-b from-bgColor to-transparent'></span>
+
+                    <ul>
+
+                        <li className='py-2 px-0 z-20'>
+                            <div className="relative w-96 float-right ">
+                                <div className="relative inline-block text-center">
+                                    <span className='absolute content-none top-1/2 -left-10 w-4 h-4 block -mt-2
+                                                bg-white rounded-full border-4 border-solid border-red-600 z-20'></span>
+                                    <span className="relative inline bg-white py-1 px-2 rounded-md font-semibold text-2xl text-left">
+                                        Freelancer
+                                        <span className='content-none absolute right-full top-1/2 h-4 w-4 -mt-2
+                                                border-solid border-transparent border-r-white border-8 pointer-events-none'></span>
+                                    </span>
+
+                                    <span className="float-right inline leading-4 text-sm text-red-600 align-middle">
+                                        <span className="inline-block py-1 px-1.5 bg-white">2013 - present</span></span>
+                                </div>
+                                <div className="mr-4 mb-3 ml-0 mt-3 text-base italic leading-6">My current employment. Way better than the position before!</div>
+                            </div>
+
+                            <span className='content-none block h-0 clear-both invisible'></span>
+                        </li>
+
+
+
+                    </ul>
+                    <span className='content-none absolute z-0 bottom-0 h-1/6 w-full
+                            bg-gradient-to-t from-bgColor to-transparent'></span>
+                </div>
+
                 <div  > List 展示，需要限制50把？怎么处理呢
 
                     <ol className="relative border-l border-gray-200 dark:border-gray-700 my-4">
+
+
+
                         <li className="mb-10 ml-6">
                             <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                                 <svg aria-hidden="true" className="w-3 h-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
