@@ -12,15 +12,21 @@ import hisData from '../../public/banRecord.json';  // data 多了之后要学�
 // 2.横向时间线是加载之后overflow-hidden了前后的节点，是否全部加载是要考虑的。
 //     不过好像原来只是单纯用来做年份标记，不需要这么详细！！！
 // 3.data-date值用于横竖 时间线的交互联动。
+// 4.加载json数据的时候要做上Rside 标签！才能map出来 。hisData
 
+// 5.VT的宽度还是按照内容支撑的，缺少默认宽度。缺少做手机界面
 const banList = [
-    { name: '标题1', date: '2013 - present',content:'content........', side: 'L' },
-    { name: '标题2', date: '2013 - present',content:'content........', side: 'R' },
-    { name: '标题3', date: '2013 - present',content:'content........', side: 'L' }
+    { name: '标题1', date: '2013 - present', Rside: true },
+    { name: '标题2', date: '2013 - present', Rside: false },
+    { name: '标题3', date: '2013 - present', Rside: true }
 ];
 
 interface LoginViewProps {
     handleSignIn: FormEventHandler;
+}
+
+function classNames(...classes: any[]) {
+    return classes.filter(Boolean).join(' ');
 }
 
 
@@ -117,7 +123,6 @@ export default function LoginView(props: LoginViewProps) {
 
 
                 {/* timeLime reference: https://codepen.io/NilsWe/pen/Axdozd */}
-                {/* div的class应该是ul的, 左右有些数值不对 */}
                 <div className='relative w-4/5 my-0 mx-auto py-4 px-0 list-none'>
                     <span className='absolute left-1/2 top-0 content-none block w-2 h-full -ml-1
                             bg-themeOther1 text-transparent'>时间线</span>
@@ -125,35 +130,52 @@ export default function LoginView(props: LoginViewProps) {
                             bg-gradient-to-b from-bgColor to-transparent'></span>
 
                     <ul>
+                        {banList.map((item) => (
+                            <li className='py-2 px-0 z-10'>
+                                <div className={classNames(
+                                    item.Rside
+                                        ? 'float-right'
+                                        : 'float-left text-right',
+                                    "relative w-96")}>
 
-                        <li className='py-2 px-0 z-20'>
-                            <div className="relative w-96 float-right ">
-                                <div className="relative inline-block text-center">
-                                    <span className='absolute content-none top-1/2 -left-10 w-4 h-4 block -mt-2
-                                                bg-white rounded-full border-4 border-solid border-red-600 z-20'></span>
-                                    <span className="relative inline bg-white py-1 px-2 rounded-md font-semibold text-2xl text-left">
-                                        Freelancer
-                                        <span className='content-none absolute right-full top-1/2 h-4 w-4 -mt-2
-                                                border-solid border-transparent border-r-white border-8 pointer-events-none'></span>
-                                    </span>
+                                    <div className="relative inline-block text-center">
+                                        <span className="relative inline bg-white py-1 px-2 rounded-md font-semibold text-2xl text-left shadow-md shadow-red-600/50">
+                                            <span className={classNames(
+                                                item.Rside
+                                                    ? "-left-7"
+                                                    : "-right-7",
+                                                'absolute content-none top-1/2  w-4 h-4 block -mt-2 bg-white rounded-full border-4 border-solid border-red-600 z-20')}></span>
+                                            {item.name}
+                                            <span className={classNames(
+                                                item.Rside
+                                                ? "right-full border-r-white"
+                                                : "left-full border-l-white",
+                                                'content-none absolute top-1/2 h-4 w-4 -mt-2 border-solid border-transparent border-8 pointer-events-none')}></span>
+                                        </span>
 
-                                    <span className="float-right inline leading-4 text-sm text-red-600 align-middle">
-                                        <span className="inline-block py-1 px-1.5 bg-white">2013 - present</span></span>
+                                        <span className={classNames(
+                                            item.Rside
+                                                ? "float-right"
+                                                : "float-left",
+                                            "inline leading-4 text-sm text-red-600 align-middle")}>
+                                            <span className="inline-block py-1 px-1.5 bg-white">{item.date}</span></span>
+                                    </div>
+                                    <div className={classNames(
+                                        item.Rside
+                                        ? "mr-3 ml-0"
+                                        : "mr-0 ml-3",
+                                        "mt-4 mb-0 text-base italic leading-6")}>My current employment. Way better than the position before!</div>
                                 </div>
-                                <div className="mr-4 mb-3 ml-0 mt-3 text-base italic leading-6">My current employment. Way better than the position before!</div>
-                            </div>
-
-                            <span className='content-none block h-0 clear-both invisible'></span>
-                        </li>
-
-
+                                <span className='content-none block h-0 clear-both invisible'></span>
+                            </li>
+                        ))}
 
                     </ul>
                     <span className='content-none absolute z-0 bottom-0 h-1/6 w-full
                             bg-gradient-to-t from-bgColor to-transparent'></span>
                 </div>
 
-                <div  > List 展示，需要限制50把？怎么处理呢
+                <div>
 
                     <ol className="relative border-l border-gray-200 dark:border-gray-700 my-4">
 
@@ -163,24 +185,12 @@ export default function LoginView(props: LoginViewProps) {
                             <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                                 <svg aria-hidden="true" className="w-3 h-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
                             </span>
-                            <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">Flowbite Application UI v2.0.0 <span className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">Latest</span></h3>
+                            <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">支撑宽度的内容！Flowbite Application UI v2.0.0 <span className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">Latest</span></h3>
                             <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on January 13th, 2022</time>
                             <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce &amp; Marketing pages.</p>
                             <a href="#" className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg className="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd"></path></svg> Download ZIP</a>
                         </li>
 
-                        {hisData.map((item) => (
-                            <li key={item.Name} className="ml-6 mb-10">
-                                <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                                    <svg aria-hidden="true" className="w-3 h-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
-                                </span>
-                                <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">{item.Name}</h3>
-                                <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">需要转化：{item.FinishDate}</time>
-                                <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                    Get started with dozens of web components and interactive elements built on top of Tailwind CSS.</p>
-
-                            </li>
-                        ))}
 
                     </ol>
                 </div>
