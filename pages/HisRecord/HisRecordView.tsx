@@ -131,7 +131,7 @@ export default function LoginView(props: LoginViewProps) {
 
                     <ul>
                         {banList.map((item) => (
-                            <li className='py-2 px-0 z-10'>
+                            <li className='py-2 px-0 z-10' key={item.name}>
                                 <div className={classNames(
                                     item.Rside
                                         ? 'float-right'
