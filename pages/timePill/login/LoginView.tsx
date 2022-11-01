@@ -2,7 +2,7 @@
 import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
-import logo from '../../public/rella0.jpg';
+// import logo from './rella0.jpg';
 
 interface LoginViewProps {
     // signInData: any;
@@ -29,10 +29,10 @@ export default function LoginView(props: LoginViewProps) {
                 <div className="flex flex-col items-center justify-between overflow-hidden bg-white rounded-lg border shadow-md 
                                 md:flex-row md:max-w-4xl md:w-4/5 relative
                                 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img className="clip_path_login object-cover w-full rounded-t-lg 
+                    {/* <img className="clip_path_login object-cover w-full rounded-t-lg 
                             md:h-auto md:w-1/2 md:rounded-none md:rounded-l-lg
                             after:bg-themeAnother after:h-full after:w-40"
-                        src="rella0.jpg" alt="login_illustrate" />
+                        src="rella0.jpg" alt="login_illustrate" /> */}
 
 
                     <div className="flex flex-col justify-between leading-normal p-4 px-10 w-full">

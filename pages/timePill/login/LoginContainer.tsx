@@ -3,6 +3,7 @@ import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
 import LoginView from './LoginView';
 import { useRouter } from 'next/router';
+import { addListener } from 'process';
 
 // const apiSetting = new Api();
 const STORAGE_KEY = 'todo-P7oZi9sLs'
@@ -25,9 +26,9 @@ export default function LoginContainer() {
         const email = formData.get('username') as string;
         const password = formData.get('password') as string;
         // const remember = formData.get('remember');
-        alert(email+'\n 登入成功！')
+        alert(email+'\n 登入成功！'+router.pathname)
 
-        if (router.pathname === '/login') router.push('/');
+        if (router.pathname === '/timePill/login') router.push('/timePill');
         else router.reload();
         
         localStorage.setItem('authorization', email);

@@ -1,3 +1,3 @@
-import TableFillContainer from './TableFillContainer';
+import TimePillContainer from './TimePillContainer';
 
-export default TableFillContainer;
+export default TimePillContainer;

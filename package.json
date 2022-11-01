@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.6.6",
     "@types/react-router": "^5.1.18",
+    "all": "^0.0.0",
     "axios": "^0.27.2",
     "axios-hooks": "^3.1.4",
     "flowbite": "^1.5.2",

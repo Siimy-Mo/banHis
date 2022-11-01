@@ -1,3 +1,3 @@
-import submitTipContainer from './submitTipContainer';
+import SubmitTipContainer from './SubmitTipContainer';
 
-export default submitTipContainer;
+export default SubmitTipContainer;
