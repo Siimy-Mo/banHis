@@ -9,10 +9,14 @@ import hisData from '../../public/banRecord.json';  // data 多了之后要学�
 // 0.设置加载前的占位组件
 // 1.访问数据，获取时间，计算时间点到left的距离，分别添加到横向时间线的li中。
 //     （tailwind是固定值，要看看怎么做成px。
+
+
 // 2.横向时间线是加载之后overflow-hidden了前后的节点，是否全部加载是要考虑的。
 //     不过好像原来只是单纯用来做年份标记，不需要这么详细！！！
 // 3.data-date值用于横竖 时间线的交互联动。
-// 4.加载json数据的时候要做上Rside 标签！才能map出来 。hisData
+
+
+// 4.加载json数据的时候要做上Rside 标签！才能map出来 。hisData ->useEffect来第一次处理文件！
 
 // 5.VT的宽度还是按照内容支撑的，缺少默认宽度。缺少做手机界面
 const banList = [
@@ -164,7 +168,7 @@ export default function LoginView(props: LoginViewProps) {
                                         item.Rside
                                         ? "mr-3 ml-0"
                                         : "mr-0 ml-3",
-                                        "mt-4 mb-0 text-base italic leading-6")}>My current employment. Way better than the position before!</div>
+                                        "mt-4 mb-0 text-base italic leading-6")}>时长：25集全<br/>番剧的tag:悬疑/推理/迷番/偶像</div>
                                 </div>
                                 <span className='content-none block h-0 clear-both invisible'></span>
                             </li>
