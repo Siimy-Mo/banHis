@@ -13,6 +13,7 @@ const user = {
 const navigation = [
   { name: '主頁', href: '/', current: false },
   { name: '番剧歷史', href: '/HisRecord', current: false },
+  { name: 'TimePill', href: '/timePill', current: false },
 ];
 const userNavigation = [
   //{ name: 'Your Profile', href: '#' },
