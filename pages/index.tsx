@@ -89,7 +89,6 @@ const Home: NextPage = () => {
   // 真实dom构建之后运用，didmount,异步hook
   useEffect(() => {
     const data = localStorage.getItem(STORAGE_KEY);
-
     if (data) {
       setTodoList(JSON.parse(data))
     }

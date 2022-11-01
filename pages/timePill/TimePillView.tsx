@@ -4,6 +4,14 @@ import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+const modeStatus = [
+    { intro: '手写模式介绍文案', cssInfo: 'bg-cyan-200' },
+    { intro: '扫描模式介绍文案', cssInfo: 'bg-red-200' },
+];
+
+function classNames(...classes: any) {
+    return classes.filter(Boolean).join(' ');
+}
 
 interface TimePillViewProps {
     handleSignIn: any;
@@ -14,67 +22,65 @@ export default function TimePillView(props: TimePillViewProps) {
     const { handleSignIn } = props;
     const router = useRouter();
     const [msg, setMessage] = useState('')
+    const [mode, setMode] = useState(true)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value)
     }
 
+    const handMode = () => {
+        // 判定当前是否是手写模式
+        if (mode === true) return
+        setMode(true)
+        console.log('Switch Mode to Hand mode')
+    };
+    const scanMode = () => {
+        // 判定当前是否是扫描模式
+        if (mode === false) return
+        setMode(false)
+        console.log('Switch Mode to Scan mode')
+    };
+
     return (
         <>
 
-            <div className='flex flex-row justify-center mb:w-2/3 h-screen'>
-                <div className='flex flex-col w-full bg-white md:w-2/3'>
-                    <div className='relative w-full h-48 p-4 bg-gradient-to-r from-lime-500 via-lime-400 to-lime-200 '>
-                        {/* <div className='absolute bottom-4 left-4 mb-6 '> 在笔记本上有问题*/}
-                        <div className='mb-6'>
-                            <h1 className="mb-4 text-4xl font-bold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                                activity Name</h1>
-                        </div>
+            <div className='flex justify-center mb:w-2/3 h-screen'>
+                <div className={classNames(mode ?
+                    modeStatus[0].cssInfo : modeStatus[1].cssInfo
+                    , 'flex flex-col justify-center w-full md:w-2/3')}>
+                    {/* className={classNames(todo.completed === true ? 'line-through' : '')} */}
 
-                        <div className='absolute bottom-4 right-4 block '>
-                            <h5 className="text-xl font-semibold dark:text-white">copyright by []</h5>
-                        </div>
+                    <div className='text-center mb-6'>
+                        [{mode ? modeStatus[0].intro : modeStatus[1].intro}]
+                        {/* 方法选择A/B介绍文案改变,默认是手写模式 */}
                     </div>
 
+                    <div className='flex justify-around px-24  mb-6'>
+                        <button type="button"
+                            onClick={handMode}
+                            className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">手写</button>
+                        <button type="button"
+                            onClick={scanMode}
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">扫描</button>
 
-                    <div className='p-4 pt-8'>
-                        <div className='mb- 6 '>
-                            <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First name</label>
-                            <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required />
-                        </div>
-                        <div className='mb-6'>
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                            <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required />
-                        </div>
-                        <div className='mb-6'>
-                            <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Open Time</label>
-                            <input type="text" id="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="日期模式未设置" required />
-                        </div>
-                        <div className='mb-6'>
-                            <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pill Content</label>
-                            <textarea id="content" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
-                        </div>
+                    </div>
 
-                        <div className='mb-6'>
-                            <label htmlFor="tip" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tip before date</label>
-                            <input type="text" id="tip" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="abaaba" required />
-                        </div>
-
-                        <div className='flex justify-center'>
+                    <div className='flex flex-col text-center'>
+                        确认按钮,跳转至TableFill
+                        <div>
                             <button type="button"
-                                onClick={() => router.push('./timePill/submitTip')}
-                                className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sumbit</button>
+                                onClick={() => router.push('./timePill/tableFill')}
+                                className="inline text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sumbit</button>
 
                         </div>
+
+
                     </div>
+
 
                 </div>
-                
+
             </div>
-        </>     
-    );     
+        </>
+    );
 }

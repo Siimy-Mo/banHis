@@ -3,7 +3,11 @@ import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
+// 在这一页需要检测登入状态（有存续时间，但是只有一天？）+手写扫描状态
+//  未登入-> route login界面
+// 登入-> 检查电子手写模式：
+        // -> 电子填表
+        // -> route 摄像机，扫描后跳转至电子填表
 
 interface TableFillViewProps {
     // signInData: any;
@@ -68,7 +72,7 @@ export default function TableFillView(props: TableFillViewProps) {
                                 placeholder="abaaba" required />
                         </div>
                         
-                        <div className='flex justify-center'>
+                        <div className='flex justify-center mb-6 md:mb-48'>
                         <button type="button" 
                                 onClick={()=> router.push('./submitTip')}
                                 className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sumbit</button>
