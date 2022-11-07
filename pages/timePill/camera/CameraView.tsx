@@ -3,68 +3,55 @@ import { ChangeEvent } from 'react';
 import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Camera } from "react-camera-pro";
+// import { Camera, CameraType } from './Camera';
+
+
+
 
 export default function SubmitTipView() {
     // export default function LoginView() {
-
     const [msg, setMessage] = useState('');
+    const [hasPhoto, setHasPhoto] = useState(false);
     const router = useRouter();
 
-    const camera = useRef(null);
+    const videoRef = useRef(null);
+    const photoRef = useRef(null);
 
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setMessage(e.target.value)
-    };
-
-    // 摄像头相关
-    // const successFunc = (mediaStream: any) => {
-    //     let video = cameraVideoRef.current;
-    //     // const video = document.getElementById('cameraVideo') as HTMLVideoElement;
-    //     // 旧的浏览器可能没有srcObject
-    //     if ('srcObject' in video) {
-    //         video.srcObject = mediaStream;
-    //     }
-    //     video.onloadedmetadata = () => {
-    //         video.play();
-    //     };
-    // };
-
-    function errorFunc(err: any) {
-        console.log(`${err.name}: ${err.message}`);
-        // always check for errors at the end.
+    const getVideo = () => {
+        navigator.mediaDevices
+        .getUserMedia({
+            video:{width:1920, height:1080}
+        }).then(stream => {
+            let video = videoRef.current;
+            video.srcObject = stream;
+            video.play();
+        }).catch(err => {
+            console.error(err)
+        })
     }
-    //启动摄像头
-    // const openMedia = () => {
-    //     const opt = {
-    //         audio: false,
-    //         video: {
-    //             width: 1280,
-    //             height: 720
-    //         }
-    //     };
-    //     navigator.mediaDevices.getUserMedia(opt).then(successFunc).catch(errorFunc);
-    // };
 
-    //关闭摄像头
-    // const closeMedia = () => {
-    //     const video = cameraVideoRef.current;
-    //     const stream = video.srcObject;
-    //     if ('getTracks' in stream) {
-    //         const tracks = stream.getTracks();
-    //         tracks.forEach(track => {
-    //             track.stop();
-    //         });
-    //     }
-    // };
-    const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+    const takePhoto = () => {
+        const width = 414;
+        const height = width / (16 / 9);
+
+        let video = videoRef.current;
+        let photo = photoRef.current;
+        console.log(photoRef.current)
+
+        // if (photo) {
+
+        //     photo.width = width;
+        //     photo.height = height;
+        //     let ctx = photo.getContext('2d');
+        //     ctx.drawImage(video, 0, 0, width, height);
+        //     setHasPhoto(true);
+        // }
+    }
+
+
     useEffect(() => {
-        (async () => {
-          const devices = await navigator.mediaDevices.enumerateDevices();
-          const videoDevices = devices.filter(i => i.kind == 'videoinput');
-          setDevices(videoDevices);
-        })();
-      });
+        getVideo()
+    }, [videoRef]);
 
     return (
         <>
@@ -84,18 +71,28 @@ export default function SubmitTipView() {
             canvas: 'Canvas is not supported.',
           }}
         /> */}
-                <Camera ref={camera} errorMessages={{
+                <div className='overflow-hidden w-1/2 h-1/2'>
+
+                    {/* <Camera ref={camera} 
+                facingMode='environment'
+                errorMessages={{
             noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
             permissionDenied: 'Permission denied. Please refresh and give camera permission.',
             switchCamera:
               'It is not possible to switch camera to different one because there is only one video device accessible.',
             canvas: 'Canvas is not supported.',
-          }}/>
-                {/* <button onClick={() => setImage(camera.current.takePhoto())}>Take photo</button> */}
-                {/* <img src={image} alt='Taken photo' /> */}
-                {/* <button onClick={openMedia}>打开</button> */}
-                <button>保存</button>
-                {/* <button onClick={closeMedia}>关闭</button> */}
+          }}/> */}
+                </div>
+                <video ref={videoRef}></video>
+                <button className=''
+                    onClick={takePhoto}>保存！！</button>
+
+                    {/* hasPhoto控制class */}
+                <div className='result'>
+                    <canvas ref={photoRef}></canvas>
+                    <button>关闭！！</button>
+                </div>
+
             </div>
 
         </>
