@@ -2,8 +2,6 @@
 import { ChangeEvent } from 'react';
 import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Camera } from "react-camera-pro";
-// import { Camera, CameraType } from './Camera';
 
 
 export default function SubmitTipView() {
@@ -19,7 +17,7 @@ export default function SubmitTipView() {
 
             navigator.mediaDevices
                 .getUserMedia({
-                    video: { width: 1920, height: 1080 }
+                    video: { width: 1920, height: 1080, facingMode: 'environment' }
                 }).then(stream => {
                     console.log('videoRef.current:', videoRef.current)
                     let video = videoRef.current;
@@ -34,21 +32,20 @@ export default function SubmitTipView() {
         const width = 414;
         const height = width / (16 / 9);
 
-        let video = videoRef.current;
-        let photo = photoRef.current;
+        let video = videoRef.current!;
+        let photo = photoRef.current!;
 
-        // photo.width = width;
-        // photo.height = height;
-        // let ctx = photo.getContext('2d');
-        // ctx.drawImage(video, 0, 0, width, height);
-        // setHasPhoto(true);
+        photo.width = width;
+        photo.height = height;
+        let ctx = photo.getContext('2d')!;
+        ctx.drawImage(video, 0, 0, width, height);
+        setHasPhoto(true);
 
     }
 
 
     useEffect(() => {
-        console.log(videoRef.current)
-        console.log(photoRef.current)
+
         if (videoRef.current != null) {
 
             getVideo()
