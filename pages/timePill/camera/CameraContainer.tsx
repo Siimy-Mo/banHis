@@ -1,7 +1,7 @@
 // import useAxios from 'axios-hooks';
 import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
-import SubmitTipView from './SubmitTipView';
+import CameraView from './CameraView';
 import { useRouter } from 'next/router';
 
 // const apiSetting = new Api();
@@ -35,5 +35,5 @@ export default function SubmitTipContainer() {
     };
 
 
-    return <SubmitTipView {...{ handleSignIn}}/>; // 导出view 传入参数。
+    return <CameraView {...{ handleSignIn}}/>; // 导出view 传入参数。
 }

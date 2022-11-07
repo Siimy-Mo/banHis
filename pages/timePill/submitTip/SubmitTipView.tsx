@@ -33,7 +33,7 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
                         <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                             提交成功</h3>
                     </div>
-                    <div className='p-4 pt-8 flex flex-col justify-center center bg-lime-500'>
+                    <div className='p-4 pt-8 mx-16 flex flex-col justify-center center rounded-xl bg-red-300 timePillIntroShadowOn'>
 
                         {/* 这里不应该写flex justify-center,父级div的子轴上的剧中无才用的 */}
                         <div className='flex justify-center'>[提示内容]</div>

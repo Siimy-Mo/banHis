@@ -33,8 +33,8 @@ export default function TableFillView(props: TableFillViewProps) {
 
             <div className='flex flex-row justify-center mb:w-2/3 h-screen'>
                 <div className='flex flex-col w-full bg-white md:w-2/3'>
-
-                    <div className='relative w-full h-48 bg-gradient-to-r from-lime-500 via-lime-400 to-lime-200 '>
+                    
+                    <div className='relative h-1/2 w-full bg-gradient-to-r from-lime-500 via-lime-400 to-lime-200 '>
 
                         <div className='absolute bottom-4 left-4 mb-6 '>
                             <h1 className="mb-4 text-4xl font-bold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
