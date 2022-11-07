@@ -35,5 +35,5 @@ export default function SubmitTipContainer() {
     };
 
 
-    return <CameraView {...{ handleSignIn}}/>; // 导出view 传入参数。
+    return <CameraView {...{ }}/>; // 导出view 传入参数。
 }
