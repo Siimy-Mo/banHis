@@ -6,28 +6,28 @@ import { Camera } from "react-camera-pro";
 // import { Camera, CameraType } from './Camera';
 
 
-
-
 export default function SubmitTipView() {
     // export default function LoginView() {
     const [msg, setMessage] = useState('');
     const [hasPhoto, setHasPhoto] = useState(false);
     const router = useRouter();
 
-    const videoRef = useRef(null);
-    const photoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const photoRef = useRef<HTMLCanvasElement>(null);
 
     const getVideo = () => {
-        navigator.mediaDevices
-        .getUserMedia({
-            video:{width:1920, height:1080}
-        }).then(stream => {
-            let video = videoRef.current;
-            video.srcObject = stream;
-            video.play();
-        }).catch(err => {
-            console.error(err)
-        })
+
+            navigator.mediaDevices
+                .getUserMedia({
+                    video: { width: 1920, height: 1080 }
+                }).then(stream => {
+                    console.log('videoRef.current:', videoRef.current)
+                    let video = videoRef.current;
+                    video!.srcObject = stream;
+                    video!.play();
+                }).catch(err => {
+                    console.error(err)
+                })
     }
 
     const takePhoto = () => {
@@ -36,21 +36,23 @@ export default function SubmitTipView() {
 
         let video = videoRef.current;
         let photo = photoRef.current;
-        console.log(photoRef.current)
 
-        // if (photo) {
+        // photo.width = width;
+        // photo.height = height;
+        // let ctx = photo.getContext('2d');
+        // ctx.drawImage(video, 0, 0, width, height);
+        // setHasPhoto(true);
 
-        //     photo.width = width;
-        //     photo.height = height;
-        //     let ctx = photo.getContext('2d');
-        //     ctx.drawImage(video, 0, 0, width, height);
-        //     setHasPhoto(true);
-        // }
     }
 
 
     useEffect(() => {
-        getVideo()
+        console.log(videoRef.current)
+        console.log(photoRef.current)
+        if (videoRef.current != null) {
+
+            getVideo()
+        }
     }, [videoRef]);
 
     return (
@@ -87,7 +89,7 @@ export default function SubmitTipView() {
                 <button className=''
                     onClick={takePhoto}>保存！！</button>
 
-                    {/* hasPhoto控制class */}
+                {/* hasPhoto控制class */}
                 <div className='result'>
                     <canvas ref={photoRef}></canvas>
                     <button>关闭！！</button>

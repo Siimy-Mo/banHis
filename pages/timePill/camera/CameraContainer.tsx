@@ -1,5 +1,5 @@
 // import useAxios from 'axios-hooks';
-import { FormEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, useEffect, useRef } from 'react';
 // import Api from '../../apis';
 import CameraView from './CameraView';
 import { useRouter } from 'next/router';
@@ -7,17 +7,9 @@ import { useRouter } from 'next/router';
 // const apiSetting = new Api();
 const STORAGE_KEY = 'todo-P7oZi9sLs'
 
-export default function SubmitTipContainer() {
+export default function CameraContainer() {
     const router = useRouter();
 
-    useEffect(() => {
-        localStorage.setItem('authorization', 'token');
-        localStorage.setItem('email', 'email');
-        document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-        
-        // if (router.pathname === 'login') router.push('/');
-        // else router.reload();
-    }, []);
 
     const handleSignIn: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
