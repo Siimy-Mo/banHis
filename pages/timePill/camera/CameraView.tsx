@@ -14,18 +14,17 @@ export default function SubmitTipView() {
     const photoRef = useRef<HTMLCanvasElement>(null);
 
     const getVideo = () => {
-
-            navigator.mediaDevices
-                .getUserMedia({
-                    video: { width: 1920, height: 1080, facingMode: 'environment' }
-                }).then(stream => {
-                    console.log('videoRef.current:', videoRef.current)
-                    let video = videoRef.current;
-                    video!.srcObject = stream;
-                    video!.play();
-                }).catch(err => {
-                    console.error(err)
-                })
+        navigator.mediaDevices
+            .getUserMedia({
+                video: { width: 1920, height: 1080, facingMode: 'environment' }
+            }).then(stream => {
+                console.log('videoRef.current:', videoRef.current)
+                let video = videoRef.current;
+                video!.srcObject = stream;
+                video!.play();
+            }).catch(err => {
+                console.error(err)
+            })
     }
 
     const takePhoto = () => {
@@ -43,54 +42,33 @@ export default function SubmitTipView() {
 
     }
 
+    function classNames(...classes: any[]) {
+        return classes.filter(Boolean).join(' ');
+    }
 
     useEffect(() => {
-
-        if (videoRef.current != null) {
-
-            getVideo()
-        }
+        getVideo()
     }, [videoRef]);
 
     return (
         <>
 
-            <div className=''>
-                攝像機？
-                {/* <Camera
-          ref={camera}
-          aspectRatio="cover"
-          numberOfCamerasCallback={i => setNumberOfCameras(i)}
-          videoSourceDeviceId={activeDeviceId}
-          errorMessages={{
-            noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
-            permissionDenied: 'Permission denied. Please refresh and give camera permission.',
-            switchCamera:
-              'It is not possible to switch camera to different one because there is only one video device accessible.',
-            canvas: 'Canvas is not supported.',
-          }}
-        /> */}
-                <div className='overflow-hidden w-1/2 h-1/2'>
+            <div>
 
-                    {/* <Camera ref={camera} 
-                facingMode='environment'
-                errorMessages={{
-            noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
-            permissionDenied: 'Permission denied. Please refresh and give camera permission.',
-            switchCamera:
-              'It is not possible to switch camera to different one because there is only one video device accessible.',
-            canvas: 'Canvas is not supported.',
-          }}/> */}
+                <div className={classNames('relative w-screen h-screen bg-themeSecondary',
+                    hasPhoto ? '' : ' hidden')}>
+                    <video ref={videoRef}></video>
+                    <button className='absolute right-1/2 bottom-6'
+                        onClick={takePhoto}>保存照片</button>
                 </div>
-                <video ref={videoRef}></video>
-                <button className=''
-                    onClick={takePhoto}>保存！！</button>
 
-                {/* hasPhoto控制class */}
-                <div className='result'>
+                <div className={classNames('relative w-screen h-screen bg-themeAnother',
+                    hasPhoto ? 'hidden' : ' hidden')}>
                     <canvas ref={photoRef}></canvas>
-                    <button>关闭！！</button>
+                    <button className='absolute right-1/2 bottom-6'
+                        onClick={()=>setHasPhoto(false)}>返回相机</button>
                 </div>
+
 
             </div>
 
