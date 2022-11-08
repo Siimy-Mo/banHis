@@ -64,7 +64,7 @@ export default function TableFillView(props: TableFillViewProps) {
                         <div className='mb-6'>
                             <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                             >Pill Content*</label>
-                            {tableMode == true ? (
+                            {tableMode ? (
                                 <div>
                                     <input type="file" id="content" accept="image/*" />
                                 </div> )
