@@ -3,7 +3,6 @@ import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import TableFillContent from '../../../components/common/Layout/tableFillContent';
 
 // 在这一页需要检测登入状态（有存续时间，但是只有一天？）+手写扫描状态
 //  未登入-> route login界面
@@ -13,12 +12,13 @@ import TableFillContent from '../../../components/common/Layout/tableFillContent
 
 interface TableFillViewProps {
     tableMode: any;
-    handleSignIn: any;
+    SubmitLoading:any;
+    handleSubmit: any;
 }
 
 export default function TableFillView(props: TableFillViewProps) {
     // export default function tableFillView() {
-    const { tableMode, handleSignIn } = props;
+    const { tableMode, SubmitLoading, handleSubmit } = props;
     const router = useRouter();
 
     return (
@@ -39,49 +39,59 @@ export default function TableFillView(props: TableFillViewProps) {
                         </div>
                     </div>
 
-                    <div className='p-4 pt-8'>
+                    <form className='p-4 pt-8' onSubmit={handleSubmit}>
                         <div className='mb-6 '>
-                            <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Your name*</label>
-                            <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required />
+                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >Your name*
+                                <input type="text" name="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="John" required />
+                            </label>
                         </div>
+
                         <div className='mb-6'>
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Email*</label>
-                            <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="test@gmail.com" required />
+                            >Email*
+                                <input type="email" name="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="test@gmail.com" required />
+                            </label>
                         </div>
+
                         <div className='mb-6'>
                             <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Open Time*</label>
-                            <input type="date" id="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required />
+                            >Open Time*
+                                <input type="date" name="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required />
+                            </label>
                         </div>
 
-
-                        {/* <TableFillContent {...{ tableMode }} /> */}
                         <div className='mb-6'>
                             <label htmlFor="content" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Pill Content*</label>
-                            {tableMode ? (
-                                <div>
-                                    <input type="file" id="content" accept="image/*" />
-                                </div> )
-                                :(
-                                <div>
-                                    <textarea id="content" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
-                                </div> )
-                            }
+                            >Pill Content*
+                                {tableMode == true ? (
+                                    <div>
+                                        <input type="file" name="content" accept="image/*" />
+                                    </div>)
+                                    : (
+                                        <div>
+                                            <textarea name="content" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
+                                        </div>)
+                                }
+                            </label>
                         </div>
 
 
                         <div className='mb-6'>
                             <label htmlFor="tip" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Tip before date</label>
-                            <input type="text" id="tip" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="abaaba" />
+                            >Tip before date
+                                <input type="text" name="tip" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Message to u" />
+                            </label>
                         </div>
+
+                        {/* 加载logo：没有效果 */}
+                        {SubmitLoading ? (
+                            <div className="">提交中...</div>
+                        ) : <div></div>}
 
                         <div className='flex justify-around mb-6 md:mb-48'>
                             <button type="button"
@@ -90,10 +100,15 @@ export default function TableFillView(props: TableFillViewProps) {
 
                             <button type="button"
                                 onClick={() => router.push('./submitTip')}
+                                className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">跳至成功页面</button>
+
+
+                            <button type="submit"
+                                // onClick={() => router.push('./submitTip')}
                                 className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">提交</button>
 
                         </div>
-                    </div>
+                    </form>
 
                 </div>
 
