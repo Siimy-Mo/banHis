@@ -4,21 +4,16 @@ import { FormEventHandler, useEffect, useState } from 'react';
 import TableFillView from './TableFillView';
 import { useRouter } from 'next/router';
 
-// const apiSetting = new Api();
-const STORAGE_KEY = 'todo-P7oZi9sLs'
-
 export default function TableFillContainer() {
     const router = useRouter();
+    const tableMode = router.query.mode
 
+    // 预处理，处理接收到的mode模式，用于选择content type: textarea:input image
     useEffect(() => {
-        localStorage.setItem('authorization', 'token');
-        localStorage.setItem('email', 'email');
-        document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-        
-        // if (router.pathname === 'login') router.push('/');
-        // else router.reload();
-    }, []);
+        // let params = router.currentRoute.value.query
+    }, [router]);
 
+        //父级的函数处理
     const handleSignIn: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -35,5 +30,5 @@ export default function TableFillContainer() {
     };
 
 
-    return <TableFillView {...{ handleSignIn}}/>; // 导出view 传入参数。
+    return <TableFillView {...{ tableMode,handleSignIn}}/>; // 导出view 传入参数。
 }
