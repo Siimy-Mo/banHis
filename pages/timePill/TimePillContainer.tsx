@@ -3,35 +3,30 @@ import { FormEventHandler, useEffect, useState } from 'react';
 import TimePillView from './TimePillView';
 import { useRouter } from 'next/router';
 
-const STORAGE_KEY = 'todo-P7oZi9sLs'
-
 export default function TimePillContainer() {
     const router = useRouter();
+    const [mode, setMode] = useState(true)
 
-    useEffect(() => {
-        localStorage.setItem('authorization', 'token');
-        localStorage.setItem('email', 'email');
-        document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-        
-        // if (router.pathname === 'login') router.push('/');
-        // else router.reload();
-    }, []);
-
-    const handleSignIn: FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get('username') as string;
-        const password = formData.get('password') as string;
-        // const remember = formData.get('remember');
-        alert(email+'\n 登入成功！')
-
-        if (router.pathname === '/login') router.push('/');
-        else router.reload();
-        
-        localStorage.setItem('authorization', email);
-
+    const handMode = () => {
+        // 判定当前是否是手写扫描模式
+        if (mode === true) return
+        setMode(true)
+    };
+    
+    const scanMode = () => {
+        // 判定当前是否是电子填表模式
+        if (mode === false) return
+        setMode(false)
     };
 
+    //简单一个函数就行了，不需要提交所以不用handle
+    const goTableFill= () => {
+        router.push({
+            pathname: './timePill/tableFill',
+            query: { mode: mode },
+        })
+    }
 
-    return <TimePillView {...{ handleSignIn}}/>; // 导出view 传入参数。
+
+    return <TimePillView {...{ mode, handMode,scanMode,goTableFill}}/>; // 导出view 传入参数。
 }

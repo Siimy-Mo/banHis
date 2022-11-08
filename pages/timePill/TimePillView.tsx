@@ -14,27 +14,17 @@ function classNames(...classes: any) {
 }
 
 interface TimePillViewProps {
-    handleSignIn: any;
+    mode:any;
+    handMode:any;
+    scanMode:any;
+    goTableFill:any;
 }
 
 export default function TimePillView(props: TimePillViewProps) {
     // export default function TimePillView() {
-    const { handleSignIn } = props;
+    const { mode, handMode, scanMode, goTableFill } = props;
     const router = useRouter();
-    const [mode, setMode] = useState(true)
 
-    const handMode = () => {
-        // 判定当前是否是手写扫描模式
-        if (mode === true) return
-        setMode(true)
-        console.log('Switch Mode to Hand mode')
-    };
-    const scanMode = () => {
-        // 判定当前是否是电子填表模式
-        if (mode === false) return
-        setMode(false)
-        console.log('Switch Mode to Scan mode')
-    };
 
     return (
         <>
@@ -71,13 +61,7 @@ export default function TimePillView(props: TimePillViewProps) {
                         <div>
                             <button type="button"
                                 // onClick={() => {mode ? router.push('./timePill/tableFill') : router.push('./timePill/tableFill')}}
-                                onClick={() => {
-                                    router.push({
-                                        pathname: './timePill/tableFill',
-                                        query: { mode: mode },
-                                    })
-                                }
-                                }
+                                onClick={goTableFill}
                                 className="inline text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sumbit</button>
                         </div>
 
