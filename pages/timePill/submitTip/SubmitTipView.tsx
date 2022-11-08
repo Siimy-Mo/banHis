@@ -27,19 +27,19 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
         <>
 
             <div className='flex justify-center items-center h-screen'>
-                <div className='h-1/3 w-2/3 max-w-6xl'>
+                <div className='flex flex-col items-center '>
 
-                    <div className='flex justify-center'>
+                    <div className='mb-6'>
                         <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                             提交成功</h3>
                     </div>
-                    <div className='p-4 pt-8 mx-16 flex flex-col justify-center center rounded-xl bg-red-300 timePillIntroShadowOn'>
 
-                        {/* 这里不应该写flex justify-center,父级div的子轴上的剧中无才用的 */}
-                        <div className='flex justify-center'>[提示内容]</div>
+                    <div className='flex flex-col items-center w-full px-12 py-6 pt-12 rounded-xl bg-red-300 timePillIntroShadowOn'>
 
-                        <div className='flex justify-center'>
+                        {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
+                        <div className='mb-6 text-center'>[提示内容]</div>
 
+                        <div className=''>
                             <button type="button"
                                 onClick={() => router.push('../timePill')}
                                 className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Confirm</button>

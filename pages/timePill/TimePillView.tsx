@@ -41,7 +41,7 @@ export default function TimePillView(props: TimePillViewProps) {
 
             <div className='flex justify-center h-screen w-screen'>
 
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center mx-0 my-auto'>
 
                     <div className={classNames(mode ?
                         modeStatus[0].cssInfo : modeStatus[1].cssInfo
