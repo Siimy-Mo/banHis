@@ -4,9 +4,12 @@ import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+interface UpdateViewProps {
+    handleSubmit: any;
+}
 
-export default function Update() {
-    // export default function LoginView() {
+export default function Update(props: UpdateViewProps) {
+    const { handleSubmit } = props;
     const [msg, setMessage] = useState('')
     const router = useRouter();
 

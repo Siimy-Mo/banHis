@@ -4,9 +4,12 @@ import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+interface QueryViewProps {
+    handleSubmit: any;
+}
 
-export default function QueryView() {
-    // export default function LoginView() {
+export default function Query(props: QueryViewProps) {
+    const { handleSubmit } = props;
     const [msg, setMessage] = useState('')
     const router = useRouter();
 

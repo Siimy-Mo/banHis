@@ -1,11 +1,15 @@
 // import useAxios from 'axios-hooks';
 import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
-import QueryView from './QueryView';
+import StaffLoginView from './StaffLoginView';
 import { useRouter } from 'next/router';
 
-export default function QueryContainer() {
+// const apiSetting = new Api();
+
+export default function StaffLoginContainer() {
     const router = useRouter();
+
+    // 用户状态是每次访问都要重新输入的
     useEffect(() => {
 
     }, []);
@@ -26,5 +30,5 @@ export default function QueryContainer() {
     };
 
 
-    return <QueryView {...{handleSubmit}}/>; // 导出view 传入参数。
+    return <StaffLoginView {...{handleSubmit}}/>; // 导出view 传入参数。
 }

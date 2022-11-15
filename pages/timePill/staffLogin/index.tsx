@@ -1,3 +1,3 @@
-import StaffLoginContainer from './StaffLoginViewContainer';
+import StaffLoginContainer from './StaffLoginContainer';
 
 export default StaffLoginContainer;
