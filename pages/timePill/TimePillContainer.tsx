@@ -21,10 +21,16 @@ export default function TimePillContainer() {
 
     //简单一个函数就行了，不需要提交所以不用handle
     const goTableFill= () => {
-        router.push({
-            pathname: './timePill/tableFill',
-            query: { mode: mode },
-        })
+        // 原来的传参方式，但是component并不能改变，###暂时搁置
+        // router.push({
+        //     pathname: './timePill/tableFill',
+        //     query: { mode: mode },
+        // })
+        if (mode) {
+            router.push('./timePill/tableFillHand')
+        } else {
+            router.push('./timePill/tableFillText')
+        }
     }
 
 

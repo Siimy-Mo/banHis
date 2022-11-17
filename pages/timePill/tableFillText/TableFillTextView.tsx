@@ -10,13 +10,13 @@ import { useRouter } from 'next/router';
 // -> 电子填表
 // -> route 摄像机，扫描后跳转至电子填表
 
-interface TableFillViewProps {
+interface TableFillTextViewProps {
     tableMode: any;
     SubmitLoading:any;
     handleSubmit: any;
 }
 
-export default function TableFillView(props: TableFillViewProps) {
+export default function TableFillTextView(props: TableFillTextViewProps) {
     // export default function tableFillView() {
     const { tableMode, SubmitLoading, handleSubmit } = props;
     const router = useRouter();

@@ -1,10 +1,10 @@
 // import useAxios from 'axios-hooks';
 import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
-import TableFillView from './TableFillView';
+import TableFillHandView from './TableFillHandView';
 import { useRouter } from 'next/router';
 
-export default function TableFillContainer() {
+export default function TableFillHandContainer() {
     const router = useRouter();
     const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
@@ -58,5 +58,5 @@ export default function TableFillContainer() {
         // }
     };
 
-    return <TableFillView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
+    return <TableFillHandView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }
