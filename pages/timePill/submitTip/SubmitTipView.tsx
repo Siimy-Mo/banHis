@@ -34,10 +34,16 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
                             提交成功</h3>
                     </div>
 
-                    <div className='flex flex-col items-center w-full px-12 py-6 pt-12 rounded-xl bg-red-300 timePillIntroShadowOn'>
+                    <div className='flex flex-col items-center max-w-screen-md px-12 py-6 pt-12 rounded-xl bg-red-300 timePillIntroShadowOn'>
 
                         {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
-                        <div className='mb-6 text-center'>[提示内容]</div>
+                        <div className='mb-6 text-center'>
+                            恭喜你已經成功將一枚時光膠囊發送到未來，
+                            時光膠囊編號為：[A20211031]。
+                            時光膠囊將會隨時間漂流，直至[2021/10/31]
+                            會再次通過郵箱：[chrischan@gmail.com]
+                            通知[366]天後的你到店打開膠囊。<br/>
+                            膠囊預覽：[img]</div>
 
                         <div className=''>
                             <button type="button"
