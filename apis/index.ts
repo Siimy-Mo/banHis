@@ -1,33 +1,36 @@
 // index.js
-import Form from './Form';
+import PillForm from './PillForm';
+import Authorization from './Authorization';
 
-
+// 类似 const api = axio.create({})
+// 具体的设置baseURL在子.ts中
 export default class Api {
     Storage: Storage;
     // Classification: Classification;
     // Tag: Tag;
     // Search: Search;
-    Form: Form;
+    PillForm: PillForm;
     // Absence: Absence;
     // Document: Document;
     // FormSchema: FormSchema;
     // Statistics: Statistics;
     // DocumentApproval: DocumentApproval;
-    // Authorization: Authorization;
+    Authorization: Authorization;
     // Drive: Drive;
+
 
     constructor() {
         this.Storage = new Storage();
         // this.Classification = new Classification();
         // this.Tag = new Tag();
         // this.Search = new Search();
-        this.Form = new Form();
+        this.PillForm = new PillForm();
         // this.Absence = new Absence();
         // this.Document = new Document();
         // this.FormSchema = new FormSchema();
         // this.Statistics = new Statistics();
         // this.DocumentApproval = new DocumentApproval();
-        // this.Authorization = new Authorization();
+        this.Authorization = new Authorization();
         // this.Drive = new Drive();
     }
 }
