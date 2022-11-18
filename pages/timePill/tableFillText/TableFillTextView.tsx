@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 interface TableFillTextViewProps {
     tableMode: any;
-    SubmitLoading:any;
+    SubmitLoading: any;
     handleSubmit: any;
 }
 
@@ -20,10 +20,10 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
     // export default function tableFillView() {
     const { tableMode, SubmitLoading, handleSubmit } = props;
     const router = useRouter();
+    const [pillPreview, setpillPreview] = useState(false)
 
     return (
         <>
-
             <div className='flex flex-row justify-center mb:w-2/3 h-screen'>
                 <div className='flex flex-col w-full bg-white md:w-2/3'>
 
@@ -93,6 +93,36 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                             <div className="">提交中...</div>
                         ) : <div></div>}
 
+
+                        {/* 展示贺卡合成效果 */}
+
+                        {pillPreview ? (
+                            <div className="absolute left-1/2 top-1/2 p-6 -translate-x-1/2 -translate-y-1/2 shadow-xl bg-cyan-100
+                                            flex flex-col items-center">
+                                <div className='mb-6'>您的时光胶囊预览</div>
+                                {/* <canvas id="pillCard">
+                                    Your browser does not support the canvas element.
+                                </canvas> */}
+
+                                {/* 格式转换成行内元素 */}
+                                <div className='inline'>
+                                    <img className="w-full rounded-t-lg 
+                                                md:h-auto md:w-1/2 md:rounded-none md:rounded-l-lg"
+                                        src="../rella0.jpg" alt="pillPreview_illustrate" />
+                                </div>
+
+                                <div className='flex mt-6 w-2/3 justify-between'>
+                                    <button type="button"
+                                        onClick={() => setpillPreview(false)}
+                                        className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">返回</button>
+
+                                    <button type="submit"
+                                        className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">确认提交</button>
+
+                                </div>
+                            </div>
+                        ) : <div></div>}
+
                         <div className='flex justify-around mb-6 md:mb-48'>
                             <button type="button"
                                 onClick={() => router.push('../timePill')}
@@ -103,9 +133,9 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                                 className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">跳至成功页面</button>
 
 
-                            <button type="submit"
-                                // onClick={() => router.push('./submitTip')}
-                                className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">提交</button>
+                            <button type="button"
+                                onClick={() => setpillPreview(true)}
+                                className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">胶囊预览</button>
 
                         </div>
                     </form>

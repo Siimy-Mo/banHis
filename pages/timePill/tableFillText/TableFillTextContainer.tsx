@@ -9,8 +9,15 @@ export default function TableFillTextContainer() {
     const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
 
-    const GenerateImg = ()=>{
+
+    const GenerateImg = (content: string)=>{
+        let img = new Image();
+        
         // 将文字和图片合成并展示出来
+        // 图片要设置跨域： crossOrigin:*, based64格式才可能绘制
+        const dpr = window.devicePixelRatio?window.devicePixelRatio : 2;
+        alert(img);
+
     }
 
     const postTo = ()=>{
@@ -28,21 +35,25 @@ export default function TableFillTextContainer() {
         const content = formData.get('content') as string;
         const tip = formData.get('tip') as string;
 
-        console.log('\nform中的内容：')
-        console.log('【name, email, date】',name, email, date)
-        console.log('【content, tip】',content, tip)
+        // console.log('\nform中的内容：')
+        // console.log('【name, email, date】',name, email, date)
+        // console.log('【content, tip】',content, tip)
+        GenerateImg(content);
 
         //将文字合成进图片
-        setSubmitLoading(true);
-        setTimeout(() => {
-            setSubmitLoading(false)
-            // console.log(router.pathname)
-            // router.push('./submitTip');
-            //     else router.reload();
-        },1000)
-
-
+        // setSubmitLoading(true);
+        // setTimeout(() => {
+        //     setSubmitLoading(false)
+        //     // console.log(router.pathname)
+        //     // router.push('./submitTip');
+        //     //     else router.reload();
+        // },1000)
     };
+
+    // 监视content内容的变化，并且绘制到canvas上，可能需要一个合成中的flag
+    // useEffect(() => {
+    //     setOpen(searchDocumentByContentLoading);
+    // }, [searchDocumentByContentLoading]);
 
     return <TableFillTextView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }

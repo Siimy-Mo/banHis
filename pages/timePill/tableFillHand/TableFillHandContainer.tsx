@@ -7,6 +7,7 @@ import useAxios from 'axios-hooks';
 import axios from 'axios';
 
 const apiSetting = new Api(); //调用api设置
+// notification 参考：https://kalacloud.com/blog/best-react-notification-message-libraries/
 
 export default function TableFillHandContainer() {
     const router = useRouter();
@@ -38,40 +39,23 @@ export default function TableFillHandContainer() {
         const content = formData.get('content') as string;
         const tip = formData.get('tip') as string;
 
-        console.log('\nform中的内容：')
-        console.log('【name, email, date】',name, email, date)
-        console.log('【content, tip】',content, tip)
+        // console.log('\nform中的内容：')
+        // console.log('【name, email, date】',name, email, date)
+        // console.log('【content, tip】',content, tip)
 
         // const res = await signIn(apiSetting.Authorization.signIn(email, password));
 
+        alert(content);
 
-        setSubmitLoading(true);
-        setTimeout(() => {
-            setSubmitLoading(false)
-            // console.log(router.pathname)
-            // router.push('./submitTip');
-            //     else router.reload();
-        },1000)
-        // 验证密码 -> 上传文件
-        // const res = await signIn(apiSetting.Authorization.signIn(email, password));
-        // if (res.data.success) {
-        //     //if (res.headers.authorization) {
-        //     const token = res.headers.authorization;
-        //     localStorage.setItem('authorization', token);
-        //     localStorage.setItem('email', email);
-        //     if (remember) {
-        //         const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
-        //         document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
-        //     } else {
-        //         document.cookie = `authorization=${escape(token)}`;
-        //     }
-        //     if (router.pathname === 'login') router.push('/');
-        //     else router.reload();
-        // } else {
-        //     localStorage.removeItem('authorization');
-        //     localStorage.removeItem('email');
-        //     document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-        // }
+        // setSubmitLoading(true);
+        // setTimeout(() => {
+        //     setSubmitLoading(false);
+        //     alert(content);
+        //     // console.log(router.pathname)
+        //     // router.push('./submitTip');
+        //     //     else router.reload();
+        // },1000)
+
     };
 
     // 第一次加载网页，需要识别authorization
