@@ -100,16 +100,17 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                             <div className="absolute left-1/2 top-1/2 p-6 -translate-x-1/2 -translate-y-1/2 shadow-xl bg-cyan-100
                                             flex flex-col items-center">
                                 <div className='mb-6'>您的时光胶囊预览</div>
-                                {/* <canvas id="pillCard">
+
+                                <canvas id="canvas" className='bg-pillCard bg-cover w-96 '>
                                     Your browser does not support the canvas element.
-                                </canvas> */}
+                                </canvas>
 
                                 {/* 格式转换成行内元素 */}
-                                <div className='inline'>
+                                {/* <div className='inline'>
                                     <img className="w-full rounded-t-lg 
                                                 md:h-auto md:w-1/2 md:rounded-none md:rounded-l-lg"
                                         src="../rella0.jpg" alt="pillPreview_illustrate" />
-                                </div>
+                                </div> */}
 
                                 <div className='flex mt-6 w-2/3 justify-between'>
                                     <button type="button"

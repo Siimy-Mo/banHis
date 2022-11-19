@@ -1,5 +1,5 @@
 // import useAxios from 'axios-hooks';
-import { FormEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, useEffect, useState, useRef } from 'react';
 // import Api from '../../apis';
 import TableFillTextView from './TableFillTextView';
 import { useRouter } from 'next/router';
@@ -9,7 +9,21 @@ export default function TableFillTextContainer() {
     const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
 
-
+    const Canvas = () => {
+        const canvasRef = useRef<HTMLCanvasElement | null>(null);
+        
+        useEffect(() => {
+            const canvas = canvasRef.current;
+            if (!canvas) {
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                return;
+            }
+        },[])
+    }
+    
     const GenerateImg = (content: string)=>{
         let img = new Image();
         
@@ -55,5 +69,16 @@ export default function TableFillTextContainer() {
     //     setOpen(searchDocumentByContentLoading);
     // }, [searchDocumentByContentLoading]);
 
+    // 检测pill content 并绘至canvas中
+    // useEffect(() => {
+        
+    // }, []);
+
+    // 渲染canvas的背景图
+    useEffect(() => {
+        var c=document.getElementById('pillCard');
+        console.log(c)
+        // var ctx=c.getContext('2d');
+    }, []);
     return <TableFillTextView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }

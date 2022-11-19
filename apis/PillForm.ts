@@ -32,9 +32,8 @@ export default class PillForm {
             url: `/api/capsules/search`,
             method: 'GET',
             data: {
-                user: {
-                    code,
-                }
+                code: code,
+                
             }
         };
         return requestHeader;
