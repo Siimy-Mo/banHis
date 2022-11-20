@@ -15,18 +15,19 @@ export default function TableFillHandContainer() {
     const [SubmitLoading, setSubmitLoading] = useState(false)
 
     // 从api中获取信息，
-    // const [
-    //     {
-    //         data: searchDocumentByContentData, // 数据本体
-    //         loading: searchDocumentByContentLoading, // 是否loading
-    //         error: searchDocumentByContentError, // 是否error
-    //         response: searchDocumentByContentResponse // 回应？
-    //     },
-    //     searchDocumentByContent
-    // ] = useAxios(apiSetting.Search.searchDocumentByContent(), { // 调用查询函数(manual=true)
-    //     manual: true
-    // });
+    
+    // const {response,loading,error} = useAxios(apiSetting.PillForm.queryPillStatus());
+    
+    // 第一次加载网页，需要识别authorization
+    useEffect(() => {
+        axios.get('https://futureword.m2mda.com/api/capsules/search?code=050363')
+        // axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+        .then((res) => {
+        console.log(res)
 
+        })
+        // console.log(response)
+    }, []);
 
     // 处理view中的 Form 元素
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -46,23 +47,20 @@ export default function TableFillHandContainer() {
         // const res = await signIn(apiSetting.Authorization.signIn(email, password));
 
         alert(content);
-
-        // setSubmitLoading(true);
-        // setTimeout(() => {
-        //     setSubmitLoading(false);
-        //     alert(content);
-        //     // console.log(router.pathname)
-        //     // router.push('./submitTip');
-        //     //     else router.reload();
-        // },1000)
-
     };
 
-    // 第一次加载网页，需要识别authorization
-    // useEffect(() => {
-    //     axios.defaults.headers.common['authorization'] =
-    //         localStorage.getItem('authorization') || '';
-    // }, []);
+
+
+    // const updateLabelNameByIdHandler = useCallback(
+    //     async (id: string, newName: string) => {
+    //         updateLabelNameById({
+    //             ...apiSetting.Tag.updateTagNameById(id),
+    //             data: { name: newName }
+    //         });
+    //     },
+    //     [updateLabelNameById]
+    // );
+
     
     // 监视 content内容，如若不为空+success为真的时候，将内容更新到document，并且设置loading flag：open
     // useEffect(() => {

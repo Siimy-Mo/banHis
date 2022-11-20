@@ -5,7 +5,7 @@ import Authorization from './Authorization';
 // 类似 const api = axio.create({})
 // 具体的设置baseURL在子.ts中
 export default class Api {
-    Storage: Storage;
+    // Storage: Storage;
     // Classification: Classification;
     // Tag: Tag;
     // Search: Search;
@@ -20,7 +20,7 @@ export default class Api {
 
 
     constructor() {
-        this.Storage = new Storage();
+        // this.Storage = new Storage();
         // this.Classification = new Classification();
         // this.Tag = new Tag();
         // this.Search = new Search();

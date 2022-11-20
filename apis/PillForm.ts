@@ -2,6 +2,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const baseURL2 = 'https://docai-dev.m2mda.com';
 
 export default class PillForm {
     uploadPillForm() {
@@ -26,15 +27,25 @@ export default class PillForm {
         return requestHeader; //应该包含：成功状态，pill order
     }
 
-    queryPillStatus(code: string) {
+    queryPillStatus(code = "050363") {
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
-            url: `/api/capsules/search`,
+            // url: `/api/capsules/search`,
+            url: `/api/capsules/search?code=${code}`,
             method: 'GET',
             data: {
-                code: code,
+                code: "050363",
                 
             }
+        };
+        return requestHeader;
+    }
+
+    searchDocumentByContent() {
+        const requestHeader: AxiosRequestConfig = {
+            baseURL: baseURL2,
+            url: `/api/v1/search/documents/content`,
+            method: 'GET'
         };
         return requestHeader;
     }
