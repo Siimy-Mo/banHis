@@ -13,21 +13,11 @@ export default function TableFillHandContainer() {
     const router = useRouter();
     const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
+    const [{ data: uploadPillFormData }, uploadPillForm] = useAxios(
+        {},
+        { manual: true }
+    );
 
-    // 从api中获取信息，
-    
-    // const {response,loading,error} = useAxios(apiSetting.PillForm.queryPillStatus());
-    
-    // 第一次加载网页，需要识别authorization
-    useEffect(() => {
-        axios.get('https://futureword.m2mda.com/api/capsules/search?code=050363')
-        // axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then((res) => {
-        console.log(res)
-
-        })
-        // console.log(response)
-    }, []);
 
     // 处理view中的 Form 元素
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -36,44 +26,33 @@ export default function TableFillHandContainer() {
 
         const name = formData.get('name') as string;
         const email = formData.get('email') as string;
-        const date = formData.get('date');
-        const content = formData.get('content') as string;
+        const content = formData.get('content');
         const tip = formData.get('tip') as string;
+        const date = formData.get('date') as string;
 
-        // console.log('\nform中的内容：')
-        // console.log('【name, email, date】',name, email, date)
-        // console.log('【content, tip】',content, tip)
+        // 模拟提交成功，做到网页之间的传参！
+        if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+        else router.reload();
 
-        // const res = await signIn(apiSetting.Authorization.signIn(email, password));
+        // 正式链接：
+        // const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,content,tip,date));
+        // if (res.data.success) {
+        //     console.log(res.data)
+        //     const token = res.headers.authorization;
+        //     // localStorage.setItem('authorization', token);
+        //     // localStorage.setItem('email', email);
+        //     // if (remember) {
+        //     //     const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
+        //     //     document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
+        //     // } else {
+        //     //     document.cookie = `authorization=${escape(token)}`;
+        //     // }
+        //     if (router.pathname === '/timePill/tableFillHand') router.push('/submitTip');
+        //     else router.reload();
+        // } else {
 
-        alert(content);
+        // }
+
     };
-
-
-
-    // const updateLabelNameByIdHandler = useCallback(
-    //     async (id: string, newName: string) => {
-    //         updateLabelNameById({
-    //             ...apiSetting.Tag.updateTagNameById(id),
-    //             data: { name: newName }
-    //         });
-    //     },
-    //     [updateLabelNameById]
-    // );
-
-    
-    // 监视 content内容，如若不为空+success为真的时候，将内容更新到document，并且设置loading flag：open
-    // useEffect(() => {
-    //     if (searchDocumentByContentData && searchDocumentByContentData.success === true) {
-    //         setDocuments(searchDocumentByContentData.documents);
-    //         setOpen(false);
-    //     }
-    // }, [searchDocumentByContentData]);
-
-    // loading 中的时候设置open
-    // useEffect(() => {
-    //     setOpen(searchDocumentByContentLoading);
-    // }, [searchDocumentByContentLoading]);
-
     return <TableFillHandView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }

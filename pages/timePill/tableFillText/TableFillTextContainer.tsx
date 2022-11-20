@@ -5,16 +5,20 @@ import TableFillTextView from './TableFillTextView';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
+// 用于文本换行的扩展js代码：https://www.zhangxinxu.com/wordpress/2018/02/canvas-text-break-line-letter-spacing-vertical/
+
 export default function TableFillTextContainer() {
     const router = useRouter();
     // const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
     const [PillPreview, setPillPreview] = useState(false)
     const [PillText, setPillText] = useState('')
+    const [PillImg, setPillImg] = useState('')
 
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    
+
+    // 图片+文字的合成
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) {
@@ -24,25 +28,24 @@ export default function TableFillTextContainer() {
         if (!ctx) {
             return;
         }
-        ctx.font = "14pt Arial";
-        ctx.fillStyle='blue';
-        ctx.fillText(PillText,100,100);
-    },[PillText])
+        ctx.font = "20pt Arial";
+        ctx.fillStyle = 'blue';
 
-
-    const GenerateImg = (content: string)=>{
-        let img = new Image();
+        // 处理换行：中文？英文？
+        ctx.fillText(PillText, 50, 50);
         
-        // 将文字和图片合成并展示出来
-        // 图片要设置跨域： crossOrigin:*, based64格式才可能绘制
-        const dpr = window.devicePixelRatio?window.devicePixelRatio : 2;
-        alert(img);
+        // 读取图片底的方法：
+        // const img = new Image();
+        // img.src = "../rella0.jpg";
+        // img.addEventListener("load", ()=>{
+        //     ctx.drawImage(img, 0,0,200,200);
+        //     const imgData = ctx.getImageData(10,20,80,200);
+        //     ctx.putImageData(imgData,260,0)
+        // })
 
-    }
-
-    const postTo = ()=>{
-        // post给服务器
-    }
+        // 转换成imga推送到服务器
+        setPillImg(canvas.toDataURL('image/jpeg',0.9))
+    }, [PillText])
 
 
 
@@ -57,30 +60,35 @@ export default function TableFillTextContainer() {
         const content = formData.get('content') as string;
         const tip = formData.get('tip') as string;
 
-        if(PillPreview){ // 如果已经是preview状态：传给server
-            alert('传数据给server！')
+        if (PillPreview) { // 如果已经是preview状态：传给server
+            // 模拟提交成功，做到网页之间的传参！
+            if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+            else router.reload();
+            
+            // 正式链接：
+            // const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,PillImg,tip,date));
+            // if (res.data.success) {
+            //     console.log(res.data)
+            //     const token = res.headers.authorization;
+            //     // localStorage.setItem('authorization', token);
+            //     // localStorage.setItem('email', email);
+            //     // if (remember) {
+            //     //     const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
+            //     //     document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
+            //     // } else {
+            //     //     document.cookie = `authorization=${escape(token)}`;
+            //     // }
+            //     if (router.pathname === '/timePill/tableFillHand') router.push('/submitTip');
+            //     else router.reload();
+            // }
         } else { //如果还未预览则打开预览模式
             setPillText(content)
             setPillPreview(true)
-
         }
-
-        // console.log('\nform中的内容：')
-        // console.log('【name, email, date】',name, email, date)
-        // console.log('【content, tip】',content, tip)
-
-        //将文字合成进图片
-        // setSubmitLoading(true);
-        // setTimeout(() => {
-        //     setSubmitLoading(false)
-        //     // console.log(router.pathname)
-        //     // router.push('./submitTip');
-        //     //     else router.reload();
-        // },1000)
     };
 
 
-    const cancelPreview =()=>{
+    const cancelPreview = () => {
         setPillPreview(false)
         setPillText('')
     }
