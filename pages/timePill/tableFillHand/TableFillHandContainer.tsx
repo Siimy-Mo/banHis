@@ -11,7 +11,6 @@ const apiSetting = new Api(); //调用api设置
 
 export default function TableFillHandContainer() {
     const router = useRouter();
-    const tableMode = router.query.mode
     const [SubmitLoading, setSubmitLoading] = useState(false)
     const [{ data: uploadPillFormData }, uploadPillForm] = useAxios(
         {},
@@ -54,5 +53,5 @@ export default function TableFillHandContainer() {
         // }
 
     };
-    return <TableFillHandView {...{ tableMode, SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
+    return <TableFillHandView {...{ SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }

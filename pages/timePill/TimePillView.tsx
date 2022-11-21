@@ -35,6 +35,12 @@ export default function TimePillView(props: TimePillViewProps) {
 
                 <div className='flex flex-col items-center mx-0 my-auto'>
 
+                    <div>
+                        <a onClick={()=>router.push('./timePill/staffLogin')}>
+                        <img className="w-10 h-10 rounded" src="icons8-hot-85.png" alt="Default avatar" />
+                        </a>
+                    </div>
+
                     <div className={classNames(mode ?
                         modeStatus[0].cssInfo : modeStatus[1].cssInfo
                         , 'block relative w-96 h-96 ml-12 m-6 mt-12 px-12 py-6 text-center rounded-xl overflow-hidden',

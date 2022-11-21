@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 interface TableFillTextViewProps {
     SubmitLoading: any;
-    handleSubmit: any;
+    handleSubmit: FormEventHandler;
     canvasRef: any;
     PillPreview:any;
     cancelPreview:any;

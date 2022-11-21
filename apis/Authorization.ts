@@ -7,16 +7,25 @@ export default class FormSchema {
     signIn(email: string, password: string) {
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            url: `/users/sign_in`,
+            url: `/api/users/signin`,
             method: 'POST',
             data: {
-                user: {
-                    email,
-                    password
-                }
+                email,
+                password
+            }
+        };
+        return requestHeader;
+    }
+
+    signUp(email: string, name: string, password: string) {
+        const requestHeader: AxiosRequestConfig = {
+            baseURL: baseURL,
+            url: `/api/users/signup`,
+            method: 'POST',
+            data: {
+                email,
+                name,
+                password
             }
         };
         return requestHeader;
