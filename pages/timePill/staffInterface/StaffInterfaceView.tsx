@@ -10,7 +10,6 @@ interface StaffInterfaceViewProps {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { handleSignIn, } = props;
     const [PillLabel, setPillLabel] = useState(0)
     const router = useRouter();
 

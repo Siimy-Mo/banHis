@@ -30,27 +30,27 @@ export default function TableFillHandContainer() {
         const date = formData.get('date') as string;
 
         // 模拟提交成功，做到网页之间的传参！
-        if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
-        else router.reload();
+        // if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+        // else router.reload();
 
         // 正式链接：
-        // const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,content,tip,date));
-        // if (res.data.success) {
-        //     console.log(res.data)
-        //     const token = res.headers.authorization;
-        //     // localStorage.setItem('authorization', token);
-        //     // localStorage.setItem('email', email);
-        //     // if (remember) {
-        //     //     const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
-        //     //     document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
-        //     // } else {
-        //     //     document.cookie = `authorization=${escape(token)}`;
-        //     // }
-        //     if (router.pathname === '/timePill/tableFillHand') router.push('/submitTip');
-        //     else router.reload();
-        // } else {
+        const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,content,tip,date));
+        if (res.data.success) {
+            console.log(res.data)
+            const token = res.headers.authorization;
+            // localStorage.setItem('authorization', token);
+            // localStorage.setItem('email', email);
+            // if (remember) {
+            //     const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
+            //     document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
+            // } else {
+            //     document.cookie = `authorization=${escape(token)}`;
+            // }
+            if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+            else router.reload();
+        } else {
 
-        // }
+        }
 
     };
     return <TableFillHandView {...{ SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
