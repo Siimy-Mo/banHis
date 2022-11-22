@@ -70,12 +70,9 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                         <div className='mb-6'>
                             <label htmlFor="content" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
                             >Pill Content*
-
                                 <textarea name="content" id="content" rows={4} className="block p-2.5 w-full text-sm text-lime-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-lime-500 focus:border-lime-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" 
                                 placeholder="Your message..."
                                 ></textarea>
-
-
                             </label>
                         </div>
 
@@ -101,7 +98,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                                             flex flex-col items-center">
                                 <div className='mb-6'>您的时光胶囊预览</div>
 
-                                <canvas ref={canvasRef} className='bg-pillCard bg-cover h-96 '>
+                                <canvas ref={canvasRef} className='bg-pillCard bg-cover h-full md:h-96 '>
                                     Your browser does not support the canvas element.
                                 </canvas>
 
