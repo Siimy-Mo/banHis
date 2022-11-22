@@ -21,12 +21,13 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
     return (
         <>
 
-            <div className='ml-16 flex justify-center pt-16'>
+            <div className='flex justify-center pt-16'>
 
                 {/* 根据登入状态展示两个组件：1登入界面（动态消失且往上移动）2、选择界面
                     或者只将text input 转为两个按钮，不用组件更迭*/}
-                <div className='flex flex-col items-center '>
-
+                <div className='flex flex-col items-center px-12 py-6 text-pink-900'>
+                {/* , 'block relative w-96 ml-16 m-4 px-12 py-6 text-center rounded-xl overflow-hidden',
+                        'transition-all ease-in-out duration-500 ')}> */}
                     <div className=''>
                         <a onClick={() => { router.push('../timePill') }}>
 

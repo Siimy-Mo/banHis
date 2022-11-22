@@ -16,20 +16,21 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     return (
         <>
 
-            <div className='flex justify-center items-center h-screen'>
+            <div className='flex justify-center pt-16'>
 
-                <div className='flex flex-col items-center '>
+                <div className='flex flex-col items-center text-red-900'>
+
                     <div className=''>
-                        <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+                        <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
                             staff操作界面</h3>
                     </div>
 
-                    <div className='flex flex-col items-center w-96 px-12 py-6 pt-12 rounded-xl bg-red-300 timePillIntroShadowOn'>
+                    <div className='flex flex-col items-center w-96 px-12 py-6 rounded-xl bg-red-200 timePillIntroShadowOn'>
                         胶囊状态：
                         <div >
                             <div className="overflow-x-auto relative">
                                 <table className="w-full text-sm text-left  ">
-                                    <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
+                                    <thead className="text-xs uppercase dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="py-3 px-6">
                                                 未到期
@@ -64,8 +65,8 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         <div className='h-fit' >
                             未到期胶囊界面
                             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <table className="w-full text-sm text-left  dark:text-gray-400">
+                                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="p-4">
                                                 <div className="flex items-center">
@@ -90,10 +91,10 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 123456
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
 
@@ -105,10 +106,10 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 654321
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
                                         </tr>
@@ -125,8 +126,8 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         <div className='h-fit' >
                             已到期胶囊界面
                             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <table className="w-full text-sm text-left  dark:text-gray-400">
+                                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="p-4">
                                                 <div className="flex items-center">
@@ -153,13 +154,13 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 123456
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 未通知
                                             </th>
                                         </tr>
@@ -170,13 +171,13 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 654321
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 已通知
                                             </th>
                                         </tr>
@@ -195,8 +196,8 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         <div className='h-fit' >
                             已完成胶囊界面
                             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <table className="w-full text-sm text-left  dark:text-gray-400">
+                                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="p-4">
                                                 <div className="flex items-center">
@@ -223,13 +224,13 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 123456
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 过期
                                             </th>
                                         </tr>
@@ -240,13 +241,13 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                                                 </div>
                                             </td>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 654321
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 12/21
                                             </th>
-                                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                                 已领取
                                             </th>
                                         </tr>
