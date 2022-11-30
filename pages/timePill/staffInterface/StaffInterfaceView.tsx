@@ -21,7 +21,7 @@ function classNames(...classes: any[]) {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { current, } = props;
+    const { current=[], } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
 
     return (
@@ -65,9 +65,9 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 </thead>
                                 <tbody>
                                     <tr className="">
-                                        {current.map((num: number, index: number) => (
+                                        {current.map((item:any,index:number) => (
                                             <td key={index} className="py-2 px-6">
-                                                {num}
+                                                {item.num}
                                             </td>
                                         ))}
                                     </tr>

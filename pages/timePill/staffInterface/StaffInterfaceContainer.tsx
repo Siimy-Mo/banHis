@@ -5,7 +5,11 @@ import StaffInterfaceView from './StaffInterfaceView';
 import { useRouter } from 'next/router';
 import useAxios from 'axios-hooks';
 
-const dataset0 = [21,6,10]; //目前的膠囊狀態：未到期 | 已到期 | 已完成
+const dataset0 = [
+    {num:21},
+    {num:6},
+    {num:10}
+]; //目前的膠囊狀態：未到期 | 已到期 | 已完成
 
 const dataset1 = [ //未到期 的膠囊狀態：膠囊編號 | 到期日期
     { number: '123456', ddl: '12/21', },
