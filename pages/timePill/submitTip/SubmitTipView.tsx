@@ -33,7 +33,7 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
                             恭喜你已經成功將一枚時光膠囊發送到未來，
                             時光膠囊編號為：[A20211031]。
                             時光膠囊將會隨時間漂流，直至[2021/10/31]
-                            會再次通過郵箱：[chrischan@gmail.com]
+                            會再次通過郵箱：[test@gmail.com]
                             通知[366]天後的你到店打開膠囊。<br/>
                             膠囊預覽：[img]</div>
 

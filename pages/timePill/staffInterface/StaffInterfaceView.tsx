@@ -17,7 +17,6 @@ const statusName = [
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
 }
-// 以後應該要改成component的組裝形式
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {

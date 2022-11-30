@@ -4,8 +4,8 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 //提交操作
 
 const dataset1 = [ //未到期 的膠囊狀態：膠囊編號 | 到期日期
-    { number: '123456', ddl: '12/21', },
-    { number: '654321', ddl: '12/21' },
+    { number: '123456', ddl: '12/21', status:'未確認'},
+    { number: '654321', ddl: '12/21', status:'已確認'},
 ];
 const dataset2 = [//已到期 的膠囊狀態：膠囊編號 | 到期日期 | 是否通知
     { number: '123456', ddl: '12/21', status: 'uncall' },
@@ -65,6 +65,9 @@ const table0 = () => {
                             <th scope="col" className="py-3 px-6">
                                 到期日期
                             </th>
+                            <th scope="col" className="py-3 px-6">
+                                致電確認
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,13 +86,17 @@ const table0 = () => {
                                 <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                     {row.ddl}
                                 </th>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {row.status}
+                                </th>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
             <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' >提前领取胶囊</button>
+                <button className='staffInterfaceBtn' >確認收件</button>
+                <button className='staffInterfaceBtn' >提前领取</button>
             </div>
 
         </div>
@@ -116,7 +123,7 @@ const table1 = () => {
                                 到期日期
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                是否通知
+                                通知狀態
                             </th>
                         </tr>
                     </thead>
@@ -159,7 +166,7 @@ const table1 = () => {
                 </table>
             </div>
             <div className='flex w-full justify-between'>
-                <button className='staffInterfaceBtn' >发送邮件</button>
+                <button className='staffInterfaceBtn' >致電通知</button>
                 <button className='staffInterfaceBtn' >领取胶囊</button>
                 <button className='staffInterfaceBtn' >设置过期</button>
             </div>
@@ -231,7 +238,7 @@ const table2 = () => {
             </div>
 
             <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' >取消领取</button>
+                <button className='staffInterfaceBtn' >取消领取？</button>
             </div>
         </div>
     )
