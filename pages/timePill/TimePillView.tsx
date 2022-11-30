@@ -43,7 +43,7 @@ export default function TimePillView(props: TimePillViewProps) {
 
                     <div className={classNames(mode ?
                         modeStatus[0].cssInfo : modeStatus[1].cssInfo
-                        , 'block relative w-96 ml-16 m-4 px-12 py-6 text-center rounded-xl overflow-hidden',
+                        , 'block relative w-96 ml-16 m-4 md:px-12 py-12 text-center rounded-xl overflow-hidden',
                         'transition-all ease-in-out duration-500 ')}>
                             
                         <h1 className='mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-2xl lg:text-3xl dark:text-white'>

@@ -51,8 +51,7 @@ function HeadNav(props: UploadingProps) {
 
 const table0 = () => {
     return (
-
-        <div className='transition-transform ease-in-out duration-500 slideInFromR' >
+        <div className='h-fit' >
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
 
                 <table className="w-full text-sm text-left dark:text-gray-400">
@@ -91,11 +90,12 @@ const table0 = () => {
                     </tbody>
                 </table>
             </div>
-
-            <div className='flex w-full justify-between'>
-            <button className='staffInterfaceBtn' >提前领取胶囊</button>
+            <div className='flex w-full justify-center'>
+                <button className='staffInterfaceBtn' >提前领取胶囊</button>
             </div>
-        </div>)
+
+        </div>
+        )
 }
 
 const table1 = () => {
@@ -161,8 +161,6 @@ const table1 = () => {
                 </table>
             </div>
             <div className='flex w-full justify-between'>
-
-
                 <button className='staffInterfaceBtn' >发送邮件</button>
                 <button className='staffInterfaceBtn' >领取胶囊</button>
                 <button className='staffInterfaceBtn' >设置过期</button>
@@ -235,7 +233,7 @@ const table2 = () => {
             </div>
 
             <div className='flex w-full justify-center'>
-            <button className='staffInterfaceBtn' >取消领取</button>
+                <button className='staffInterfaceBtn' >取消领取</button>
             </div>
         </div>
     )

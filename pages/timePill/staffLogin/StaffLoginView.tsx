@@ -37,7 +37,7 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
                     </div>
 
 
-                    <div className={classNames('flex flex-col items-center w-full px-12 py-6 rounded-xl transition-all ease-in-out duration-500',
+                    <div className={classNames('flex flex-col items-center w-full p-12 rounded-xl transition-all ease-in-out duration-500',
                         register ?
                             'bg-red-200 timePillIntroShadowOff'
                             :
@@ -82,10 +82,10 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
 
                                 <div className='flex flex-row-reverse w-full justify-between'>
                                     <button type="submit" autoFocus
-                                        className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">註冊</button>
+                                        className="staffInterfaceBtn after:bg-red-100">註冊</button>
                                     <button
                                         onClick={() => setRegister(false)}
-                                        className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">返回</button>
+                                        className="staffInterfaceBtn after:bg-red-100">返回</button>
                                 </div>
 
                             </form>
@@ -96,7 +96,7 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
                                 <div className='mb-4'>
                                     <label htmlFor="email" className="block text-sm font-medium text-pink-900 dark:text-pink-300"
                                     >郵箱*
-                                        <input type="text" name="email" className="mt-1 bg-pink-50 border border-pink-300 text-pink-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block p-2.5 dark:bg-pi w-fullnk-700 dark:border-pink-600 dark:placeholder-pink-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+                                        <input type="text" name="email" className="mt-1 bg-pink-50 border border-pink-300 text-pink-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-pink-700 dark:border-pink-600 dark:placeholder-pink-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
                                             placeholder="test@gmail.com" required />
                                     </label>
                                 </div>
@@ -116,10 +116,10 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
 
                                 <div className='flex flex-row-reverse w-full justify-between'>
                                     <button type="submit" autoFocus
-                                        className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">登入</button>
+                                        className="staffInterfaceBtn after:bg-red-200">登入</button>
                                     <button
                                         onClick={() => setRegister(true)}
-                                        className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">註冊</button>
+                                        className="staffInterfaceBtn after:bg-red-200">註冊</button>
 
                                 </div>
                             </form>

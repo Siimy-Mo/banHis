@@ -35,14 +35,14 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                             staff操作界面</h3>
                     </div>
 
-                    <div className='flex flex-col items-center px-12 py-6 rounded-xl bg-red-200 timePillIntroShadowOn'>
-                        <div className='最頂上的文字應該寫操作介紹和問候'>
+                    <div className='flex flex-col items-center py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
+                        <div className='text-center w-screen md:w-full 最頂上的文字應該寫操作介紹和問候'>
                             點擊胶囊状态，查看對應表格
                         </div>
 
                         <hr className="my-2 mx-auto w-48 h-1 bg-red-900 rounded border-0 md:my-4" />
 
-                        <div className="mb-4 overflow-x-auto relative w-96 ">
+                        <div className="mb-4 overflow-x-auto relative md:w-96 ">
                             <table className="w-full text-sm text-center  ">
                                 <thead className="text-base">
                                     <tr>
