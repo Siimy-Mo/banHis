@@ -21,16 +21,11 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
     return (
         <>
 
-            <div className='flex justify-center w-screen pt-12'>
+            <div className='flex justify-center w-screen py-12 md:py-20'>
 
-                {/* 根据登入状态展示两个组件：1登入界面（动态消失且往上移动）2、选择界面
-                    或者只将text input 转为两个按钮，不用组件更迭*/}
-                <div className='flex flex-col items-center ml-16 px-12 py-6 text-pink-900'>
-                {/* , 'block relative w-96 ml-16 m-4 px-12 py-6 text-center rounded-xl overflow-hidden',
-                        'transition-all ease-in-out duration-500 ')}> */}
+                <div className='flex flex-col items-center w-5/6 md:w-fit md:ml-16 md:px-12 py-6 text-pink-900'>
                     <div className=''>
                         <a onClick={() => { router.push('../timePill') }}>
-
                             <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-pink-900 md:text-4xl lg:text-5xl dark:text-white">
                                 {register ? 'Staff Register' : 'Staff Login'}</h3>
                         </a>
@@ -44,7 +39,6 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
                             'bg-red-100 timePillIntroShadowOn'
                     )}>
                         {register ? //register form 
-
                             <form className='' onSubmit={handleSignIn}>
                                 {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
                                 <div className='mb-4'>

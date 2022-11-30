@@ -26,7 +26,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
     return (
         <>
-            <div className='flex justify-center pt-20 w-screen'>
+            <div className='flex justify-center py-20 w-screen'>
 
                 <div className='flex flex-col items-center w-full md:w-2/3 text-red-900'>
 
