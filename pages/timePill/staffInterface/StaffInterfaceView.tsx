@@ -65,11 +65,11 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 </thead>
                                 <tbody>
                                     <tr className="">
-                                        {/* {current.map((num: number, index: number) => (
+                                        {current.map((num: number, index: number) => (
                                             <td key={index} className="py-2 px-6">
                                                 {num}
                                             </td>
-                                        ))} */}
+                                        ))}
                                     </tr>
                                 </tbody>
                             </table>
