@@ -1,28 +1,19 @@
 // import { CheckIcon, XIcon } from '@heroicons/react/outline'; // react lib的一些icon图标
 import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import PillStatusTable from './StaffInterfaceContainer'
-
-const testDataset1 = [
-    { number: '123456', ddl: '12/21', },
-    { number: '654321', ddl: '12/21' },
-];
-
-const testDataset2 = [
-    { number: '123456', ddl: '12/21', },
-    { number: '654321', ddl: '12/21' },
-];
+import PillStatusTable from './pillStatusTable'
 
 interface StaffInterfaceViewProps {
-    // handleSignIn: FormEventHandler;
+    current: any;
 }
+
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
+    const { current, } = props;
     const [PillLabel, setPillLabel] = useState(0)
-    const router = useRouter();
 
     return (
         <>
@@ -56,15 +47,13 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                     </thead>
                                     <tbody>
                                         <tr className="">
-                                            <td className="py-2 px-6">
-                                                20
-                                            </td>
-                                            <td className="py-2 px-6">
-                                                5
-                                            </td>
-                                            <td className="py-2 px-6">
-                                                10
-                                            </td>
+                                            {current.map((num: number,index:number) => {
+                                                return (
+                                                    <td key={index} className="py-2 px-6">
+                                                        {num}
+                                                    </td>
+                                                )
+                                            })}
                                         </tr>
                                     </tbody>
                                 </table>
@@ -72,10 +61,10 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
                         </div>
 
-                        {/* <PillStatusTable {...{PillLabel}}/> */}
+                        {/* <PillStatusTable /> */}
 
                         {/* 展示界面： */}
-                        {PillLabel == 0 ?
+                        {/* {PillLabel == 0 ?
                             <div className='transition-transform ease-in-out duration-500 slideInFromR' >
                                 未到期胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -96,7 +85,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                         <tbody>
                                             {testDataset1.map((row, index) => {
                                                 return (
-                                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                    <tr key={row.number} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                         <td className="p-4 w-4">
                                                             <div className="flex items-center">
                                                                 <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
@@ -123,7 +112,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                             </div>
                             :
                             <></>
-                        }
+                        } */}
 
                         {/* 展示界面： */}
                         {PillLabel == 1 ?
@@ -281,3 +270,4 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
         </>
     );
 }
+

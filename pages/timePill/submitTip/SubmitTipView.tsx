@@ -6,15 +6,13 @@ import { useRouter } from 'next/router';
 
 
 interface SubmitTipViewProps {
-    // signInData: any;
-    // signInLoading: any;
-    // signInError: any;
-    handleSignIn: FormEventHandler;
+
+    // handleSignIn: FormEventHandler;
 }
 
 export default function SubmitTipView(props: SubmitTipViewProps) {
     // export default function LoginView() {
-    const { handleSignIn } = props;
+    // const { handleSignIn } = props;
     const [msg, setMessage] = useState('')
     const router = useRouter();
 
