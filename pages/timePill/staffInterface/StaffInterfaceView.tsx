@@ -8,12 +8,16 @@ import PillStatusTable from './pillStatusTable'
 interface StaffInterfaceViewProps {
     current: any;
 }
-
+const statusName = [
+    { order: 0, statusName: '未到期' },
+    { order: 1, statusName: '已到期' },
+    { order: 2, statusName: '已完成' },
+]
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
     const { current, } = props;
-    const [PillLabel, setPillLabel] = useState(0)
+    const [tableDisplay, setTableDisplay] = useState(0)
 
     return (
         <>
@@ -28,45 +32,50 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                     </div>
 
                     <div className='flex flex-col items-center px-12 py-6 rounded-xl bg-red-200 timePillIntroShadowOn'>
-                        胶囊状态
-                        <div >
-                            <div className="overflow-x-auto relative">
-                                <table className="w-full text-sm text-left  ">
-                                    <thead className="text-xs uppercase dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" className="py-3 px-6">
-                                                <a onClick={() => setPillLabel(0)}>未到期</a>
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                <a onClick={() => setPillLabel(1)}>已到期</a>
-                                            </th>
-                                            <th scope="col" className="py-3 px-6">
-                                                <a onClick={() => setPillLabel(2)}>已完成</a>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr className="">
-                                            {current.map((num: number,index:number) => {
-                                                return (
-                                                    <td key={index} className="py-2 px-6">
-                                                        {num}
-                                                    </td>
-                                                )
-                                            })}
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                        <div className='最頂上的文字應該寫操作介紹和問候'>
+                            點擊胶囊状态，查看對應表格
                         </div>
 
+                        <hr className="my-2 mx-auto w-48 h-1 bg-red-900 rounded border-0 md:my-4" />
+
+                        <div className="mb-4 overflow-x-auto relative w-96 ">
+                            <table className="w-full text-sm text-center  ">
+                                <thead className="text-base">
+                                    <tr>
+                                        {statusName.map((item, index) => {
+                                            return (
+                                                <th key={index} scope="col" className="py-3 px-6 hover:text-red-500">
+                                                    <a onClick={() => setTableDisplay(item.order)}>{item.statusName} </a>
+                                                </th>
+                                            )
+                                        })}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="">
+                                        {current.map((num: number, index: number) => {
+                                            return (
+                                                <td key={index} className="py-2 px-6">
+                                                    {num}
+                                                </td>
+                                            )
+                                        })}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
                         {/* <PillStatusTable /> */}
+                        <div className="mb-4 inline-flex justify-center items-center w-full">
+                            <hr className="my-4 w-full h-px bg-red-500 border-0 dark:bg-gray-700"/>
+                                <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
+                                    {statusName[tableDisplay].statusName}膠囊表格</span>
+                        </div>
 
                         {/* 展示界面： */}
-                        {/* {PillLabel == 0 ?
+                        {tableDisplay == 0 ?
                             <div className='transition-transform ease-in-out duration-500 slideInFromR' >
-                                未到期胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
 
                                     <table className="w-full text-sm text-left dark:text-gray-400">
@@ -83,7 +92,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {testDataset1.map((row, index) => {
+                                            {/* {testDataset1.map((row, index) => {
                                                 return (
                                                     <tr key={row.number} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                         <td className="p-4 w-4">
@@ -101,21 +110,21 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     </tr>
                                                 )
                                             })
-                                            }
+                                            } */}
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <div className='flex w-full justify-between'>
-                                    <button onClick={() => setPillLabel(1)}>提前领取胶囊</button>
+                                    <button onClick={() => setTableDisplay(1)}>提前领取胶囊</button>
                                 </div>
                             </div>
                             :
                             <></>
-                        } */}
+                        }
 
                         {/* 展示界面： */}
-                        {PillLabel == 1 ?
+                        {tableDisplay == 1 ?
                             <div className='h-fit' >
                                 已到期胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -179,16 +188,16 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 </div>
                                 <div className='flex w-full justify-between'>
 
-                                    <button onClick={() => setPillLabel(0)}>发送邮件</button>
-                                    <button onClick={() => setPillLabel(1)}>领取胶囊</button>
-                                    <button onClick={() => setPillLabel(2)}>设置过期</button>
+                                    <button onClick={() => setTableDisplay(0)}>发送邮件</button>
+                                    <button onClick={() => setTableDisplay(1)}>领取胶囊</button>
+                                    <button onClick={() => setTableDisplay(2)}>设置过期</button>
                                 </div>
                             </div>
                             :
                             <></>
                         }
                         {/* 展示界面： */}
-                        {PillLabel == 2 ?
+                        {tableDisplay == 2 ?
                             <div className='h-fit' >
                                 已完成胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -252,7 +261,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 </div>
                                 <div className='flex w-full justify-between'>
 
-                                    <button onClick={() => setPillLabel(0)}>取消领取？</button>
+                                    <button onClick={() => setTableDisplay(0)}>取消领取？</button>
                                 </div>
                             </div>
                             :
