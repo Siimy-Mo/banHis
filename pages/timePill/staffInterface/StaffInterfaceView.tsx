@@ -3,7 +3,7 @@ import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import PillStatusTable from './pillStatusTable'
+import PillStatusTables from '../../../components/common/PillStatusTables';
 
 interface StaffInterfaceViewProps {
     current: any;
@@ -13,6 +13,11 @@ const statusName = [
     { order: 1, statusName: '已到期' },
     { order: 2, statusName: '已完成' },
 ]
+
+function classNames(...classes: any[]) {
+    return classes.filter(Boolean).join(' ');
+  }
+// 以後應該要改成component的組裝形式
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
@@ -44,7 +49,17 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                     <tr>
                                         {statusName.map((item, index) => {
                                             return (
-                                                <th key={index} scope="col" className="py-3 px-6 hover:text-red-500">
+                                               
+                                                // <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">Profile</a>
+                                                // <a href="#" class="inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active " aria-current="page">Dashboard</a>
+
+                                                <th key={index} scope="col" 
+                                                    className={classNames("py-3 px-6 mx-4 rounded-t-lg border-b-2 border-transparent hover:text-red-6500",
+                                                    item.order == tableDisplay?
+                                                    "text-red-500 border-red-500"
+                                                    :
+                                                    ""
+                                                    )}>
                                                     <a onClick={() => setTableDisplay(item.order)}>{item.statusName} </a>
                                                 </th>
                                             )
@@ -68,10 +83,17 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
                         {/* <PillStatusTable /> */}
                         <div className="mb-4 inline-flex justify-center items-center w-full">
-                            <hr className="my-4 w-full h-px bg-red-500 border-0 dark:bg-gray-700"/>
-                                <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
-                                    {statusName[tableDisplay].statusName}膠囊表格</span>
+                            <hr className="my-4 w-full h-px bg-red-500 border-0 dark:bg-gray-700" />
+                            <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
+                                {statusName[tableDisplay].statusName}膠囊表格</span>
                         </div>
+
+
+                        {/* 還要傳送數據！ default是空集狀態組件*/}
+                        <PillStatusTables
+                            display={tableDisplay}
+                            pillData={{}} />
+
 
                         {/* 展示界面： */}
                         {tableDisplay == 0 ?
@@ -124,9 +146,21 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         }
 
                         {/* 展示界面： */}
+                        {/* {
+                            (() => {
+                                switch(tableDisplay){
+                                    case 0:
+                                        return <div>0</div>
+                                    case 1:
+                                        return <div>1</div>
+                                    default:
+                                        return <div>默認的一個佔位高度</div>
+                                }
+                            })
+                        } */}
+
                         {tableDisplay == 1 ?
                             <div className='h-fit' >
-                                已到期胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                                     <table className="w-full text-sm text-left  dark:text-gray-400">
                                         <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -199,7 +233,6 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         {/* 展示界面： */}
                         {tableDisplay == 2 ?
                             <div className='h-fit' >
-                                已完成胶囊界面
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                                     <table className="w-full text-sm text-left  dark:text-gray-400">
                                         <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
