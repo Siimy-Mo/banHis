@@ -77,7 +77,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
                         {/* <PillStatusTable /> */}
                         <div className="mb-4 inline-flex justify-center items-center w-full">
-                            <hr className="my-4 w-full h-px bg-red-500 border-0 dark:bg-gray-700" />
+                            <hr className="my-4 w-3/4 md:w-full h-px bg-red-500 border-0 dark:bg-gray-700" />
                             <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
                                 {statusName[tableDisplay].statusName}膠囊表格</span>
                         </div>

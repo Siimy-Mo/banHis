@@ -38,7 +38,7 @@
   /*UI配色參考 https://codepen.io/oliviale/pen/mgWjpq */
 
   .staffInterfaceBtn{
-    @apply relative m-1 mt-8 mb-4 md:m-4 font-light text-sm md:text-base tracking-wide py-2 px-4 md:py-4 md:px-10 outline-0 border rounded-3xl border-red-900 text-red-900 cursor-pointer z-0
+    @apply relative m-1 mt-8 mb-4 md:m-4 font-light text-sm md:text-base tracking-wide py-2 px-4 md:py-3 md:px-8 outline-0 border rounded-3xl border-red-900 text-red-900 cursor-pointer z-0
      after:block after:bg-red-100 after:border-transparent after:w-full after:h-full after:z-[-1] after:absolute after:top-0 after:left-0 after:duration-200
      hover:after:border-red-900 hover:after:rounded-3xl
   }
