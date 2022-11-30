@@ -16,7 +16,7 @@ const statusName = [
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
-  }
+}
 // 以後應該要改成component的組裝形式
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
@@ -46,34 +46,30 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                             <table className="w-full text-sm text-center  ">
                                 <thead className="text-base">
                                     <tr>
-                                        {statusName.map((item, index) => {
-                                            return (
-                                               
-                                                // <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">Profile</a>
-                                                // <a href="#" class="inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active " aria-current="page">Dashboard</a>
+                                        {statusName.map((item, index) => (
+                                            // <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">Profile</a>
+                                            // <a href="#" class="inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active " aria-current="page">Dashboard</a>
 
-                                                <th key={index} scope="col" 
-                                                    className={classNames("py-3 px-6 mx-4 rounded-t-lg border-b-2 border-transparent hover:text-red-6500",
-                                                    item.order == tableDisplay?
-                                                    "text-red-500 border-red-500"
-                                                    :
-                                                    ""
-                                                    )}>
-                                                    <a onClick={() => setTableDisplay(item.order)}>{item.statusName} </a>
-                                                </th>
-                                            )
-                                        })}
+                                            <th key={index} scope="col"
+                                                className={classNames("py-3 px-6 mx-4 rounded-t-lg border-b-2 border-transparent hover:text-red-6500",
+                                                    item.order == tableDisplay ?
+                                                        "text-red-500 border-red-500"
+                                                        :
+                                                        ""
+                                                )}>
+                                                <a onClick={() => setTableDisplay(item.order)}>{item.statusName} </a>
+                                            </th>
+
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="">
-                                        {current.map((num: number, index: number) => {
-                                            return (
-                                                <td key={index} className="py-2 px-6">
-                                                    {num}
-                                                </td>
-                                            )
-                                        })}
+                                        {current.map((num: number, index: number) => (
+                                            <td key={index} className="py-2 px-6">
+                                                {num}
+                                            </td>
+                                        ))}
                                     </tr>
                                 </tbody>
                             </table>
