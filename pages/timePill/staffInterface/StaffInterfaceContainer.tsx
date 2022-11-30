@@ -28,11 +28,14 @@ export default function StaffInterfaceContainer() {
     // const [{ data: getTagByTaggingData }] = useAxios(apiSetting.Tag.getTagByTagging(), {
     //     manual: false
     // }); //getTagByTaggingData 傳走
+
     const current = dataset0
 
     useEffect(() => {
     }, []);//訪問dataset0，返回所有膠囊狀態（數字）
 
+
+    //根據display訪問 三種類型的表格，獲得3個數據
 
     return <StaffInterfaceView {...{current}}/>; // 导出view 传入参数。
 }
