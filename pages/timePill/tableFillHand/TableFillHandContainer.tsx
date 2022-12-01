@@ -34,7 +34,8 @@ export default function TableFillHandContainer() {
         // else router.reload();
 
         // 正式链接：
-        const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,content,tip,date));
+        const imgdata = await convertBase64(content);
+        const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,imgdata,tip,date));
         if (res.data.success) {
             console.log(res.data)
             const token = res.headers.authorization;
@@ -48,10 +49,22 @@ export default function TableFillHandContainer() {
             // }
             if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
             else router.reload();
-        } else {
+        } else { 
+    }};
 
-        }
-
-    };
+    const convertBase64 = (file:any) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+    
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+    
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    }
     return <TableFillHandView {...{ SubmitLoading, handleSubmit }} />; // 导出view 传入参数。
 }

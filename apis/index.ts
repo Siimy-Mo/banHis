@@ -1,5 +1,6 @@
 // index.js
 import PillForm from './PillForm';
+import PillStatus from './PillStatus';
 import Authorization from './Authorization';
 
 // 类似 const api = axio.create({})

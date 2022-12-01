@@ -9,6 +9,9 @@ export default class PillForm {
             baseURL: baseURL,
             url: '/api/capsules',
             method: 'POST',
+            // headers:{
+            //     "Content-Type":"multipart/form-data",
+            // },
             data: {
                 capsule: {
                     name,
@@ -19,21 +22,6 @@ export default class PillForm {
                 }
             }
         };
-        return requestHeader; //应该包含：成功状态，pill order
+        return requestHeader; 
     }
-
-    queryPillStatus(code:string) {
-        const requestHeader: AxiosRequestConfig = {
-            baseURL: baseURL,
-            // url: `/api/capsules/search`,
-            url: `/api/capsules/search?code=${code}`,
-            method: 'GET',
-            data: {
-                code,
-                
-            }
-        };
-        return requestHeader;
-    }
-
 }
