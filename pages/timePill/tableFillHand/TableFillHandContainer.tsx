@@ -38,15 +38,8 @@ export default function TableFillHandContainer() {
         const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,imgdata,tip,date));
         if (res.data.success) {
             console.log(res.data)
-            const token = res.headers.authorization;
-            // localStorage.setItem('authorization', token);
-            // localStorage.setItem('email', email);
-            // if (remember) {
-            //     const expiryDate = 'Fri, 31 Dec 9999 23:59:59 GMT'; // to be updated so that this can be dynamic
-            //     document.cookie = `authorization=${escape(token)}; expires=${expiryDate}`;
-            // } else {
-            //     document.cookie = `authorization=${escape(token)}`;
-            // }
+            const info = res.data.doc.capsule;
+            localStorage.setItem('successfulInfo', JSON.stringify(info));
             if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
             else router.reload();
         } else { 

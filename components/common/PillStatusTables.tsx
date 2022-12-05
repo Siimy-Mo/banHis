@@ -38,8 +38,9 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        console.log('display會變化， 看display選請求鏈接')
-        console.log(display)
+        // console.log('子components:')
+        // console.log('display會變化， 看display選請求鏈接')
+        // console.log(display)
     }, [display]);//第一次默認
 
 

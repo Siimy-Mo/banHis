@@ -36,10 +36,9 @@ export default function StaffLoginContainer() {
                 const res = await signIn(apiSetting.Authorization.signUp(email, name, password));
                 if (res.data.success) {
                     console.log(res.data)
-                    const token = res.headers.authorization;
+                    const token = res.data.doc.user.authentication_token;
                     localStorage.setItem('authorization', token);
                     localStorage.setItem('email', email);
-                    //自动点返回？弹窗成功先
                     router.reload();
                 } else {
                     console.log(res.data)
@@ -54,7 +53,8 @@ export default function StaffLoginContainer() {
             const res = await signIn(apiSetting.Authorization.signIn(email, password));
             if (res.data.success) {
                 console.log(res.data)
-                const token = res.headers.authorization;
+                const token = res.data.doc.user.authentication_token;
+    
                 localStorage.setItem('authorization', token);
                 localStorage.setItem('email', email);
                 if (router.pathname === '/timePill/staffLogin') router.push('./staffInterface');

@@ -11,6 +11,7 @@ export default class Api {
     // Tag: Tag;
     // Search: Search;
     PillForm: PillForm;
+    PillStatus: PillStatus;
     // Absence: Absence;
     // Document: Document;
     // FormSchema: FormSchema;
@@ -26,6 +27,7 @@ export default class Api {
         // this.Tag = new Tag();
         // this.Search = new Search();
         this.PillForm = new PillForm();
+        this.PillStatus = new PillStatus();
         // this.Absence = new Absence();
         // this.Document = new Document();
         // this.FormSchema = new FormSchema();

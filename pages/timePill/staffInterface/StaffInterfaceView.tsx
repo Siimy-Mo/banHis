@@ -22,6 +22,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
     const { current=[], } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
+    const router = useRouter();
 
     return (
         <>
@@ -30,8 +31,11 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                 <div className='flex flex-col items-center w-full md:w-2/3 text-red-900'>
 
                     <div className=''>
+                        <a onClick={()=>router.push('./staffLogin')}>
                         <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
                             staff操作界面</h3>
+
+                        </a>
                     </div>
 
                     <div className='flex flex-col items-center py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
