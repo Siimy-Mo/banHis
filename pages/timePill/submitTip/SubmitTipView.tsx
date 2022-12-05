@@ -13,7 +13,7 @@ interface SubmitTipViewProps {
 
 export default function SubmitTipView(props: SubmitTipViewProps) {
     const { information, diff } = props;
-    const deadline = information.deadline.substr(0,10);
+    // const deadline = information.deadline.substr(0,10);
     const router = useRouter();
 
     return (
@@ -33,7 +33,7 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
                             恭喜你已經成功將一枚時光膠囊發送到未來，
                             時光膠囊編號為：<b>{information.id}</b>。<br/>
 
-                            時光膠囊將會隨時間漂流，直至<b>{deadline}</b>
+                            時光膠囊將會隨時間漂流，直至<b>{information.deadline}</b>
                             會再次通過郵箱：<b>{information.email}</b>,
                             通知<b>{diff}</b>天後的你到店打開膠囊。<br/><br/>
                             膠囊預覽：</div>
