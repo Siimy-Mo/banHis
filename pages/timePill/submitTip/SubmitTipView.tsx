@@ -6,7 +6,12 @@ import { useRouter } from 'next/router';
 
 
 interface SubmitTipViewProps {
-    information:any;
+    information:{
+        id:number;
+        deadline:string;
+        email:string;
+        content:string;
+    };
     diff:number;
     // handleSignIn: FormEventHandler;
 }
