@@ -11,10 +11,10 @@ interface SubmitTipViewProps {
 }
 
 interface informationProps {
-        id:number;
-        deadline:string;
-        email:string;
-        content:string;
+        id:number|0;
+        deadline:string|'';
+        email:string|'';
+        content:string|'';
 }
 export default function SubmitTipView(props: SubmitTipViewProps) {
     const { information, diff } = props;
