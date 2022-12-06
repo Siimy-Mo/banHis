@@ -17,7 +17,12 @@ interface informationProps {
         content:string|'';
 }
 export default function SubmitTipView(props: SubmitTipViewProps) {
-    const { information, diff } = props;
+    const { information={
+        id:0,
+        deadline:'',
+        email:'',
+        content:'',
+    }, diff } = props;
     // const deadline = information.deadline.substr(0,10);
     const router = useRouter();
 
