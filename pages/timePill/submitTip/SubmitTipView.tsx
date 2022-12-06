@@ -6,16 +6,16 @@ import { useRouter } from 'next/router';
 
 
 interface SubmitTipViewProps {
-    information:{
+    information:informationProps,
+    diff:number;
+}
+
+interface informationProps {
         id:number;
         deadline:string;
         email:string;
         content:string;
-    };
-    diff:number;
-    // handleSignIn: FormEventHandler;
 }
-
 export default function SubmitTipView(props: SubmitTipViewProps) {
     const { information, diff } = props;
     // const deadline = information.deadline.substr(0,10);
@@ -36,11 +36,11 @@ export default function SubmitTipView(props: SubmitTipViewProps) {
                         {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
                         <div className='md:mb-6 text-center text-sm md:text-lg'>
                             恭喜你已經成功將一枚時光膠囊發送到未來，
-                            時光膠囊編號為：<b>{information.id}</b>。<br/>
+                            時光膠囊編號為：<b> {information.id} </b>。<br/>
 
-                            時光膠囊將會隨時間漂流，直至<b>{information.deadline}</b>
-                            會再次通過郵箱：<b>{information.email}</b>,
-                            通知<b>{diff}</b>天後的你到店打開膠囊。<br/><br/>
+                            時光膠囊將會隨時間漂流，直至<b> {information.deadline} </b>
+                            會再次通過郵箱：<b> {information.email} </b>,
+                            通知<b> {diff} </b>天後的你到店打開膠囊。<br/><br/>
                             膠囊預覽：</div>
                             <img className="my-2 w-2/3 rounded" src={information.content} alt="Img preview" />
 
