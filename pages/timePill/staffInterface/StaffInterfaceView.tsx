@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import PillStatusTables from '../../../components/common/PillStatusTables';
 
 interface StaffInterfaceViewProps {
-    current: any;
+    status: any;
 }
 const statusName = [
     { order: 0, statusName: '未到期' },
@@ -20,7 +20,7 @@ function classNames(...classes: any[]) {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { current=[], } = props;
+    const { status = [], } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
     const router = useRouter();
 
@@ -31,9 +31,9 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                 <div className='flex flex-col items-center w-full md:w-2/3 text-red-900'>
 
                     <div className=''>
-                        <a onClick={()=>router.push('./staffLogin')}>
-                        <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
-                            staff操作界面</h3>
+                        <a onClick={() => router.push('./staffLogin')}>
+                            <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
+                                staff操作界面</h3>
 
                         </a>
                     </div>
@@ -64,15 +64,31 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                             </th>
 
                                         ))}
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="">
-                                        {current.map((item:any,index:number) => (
+                                    {/* received: 0,  //未到期
+    confirmed: 0,  //店员确认
+    informed: 0,  //店员已发邮件
+    expire: 0,  //已到期，未领取
+    finish: 0,  //完成，已领取
+    unused: 0, //完成，未领取 */}
+                                        <td className="py-2 px-6">
+                                            {status.received + status.confirmed}
+                                        </td>
+                                        <td className="py-2 px-6">
+                                            {status.expire}
+                                        </td>
+                                        <td className="py-2 px-6">
+                                            {status.finish + status.unused}
+                                        </td>
+                                        {/* {status.map((item: any, index: number) => (
                                             <td key={index} className="py-2 px-6">
                                                 {item.num}
                                             </td>
-                                        ))}
+                                        ))} */}
                                     </tr>
                                 </tbody>
                             </table>

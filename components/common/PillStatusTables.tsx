@@ -1,4 +1,7 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
+import useAxios from 'axios-hooks';
+import Api from '../../apis';
+const apiSetting = new Api();
 
 //請求數據
 //提交操作
@@ -18,10 +21,41 @@ const dataset3 = [//已完成 的膠囊狀態：膠囊編號 | 到期日期 | �
 
 interface UploadingProps {
     display: number;
+    // headers
 }
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer B7PC44kY7jEgbGPA_Wu1',
+};
 
 function HeadNav(props: UploadingProps) {
     const { display = 0 } = props;
+    const [{ data: allPillsData}, getAllPillsWithStatus] = useAxios(
+        {},
+        { manual: true }
+    );
+    
+    const getPills =async () => {
+        // const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers,'received'))
+        // if (res.data.success) {
+        //     const totalNumber1 = res.data.length
+        //     console.log('Pill Tables: res.data',res.data)
+        //     console.log(totalNumber1)
+        // }
+        
+        // const res1 = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers,'received'))
+        // if (res.data.success) {
+        //     const totalNumber1 = res.data.length
+        //     console.log(res.data)
+        //     console.log(totalNumber1)
+        // }
+        // const res = await getAllPills(apiSetting.PillStatus.getAllPills(headers, 'received'))
+        // if (res.data.success) {const totalNumber2 = res.data.length}
+        // const res = await getAllPills(apiSetting.PillStatus.getAllPills(headers, 'received'))
+        // if (res.data.success) {const totalNumber3 = res.data.length}
+    
+    }
 
     const project = (display: number) => {
         //這裡就要傳數據了！！，或者在table0裡【不建議】

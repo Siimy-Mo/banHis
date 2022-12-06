@@ -34,7 +34,8 @@ export default function SubmitTipContainer() {
         const dateStart = new Date(now).getTime();
         let dateEnd = new Date(ddl).getTime();
         let diff = (dateEnd - dateStart) / (1000 * 60 * 60 * 24);
-        info.deadline = ddl
+        info.deadline = 
+        console.log('Content---------- img src',info.content)
         setDiff(diff)
         setInfo(info)
     }
