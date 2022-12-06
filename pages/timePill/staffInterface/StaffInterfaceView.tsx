@@ -1,9 +1,8 @@
 // import { CheckIcon, XIcon } from '@heroicons/react/outline'; // react lib的一些icon图标
-import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import PillStatusTables from '../../../components/common/PillStatusTables';
+import PillStatusTables from './PillStatusTables';
 
 interface StaffInterfaceViewProps {
     status: any;
@@ -14,9 +13,11 @@ const statusName = [
     { order: 2, statusName: '已完成' },
 ]
 
+
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
 }
+
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
@@ -60,7 +61,8 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                         :
                                                         ""
                                                 )}>
-                                                <a onClick={() => setTableDisplay(item.order)}>{item.statusName} </a>
+                                                <a onClick={() => {
+                                                    setTableDisplay(item.order)}}>{item.statusName} </a>
                                             </th>
 
                                         ))}
@@ -69,26 +71,15 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 </thead>
                                 <tbody>
                                     <tr className="">
-                                    {/* received: 0,  //未到期
-    confirmed: 0,  //店员确认
-    informed: 0,  //店员已发邮件
-    expire: 0,  //已到期，未领取
-    finish: 0,  //完成，已领取
-    unused: 0, //完成，未领取 */}
                                         <td className="py-2 px-6">
                                             {status.received + status.confirmed}
                                         </td>
                                         <td className="py-2 px-6">
-                                            {status.expire}
+                                            {status.expire + status.informed}
                                         </td>
                                         <td className="py-2 px-6">
                                             {status.finish + status.unused}
                                         </td>
-                                        {/* {status.map((item: any, index: number) => (
-                                            <td key={index} className="py-2 px-6">
-                                                {item.num}
-                                            </td>
-                                        ))} */}
                                     </tr>
                                 </tbody>
                             </table>
@@ -103,8 +94,11 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
 
                         {/* 還要傳送數據！ default是空集狀態組件*/}
-                        <PillStatusTables
-                            display={tableDisplay} />
+                        {/* <Provider value={tableDisplay }> */}
+
+                            <PillStatusTables
+                                display={tableDisplay} />
+                        {/* </Provider> */}
 
                     </div>
                 </div>

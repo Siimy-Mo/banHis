@@ -18,11 +18,11 @@ export default class PillStatus {
         return requestHeader;
     }
 
-    getAllPillsWithStatus(headers:any, status: string|'received'){
+    getAllPillsWithStatus(headers:any, status: string){
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
             headers:headers,
-            url: `/api/capsules?${status}`,
+            url: `/api/capsules?status=${status}`,
             method: 'GET',
         };
         return requestHeader;
