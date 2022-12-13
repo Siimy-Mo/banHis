@@ -20,24 +20,26 @@ const status =  //子组件不用所以这里不放在cxt中
     unused: 0, //完成，未领取
 }
 
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer B7PC44kY7jEgbGPA_Wu1',
+};
 
 export default function StaffInterfaceContainer(PillContext: any) {
     const [tableDisplay, setTableDisplay] = useState(0)
     const [checkid, setCheckid] = useState(0)
     const [targetStatus, setTargetStatus] = useState('')
-    const [submitChange, setSubmitChange] = useState(false)
 
     const router = useRouter();
-    // const status = {};
     const [{ data: allPillsData }, getAllPills] = useAxios(
         {},
         { manual: true }
     );
+    const [{ data: changePillStatusData }, changePillStatus] = useAxios(
+        {},
+        { manual: true }
+    );
 
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer B7PC44kY7jEgbGPA_Wu1',
-    };
 
     const getNum = (data: any, target: string) => {
         let num = 0
@@ -88,10 +90,20 @@ export default function StaffInterfaceContainer(PillContext: any) {
     }, []);
 
 
+    const changePill = async(checkid:number, targetStatus:string) => {
+        // console.log('GetPills in Interface:')
+        const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
+
+        if (res.data.success) {
+            const pills = res.data
+            console.log(pills)
+        };
+    }
 
     //父组件的function:
     useEffect(()=>{
         console.log('父组件的function：',checkid, targetStatus)
+        changePill(checkid, targetStatus)
         //记得reload
     }, [checkid, targetStatus])
 

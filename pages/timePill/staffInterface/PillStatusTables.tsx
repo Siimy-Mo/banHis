@@ -1,4 +1,4 @@
-import { MouseEventHandler,FormEventHandler,ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
+import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
 // import {PillContext} from './StaffInterfaceContainer';
@@ -41,8 +41,8 @@ const dataset3 = [//已完成 的膠囊狀態：膠囊編號 | 到期日期 | �
 
 interface UploadingProps {
     display: number,
-    setCheckid:any,
-    setTargetStatus:any,
+    setCheckid: any,
+    setTargetStatus: any,
 }
 
 const cutDate = (date: string) => {
@@ -69,7 +69,7 @@ const changeStatus1: MouseEventHandler<HTMLButtonElement> = async (e) => {
 
 function HeadNav(props: UploadingProps) {
     // const display0 = useContext(AppContext);
-    const { display = 0, setCheckid, setTargetStatus } = props;
+    const { display = -1, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
     const [pillnum, setPillnum] = useState(0)
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios(
@@ -77,26 +77,27 @@ function HeadNav(props: UploadingProps) {
         { manual: true }
     );
 
-    const getPills = async (display: number) => {
-        const s1 = displayLabel[0];
-
-        const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, s1[0]))
-        if (res.data.success) {
+    const getPills = async (status: Array<[]>) => {//两个promise，合并需要Promise.all来处理
+        const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[0]))
+        const res1 = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[1]))
+        if (res.data.success && res1.data.success) {
             const content = res.data.doc
-            setPillContent(content)
-            console.log('Pill Tables: res.data', res.data)
+            const content1 = res1.data.doc
+            Promise.all([content, content1]).then((values) => {
+                setPillContent(values[0].concat(values[1]))
+            })
         }
     }
 
     // 捕捉选择的胶囊id
-    const handleChange:ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         // console.log(e.target)
-        if  (e.target.checked) {
+        if (e.target.checked) {
             setPillnum(Number(e.target.value))
         } //else?
     }
 
-    const handleSubmit = (target:string) => {
+    const handleSubmit = (target: string) => {
         // console.log(target)
         setCheckid(pillnum)
         setTargetStatus(target)
@@ -120,8 +121,10 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        getPills(display)
-    }, []);//第一次默認
+        if (display >= 0) {
+            getPills(displayLabel[display])
+        }
+    }, [display]);//第一次默認
 
     useEffect(() => {
         console.log('pillNumber: ', pillnum)
@@ -132,7 +135,7 @@ function HeadNav(props: UploadingProps) {
     );
 }
 
-const table0 = (pillContent: any, handleChange:any, handleSubmit:any) => {
+const table0 = (pillContent: any, handleChange: any, handleSubmit: any) => {
     // const value = useContext(PillContext);
     return (
         <div className='h-fit' >
@@ -181,8 +184,8 @@ const table0 = (pillContent: any, handleChange:any, handleSubmit:any) => {
                 </table>
             </div>
             <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' onClick={()=>{handleSubmit('confirmed')}}>確認收件</button>
-                <button className='staffInterfaceBtn' onClick={()=>{handleSubmit('finish')}}>提前领取</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('finish') }}>提前领取</button>
             </div>
 
         </div>

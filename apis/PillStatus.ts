@@ -36,22 +36,15 @@ export default class PillStatus {
         };
         return requestHeader;
     }
-    sendEmailInform(code:string){
+    // /api/capsules/1
+    changePillStatus(headers:any, code:number, status:string) {
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
-            url: `/api/capsules/${code}/send_email`,
-            method: 'POST',
-        };
-        return requestHeader;
-    }
-    
-    queryPillStatus(code:string) {
-        const requestHeader: AxiosRequestConfig = {
-            baseURL: baseURL,
-            url: `/api/capsules/search?code=${code}`,
-            method: 'GET',
+            headers:headers,
+            url: `/api/capsules/${code}`,
+            method: 'PUT',
             data: {
-                code,
+                status,
                 
             }
         };
