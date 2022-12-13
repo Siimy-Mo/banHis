@@ -1,4 +1,4 @@
-import { MouseEventHandler, useContext, useDebugValue, useEffect, useState } from 'react';
+import { MouseEventHandler,FormEventHandler,ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
 // import {PillContext} from './StaffInterfaceContainer';
@@ -30,8 +30,19 @@ const dataset3 = [//已完成 的膠囊狀態：膠囊編號 | 到期日期 | �
     { number: '654321', ddl: '12/21', method: 'Finished' },
 ];
 
+
+
+
+
+
+
+
+
+
 interface UploadingProps {
-    display: number;
+    display: number,
+    setCheckid:any,
+    setTargetStatus:any,
 }
 
 const cutDate = (date: string) => {
@@ -58,16 +69,15 @@ const changeStatus1: MouseEventHandler<HTMLButtonElement> = async (e) => {
 
 function HeadNav(props: UploadingProps) {
     // const display0 = useContext(AppContext);
-    const { display = 0 } = props;
+    const { display = 0, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
+    const [pillnum, setPillnum] = useState(0)
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios(
         {},
         { manual: true }
     );
 
     const getPills = async (display: number) => {
-        // console.log('display', displayLabel[display])
-        // const s1 = displayLabel[display];
         const s1 = displayLabel[0];
 
         const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, s1[0]))
@@ -78,18 +88,19 @@ function HeadNav(props: UploadingProps) {
         }
     }
 
-    // useContext?
-    const changeStatus = async (target: string) => {
-        console.log('tchange!!!!!!!!!!!', target)
-
-        // const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, s1[0]))
-        // if (res.data.success) {
-        //     const content = res.data.doc
-        //     setPillContent(content)
-        //     console.log('Pill Tables: res.data', res.data)
-        // }
+    // 捕捉选择的胶囊id
+    const handleChange:ChangeEventHandler<HTMLInputElement> = (e) => {
+        // console.log(e.target)
+        if  (e.target.checked) {
+            setPillnum(Number(e.target.value))
+        } //else?
     }
 
+    const handleSubmit = (target:string) => {
+        // console.log(target)
+        setCheckid(pillnum)
+        setTargetStatus(target)
+    }
 
     const project = (display: number) => {
         //這裡就要傳數據了！！，或者在table0裡【不建議】
@@ -97,7 +108,7 @@ function HeadNav(props: UploadingProps) {
         if (pillContent) {
             switch (display) {
                 case 0:
-                    return table0(pillContent);
+                    return table0(pillContent, handleChange, handleSubmit);
                 case 1:
                     return table1();
                 case 2:
@@ -112,12 +123,16 @@ function HeadNav(props: UploadingProps) {
         getPills(display)
     }, []);//第一次默認
 
+    useEffect(() => {
+        console.log('pillNumber: ', pillnum)
+    }, [pillnum]);
+
     return (
         <div>{project(display)}</div>
     );
 }
 
-const table0 = (pillContent: any) => {
+const table0 = (pillContent: any, handleChange:any, handleSubmit:any) => {
     // const value = useContext(PillContext);
     return (
         <div className='h-fit' >
@@ -145,7 +160,8 @@ const table0 = (pillContent: any) => {
                                 <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td className="p-4 w-4">
                                         <div className="flex items-center">
-                                            <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                            <input id="default-radio-1" onChange={handleChange}
+                                                type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                             <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
                                         </div>
                                     </td>
@@ -165,8 +181,8 @@ const table0 = (pillContent: any) => {
                 </table>
             </div>
             <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' onClick={changeStatus1} >確認收件</button>
-                <button className='staffInterfaceBtn' >提前领取</button>
+                <button className='staffInterfaceBtn' onClick={()=>{handleSubmit('confirmed')}}>確認收件</button>
+                <button className='staffInterfaceBtn' onClick={()=>{handleSubmit('finish')}}>提前领取</button>
             </div>
 
         </div>

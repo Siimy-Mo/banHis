@@ -6,6 +6,8 @@ import PillStatusTables from './PillStatusTables';
 
 interface StaffInterfaceViewProps {
     status: any;
+    setCheckid:any;
+    setTargetStatus:any;
 }
 const statusName = [
     { order: 0, statusName: '未到期' },
@@ -21,7 +23,7 @@ function classNames(...classes: any[]) {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { status = [], } = props;
+    const { status = [],setCheckid, setTargetStatus } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
     const router = useRouter();
 
@@ -86,6 +88,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         </div>
 
                         {/* <PillStatusTable /> */}
+                    
                         <div className="mb-4 inline-flex justify-center items-center w-full">
                             <hr className="my-4 w-3/4 md:w-full h-px bg-red-500 border-0 dark:bg-gray-700" />
                             <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
@@ -95,9 +98,10 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
                         {/* 還要傳送數據！ default是空集狀態組件*/}
                         {/* <Provider value={tableDisplay }> */}
-
                             <PillStatusTables
-                                display={tableDisplay} />
+                                display={tableDisplay}
+                                setCheckid={setCheckid}
+                                setTargetStatus={setTargetStatus} />
                         {/* </Provider> */}
 
                     </div>

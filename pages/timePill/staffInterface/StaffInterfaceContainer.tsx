@@ -5,6 +5,7 @@ import StaffInterfaceView from './StaffInterfaceView';
 import { useRouter } from 'next/router';
 import useAxios from 'axios-hooks';
 import axios from 'axios';
+import { Alert } from 'flowbite-react';
 
 
 const apiSetting = new Api();
@@ -20,10 +21,11 @@ const status =  //子组件不用所以这里不放在cxt中
 }
 
 
-
-
 export default function StaffInterfaceContainer(PillContext: any) {
     const [tableDisplay, setTableDisplay] = useState(0)
+    const [checkid, setCheckid] = useState(0)
+    const [targetStatus, setTargetStatus] = useState('')
+    const [submitChange, setSubmitChange] = useState(false)
 
     const router = useRouter();
     // const status = {};
@@ -47,7 +49,7 @@ export default function StaffInterfaceContainer(PillContext: any) {
     }
 
     const getPills = async () => {
-        console.log('GetPills in Interface:')
+        // console.log('GetPills in Interface:')
         const res = await getAllPills(apiSetting.PillStatus.getAllPills(headers))
 
         if (res.data.success) {
@@ -78,7 +80,6 @@ export default function StaffInterfaceContainer(PillContext: any) {
             //     .then((res) => {
             //         console.log(res.data)
             //     })
-
             getPills()
             console.log(status)
         } else {
@@ -86,10 +87,17 @@ export default function StaffInterfaceContainer(PillContext: any) {
         }
     }, []);
 
-    //根據display訪問 三種類型的表格，獲得3個數據
+
+
+    //父组件的function:
+    useEffect(()=>{
+        console.log('父组件的function：',checkid, targetStatus)
+        //记得reload
+    }, [checkid, targetStatus])
+
 
     return (
-        <StaffInterfaceView {...{ status }} />
-        )
+        <StaffInterfaceView {...{ status, setCheckid, setTargetStatus }} />
+    )
 
 }
