@@ -11,11 +11,11 @@ const apiSetting = new Api();
 // expire: 0,  //已到期，未领取
 // finish: 0,  //完成，已领取
 // unused: 0, //完成，未领取
-const displayLabel = {
-    0: ['received', 'confirmed'],
-    1: ['expire', 'informed'],
-    2: ['finish', 'unused'],
-}
+const displayLabel = [
+     ['received', 'confirmed'],
+     ['expire', 'informed'],
+     ['finish', 'unused'],
+]
 
 
 
@@ -90,7 +90,7 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        if (display){
+        if (display+1){
             getPills(displayLabel[display])
         }
     }, [display]);//第一次默認
