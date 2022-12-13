@@ -1,6 +1,7 @@
 import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
+import { stringify } from 'querystring';
 // import {PillContext} from './StaffInterfaceContainer';
 
 const apiSetting = new Api();
@@ -45,7 +46,7 @@ function HeadNav(props: UploadingProps) {
         { manual: true }
     );
 
-    const getPills = async (status: Array<[]>) => {//两个promise，合并需要Promise.all来处理
+    const getPills = async (status: Array<[string,string]>) => {//两个promise，合并需要Promise.all来处理
         // console.log('getPills function ! with status:', status)
         const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[0]))
         const res1 = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[1]))
@@ -90,7 +91,7 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        getPills(displayLabel[display] as Array<[]>)
+        getPills(displayLabel[display] as Array<[0:string;1:string]>)
 
     }, [display]);//第一次默認
 
