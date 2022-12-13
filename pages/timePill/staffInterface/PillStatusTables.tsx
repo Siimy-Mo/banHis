@@ -90,7 +90,7 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        getPills(displayLabel[display])
+        getPills(displayLabel[display] as Array<[]>)
 
     }, [display]);//第一次默認
 
