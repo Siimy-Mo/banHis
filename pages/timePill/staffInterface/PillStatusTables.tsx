@@ -1,7 +1,6 @@
 import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
-import { stringify } from 'querystring';
 // import {PillContext} from './StaffInterfaceContainer';
 
 const apiSetting = new Api();
@@ -91,7 +90,7 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        getPills(displayLabel[display] as Array<[0:string;1:string]>)
+        getPills(displayLabel[display])
 
     }, [display]);//第一次默認
 
