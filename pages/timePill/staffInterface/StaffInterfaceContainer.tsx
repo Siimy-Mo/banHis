@@ -83,7 +83,7 @@ export default function StaffInterfaceContainer(PillContext: any) {
             //         console.log(res.data)
             //     })
             getPills()
-            console.log(status)
+            // console.log(status)
         } else {
             router.push('./staffLogin');
         }
@@ -93,16 +93,15 @@ export default function StaffInterfaceContainer(PillContext: any) {
     const changePill = async(checkid:number, targetStatus:string) => {
         // console.log('GetPills in Interface:')
         const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
-
         if (res.data.success) {
             const pills = res.data
-            console.log(pills)
+            // console.log(pills)
         };
     }
 
     //父组件的function:
     useEffect(()=>{
-        console.log('父组件的function：',checkid, targetStatus)
+        // console.log('父组件的function：',checkid, targetStatus)
         changePill(checkid, targetStatus)
         //记得reload
     }, [checkid, targetStatus])
