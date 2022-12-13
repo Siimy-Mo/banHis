@@ -45,7 +45,7 @@ function HeadNav(props: UploadingProps) {
         { manual: true }
     );
 
-    const getPills = async (status: Array<[string,string]>) => {//两个promise，合并需要Promise.all来处理
+    const getPills = async (status: any) => {//两个promise，合并需要Promise.all来处理
         // console.log('getPills function ! with status:', status)
         const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[0]))
         const res1 = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[1]))
@@ -90,8 +90,9 @@ function HeadNav(props: UploadingProps) {
     }
 
     useEffect(() => {
-        getPills(displayLabel[display])
-
+        if (display){
+            getPills(displayLabel[display])
+        }
     }, [display]);//第一次默認
 
     // useEffect(() => {

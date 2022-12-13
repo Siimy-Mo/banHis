@@ -18,7 +18,7 @@ export default class PillStatus {
         return requestHeader;
     }
 
-    getAllPillsWithStatus(headers:any, status: string){
+    getAllPillsWithStatus(headers:any, status?: string){
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
             headers:headers,
