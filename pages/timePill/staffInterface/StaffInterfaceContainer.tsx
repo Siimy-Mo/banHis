@@ -91,7 +91,7 @@ export default function StaffInterfaceContainer(PillContext: any) {
 
 
     const changePill = async(checkid:number, targetStatus:string) => {
-        // console.log('GetPills in Interface:')
+        // console.log('GetPills in Interface:',checkid, targetStatus)
         const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
         if (res.data.success) {
             const pills = res.data
