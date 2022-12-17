@@ -6,8 +6,9 @@ import PillStatusTables from './PillStatusTables';
 
 interface StaffInterfaceViewProps {
     status: any;
-    setCheckid:any;
-    setTargetStatus:any;
+    setCheckid: any;
+    setTargetStatus: any;
+    Logout: any;
 }
 const statusName = [
     { order: 0, statusName: '未到期' },
@@ -23,7 +24,7 @@ function classNames(...classes: any[]) {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { status = [],setCheckid, setTargetStatus } = props;
+    const { status = [], setCheckid, setTargetStatus, Logout } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
     const router = useRouter();
 
@@ -34,11 +35,14 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                 <div className='flex flex-col items-center w-full md:w-2/3 text-red-900'>
 
                     <div className=''>
-                        <a onClick={() => router.push('./staffLogin')}>
-                            <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
-                                staff操作界面(点击退出)</h3>
+                        <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
+                            staff操作界面</h3>
+                        <div className=" block mb-6 text-lg font-normallg:text-xl sm:px-16 xl:px-48">
+                            <a onClick={Logout} className="block text-center">
+                                点击退出
+                            </a>
+                        </div>
 
-                        </a>
                     </div>
 
                     <div className='flex flex-col items-center min-w-min w-staffTable py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
@@ -64,7 +68,8 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                         ""
                                                 )}>
                                                 <a onClick={() => {
-                                                    setTableDisplay(item.order)}}>{item.statusName} </a>
+                                                    setTableDisplay(item.order)
+                                                }}>{item.statusName} </a>
                                             </th>
 
                                         ))}
@@ -88,7 +93,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         </div>
 
                         {/* <PillStatusTable /> */}
-                    
+
                         <div className="mb-4 inline-flex justify-center items-center w-full">
                             <hr className="my-4 w-3/4 md:w-full h-px bg-red-500 border-0 dark:bg-gray-700" />
                             <span className="p-1 absolute left-1/2 px-3 font-medium text-white bg-red-500 -translate-x-1/2 dark:text-white dark:bg-gray-900">
@@ -98,10 +103,10 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
 
                         {/* 還要傳送數據！ default是空集狀態組件*/}
                         {/* <Provider value={tableDisplay }> */}
-                            <PillStatusTables
-                                display={tableDisplay}
-                                setCheckid={setCheckid}
-                                setTargetStatus={setTargetStatus} />
+                        <PillStatusTables
+                            display={tableDisplay}
+                            setCheckid={setCheckid}
+                            setTargetStatus={setTargetStatus} />
                         {/* </Provider> */}
 
                     </div>

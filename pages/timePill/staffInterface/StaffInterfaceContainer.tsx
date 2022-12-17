@@ -1,5 +1,5 @@
 // import useAxios from 'axios-hooks';
-import { FormEventHandler, useEffect, createContext, useState } from 'react';
+import { FormEventHandler, useEffect, useCallback, useState } from 'react';
 import Api from '../../../apis';
 import StaffInterfaceView from './StaffInterfaceView';
 import { useRouter } from 'next/router';
@@ -40,7 +40,6 @@ export default function StaffInterfaceContainer(PillContext: any) {
         { manual: true }
     );
 
-
     const getNum = (data: any, target: string) => {
         let num = 0
         data.map((item: any) => {
@@ -62,6 +61,23 @@ export default function StaffInterfaceContainer(PillContext: any) {
             status.expire = getNum(pills, 'expire')
             status.finish = getNum(pills, 'finish')
             status.unused = getNum(pills, 'unused')
+        };
+    }
+
+
+    const Logout = useCallback(() => {
+        localStorage.removeItem('authorization');
+        localStorage.removeItem('email');
+        document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+        router.reload();
+    }, [router]);
+
+    const changePill = async (checkid: number, targetStatus: string) => {
+        // console.log('GetPills in Interface:',checkid, targetStatus)
+        const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
+        if (res.data.success) {
+            const pills = res.data
+            // console.log(pills)
         };
     }
 
@@ -89,18 +105,8 @@ export default function StaffInterfaceContainer(PillContext: any) {
         }
     }, []);
 
-
-    const changePill = async(checkid:number, targetStatus:string) => {
-        // console.log('GetPills in Interface:',checkid, targetStatus)
-        const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
-        if (res.data.success) {
-            const pills = res.data
-            // console.log(pills)
-        };
-    }
-
     //父组件的function:
-    useEffect(()=>{
+    useEffect(() => {
         // console.log('父组件的function：',checkid, targetStatus)
         changePill(checkid, targetStatus)
         //记得reload
@@ -108,7 +114,7 @@ export default function StaffInterfaceContainer(PillContext: any) {
 
 
     return (
-        <StaffInterfaceView {...{ status, setCheckid, setTargetStatus }} />
+        <StaffInterfaceView {...{ status, setCheckid, setTargetStatus, Logout }} />
     )
 
 }
