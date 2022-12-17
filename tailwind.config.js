@@ -926,6 +926,7 @@ module.exports = {
       min: 'min-content',
       max: 'max-content',
       fit: 'fit-content',
+      staffTable:'70vw',
     }),
     willChange: {
       auto: 'auto',

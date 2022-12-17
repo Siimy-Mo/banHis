@@ -36,12 +36,12 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                     <div className=''>
                         <a onClick={() => router.push('./staffLogin')}>
                             <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
-                                staff操作界面</h3>
+                                staff操作界面(点击退出)</h3>
 
                         </a>
                     </div>
 
-                    <div className='flex flex-col items-center py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
+                    <div className='flex flex-col items-center min-w-min w-staffTable py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
                         <div className='text-center w-screen md:w-full 最頂上的文字應該寫操作介紹和問候'>
                             點擊胶囊状态，查看對應表格
                         </div>

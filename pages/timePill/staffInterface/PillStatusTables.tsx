@@ -1,6 +1,7 @@
 import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
+import { useRouter } from 'next/router';
 // import {PillContext} from './StaffInterfaceContainer';
 
 const apiSetting = new Api();
@@ -12,9 +13,9 @@ const apiSetting = new Api();
 // finish: 0,  //完成，已领取
 // unused: 0, //完成，未领取
 const displayLabel = [
-     ['received', 'confirmed'],
-     ['expire', 'informed'],
-     ['finish', 'unused'],
+    ['received', 'confirmed'],
+    ['expire', 'informed'],
+    ['finish', 'unused'],
 ]
 
 
@@ -37,6 +38,7 @@ const headers = {
 
 function HeadNav(props: UploadingProps) {
     // const display0 = useContext(AppContext);
+    const router = useRouter();
     const { display = -1, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
     const [pillnum, setPillnum] = useState(0)
@@ -72,25 +74,41 @@ function HeadNav(props: UploadingProps) {
         // console.log(target)
         setCheckid(pillnum)
         setTargetStatus(target)
+        router.reload()
     }
 
-    const project = (display: number) => {
+    const tableList = (display: number) => {
         if (pillContent) {
             switch (display) {
                 case 0:
-                    return table0(pillContent, handleChange, handleSubmit);
+                    return table0(pillContent, handleChange);
                 case 1:
-                    return table1(pillContent, handleChange, handleSubmit);
+                    return table1(pillContent, handleChange);
                 case 2:
-                    return table2(pillContent, handleChange, handleSubmit);
+                    return table2(pillContent, handleChange);
                 default:
                     return <h1>No data</h1>
             }
         }
     }
 
+
+    const buttonList = (display: number) => {
+        if (pillContent) {
+            switch (display) {
+                case 0:
+                    return buttons0(handleSubmit);
+                case 1:
+                    return buttons1(handleSubmit);
+                case 2:
+                    return buttons2(handleSubmit);
+                default:
+                    return <h1>No data</h1>
+            }
+        }
+    }
     useEffect(() => {
-        if (display+1){
+        if (display + 1) {
             getPills(displayLabel[display])
         }
     }, [display]);//第一次默認
@@ -100,176 +118,189 @@ function HeadNav(props: UploadingProps) {
     // }, [pillnum]);
 
     return (
-        <div>{project(display)}</div>
+        <div className='h-fit w-3/4' >
+            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+                {tableList(display)}
+            </div>
+            <div>
+                {buttonList(display)}
+            </div>
+        </div>
     );
 }
 
-const table0 = (pillContent: any, handleChange: any, handleSubmit: any) => {
+const table0 = (pillContent: any, handleChange: any) => {
     // const value = useContext(PillContext);
     return (
-        <div className='h-fit' >
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-
-                <table className="w-full text-sm text-left dark:text-gray-400">
-                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="p-4">
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                胶囊编号
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                到期日期
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                致電確認
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            pillContent.map((row: any) => (
-                                <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td className="p-4 w-4">
-                                        <div className="flex items-center">
-                                            <input id="default-radio-1" onChange={handleChange}
-                                                type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                            <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-                                        </div>
-                                    </td>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.id}
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {cutDate(row.deadline)}
-
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.status}
-                                    </th>
-                                </tr>
-                            ))}
-                    </tbody>
-                </table>
-            </div>
-            <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('expire') }}>设置到期</button>
-            </div>
-
-        </div>
-    )
-}
-
-const table1 = (pillContent: any, handleChange: any, handleSubmit: any) => {
-    return (
-        <div className='h-fit' >
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left  dark:text-gray-400">
-                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="p-4">
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                胶囊编号
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                到期日期
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                通知狀態
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            pillContent.map((row: any) => (
-                                <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td className="p-4 w-4">
-                                        <div className="flex items-center">
-                                            <input id="default-radio-1" onChange={handleChange} type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                            <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-                                        </div>
-                                    </td>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.id}
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {cutDate(row.deadline)}
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.status}
-                                    </th>
-                                </tr>
-                            ))}
-
-                    </tbody>
-                </table>
-            </div>
-            <div className='flex w-full justify-between'>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('informed')}}>致電通知</button>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('finish')}}>领取胶囊</button>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('unused')}}>逾期无人领取</button>
-            </div>
-        </div>
-    )
-}
-
-const table2 = (pillContent: any, handleChange: any, handleSubmit: any) => {
-    return (
-        <div className='h-fit' >
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left  dark:text-gray-400">
-                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="p-4">
+        <table className="w-full text-sm text-left dark:text-gray-400">
+            <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" className="p-4">
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                        胶囊编号
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                        到期日期
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                        致電確認
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    pillContent.map((row: any) => (
+                        <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td className="p-4 w-4">
                                 <div className="flex items-center">
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    <input id="default-radio-1" onChange={handleChange}
+                                        type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
                                 </div>
+                            </td>
+                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                {row.id}
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                胶囊编号
+                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                {cutDate(row.deadline)}
+
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                到期日期
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                完成方式
+                            <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                {row.status}
                             </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            pillContent.map((row: any) => (
-                                <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td className="p-4 w-4">
-                                        <div className="flex items-center">
-                                            <input id="default-radio-1" onChange={handleChange} type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                            <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-                                        </div>
-                                    </td>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.id}
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {cutDate(row.deadline)}
-                                    </th>
-                                    <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                        {row.status}
-                                    </th>
-                                </tr>
+                    ))}
+            </tbody>
+        </table>
+    )
+}
 
-                            ))}
-                    </tbody>
-                </table>
-            </div>
 
-            <div className='flex w-full justify-center'>
-                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('received')}}>设置成最初的状态（测试）</button>
-            </div>
+const table1 = (pillContent: any, handleChange: any) => {
+    return (
+            <table className="w-full text-sm text-left  dark:text-gray-400">
+                <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" className="p-4">
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            胶囊编号
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            到期日期
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            通知狀態
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        pillContent.map((row: any) => (
+                            <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="p-4 w-4">
+                                    <div className="flex items-center">
+                                        <input id="default-radio-1" onChange={handleChange} type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                        <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+                                    </div>
+                                </td>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {row.id}
+                                </th>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {cutDate(row.deadline)}
+                                </th>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {row.status}
+                                </th>
+                            </tr>
+                        ))}
+
+                </tbody>
+            </table>
+
+    )
+}
+
+const table2 = (pillContent: any, handleChange: any) => {
+    return (
+            <table className="w-full text-sm text-left  dark:text-gray-400">
+                <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" className="p-4">
+                            <div className="flex items-center">
+                                <input id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+                            </div>
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            胶囊编号
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            到期日期
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            完成方式
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        pillContent.map((row: any) => (
+                            <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td className="p-4 w-4">
+                                    <div className="flex items-center">
+                                        <input id="default-radio-1" onChange={handleChange} type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                        <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+                                    </div>
+                                </td>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {row.id}
+                                </th>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {cutDate(row.deadline)}
+                                </th>
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
+                                    {row.status}
+                                </th>
+                            </tr>
+
+                        ))}
+                </tbody>
+            </table>
+
+    )
+}
+
+const buttons0 = (handleSubmit: any) => {
+    // const value = useContext(PillContext);
+    return (
+        <div className='flex w-full justify-between px-16'>
+            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
+            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('expire') }}>设置到期</button>
         </div>
     )
 }
+
+const buttons1 = (handleSubmit: any) => {
+    // const value = useContext(PillContext);
+    return (
+        <div className='flex w-full justify-between'>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('informed') }}>致電通知</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('finish') }}>领取胶囊</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('unused') }}>逾期无人领取</button>
+        </div>
+    )
+}
+
+const buttons2 = (handleSubmit: any) => {
+    // const value = useContext(PillContext);
+    return (
+        <div className='flex w-full justify-center'>
+            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('received') }}>设置成最初的状态（测试）</button>
+        </div>
+    )
+    }
 
 export default HeadNav;
