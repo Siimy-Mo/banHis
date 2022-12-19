@@ -33,14 +33,16 @@ export default function StaffInterfaceContainer() {
     const [headers, setHeader] = useState<headerForm>()
 
     const router = useRouter();
-    const [{ data: allPillsData }, getAllPills] = useAxios(
-        {},
+    const [{ data: allPillsData }, getAllPills] = useAxios({},
         { manual: true }
     );
-    const [{ data: changePillStatusData }, changePillStatus] = useAxios(
-        {},
+    const [{ data: changePillStatusData }, changePillStatus] = useAxios({},
         { manual: true }
     );
+    const [{ data: sendEmailConfirmData }, sendEmailConfirm] = useAxios({},
+        { manual: true }
+    );
+
 
     const getNum = (data: any, target: string) => {
         let num = 0
@@ -54,7 +56,6 @@ export default function StaffInterfaceContainer() {
     const getPills = async (header: any) => {
         // console.log('GetPills in Interface:')
         const res = await getAllPills(apiSetting.PillStatus.getAllPills(header))
-
         if (res.data.success) {
             const pills = res.data.doc
             status.received = getNum(pills, 'received')
@@ -71,16 +72,27 @@ export default function StaffInterfaceContainer() {
         localStorage.removeItem('authorization');
         localStorage.removeItem('email');
         document.cookie = `authorization=null; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+        alert('账户已登出')
         router.reload();
     }, [router]);
 
+    const sendEmail = async (code: number) => {
+        console.log('sendEmail Function:')
+        const res = await sendEmailConfirm(apiSetting.PillStatus.sendEmailConfirm(headers, code))
+        if (res.data.success) {
+            alert('成功发送邮件！')
+        }
+    }
+
     const changePill = async (checkid: number, targetStatus: string) => {
+        if (targetStatus == 'informed') {
+            sendEmail(checkid)
+        }
         const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
         if (res.data.success) {
-            const pills = res.data
-            // console.log(pills)
+            router.reload()
         };
-    }
+    };
 
     // 检查token，不然跳转至login
     useEffect(() => {

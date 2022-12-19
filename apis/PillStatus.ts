@@ -28,9 +28,10 @@ export default class PillStatus {
         return requestHeader;
     }
 
-    sendEmailConfirm(code:string){
+    sendEmailConfirm(headers:any, code:number){
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
+            headers:headers,
             url: `/api/capsules/${code}/send_email`,
             method: 'POST',
         };
