@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import PillStatusTables from './PillStatusTables';
 
 interface StaffInterfaceViewProps {
+    headers: any;
     status: any;
     setCheckid: any;
     setTargetStatus: any;
@@ -24,7 +25,7 @@ function classNames(...classes: any[]) {
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
-    const { status = [], setCheckid, setTargetStatus, Logout } = props;
+    const { headers, status = [], setCheckid, setTargetStatus, Logout } = props;
     const [tableDisplay, setTableDisplay] = useState(0)
     const router = useRouter();
 
@@ -104,6 +105,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         {/* 還要傳送數據！ default是空集狀態組件*/}
                         {/* <Provider value={tableDisplay }> */}
                         <PillStatusTables
+                            headers = {headers}
                             display={tableDisplay}
                             setCheckid={setCheckid}
                             setTargetStatus={setTargetStatus} />

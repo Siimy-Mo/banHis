@@ -21,6 +21,7 @@ const displayLabel = [
 
 
 interface UploadingProps {
+    headers:any;
     display: number,
     setCheckid: any,
     setTargetStatus: any,
@@ -30,16 +31,11 @@ const cutDate = (date: string) => {
     return date.substring(0, 10)
 }
 
-// const changeStatus 
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer B7PC44kY7jEgbGPA_Wu1',
-};
 
 function HeadNav(props: UploadingProps) {
     // const display0 = useContext(AppContext);
     const router = useRouter();
-    const { display = -1, setCheckid, setTargetStatus } = props;
+    const { headers, display = -1, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
     const [pillnum, setPillnum] = useState(0)
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios(
@@ -77,6 +73,12 @@ function HeadNav(props: UploadingProps) {
         router.reload()
     }
 
+    const downloadPic = () => {
+        console.log('Download function setCheckid:', setCheckid)
+
+    }
+
+
     const tableList = (display: number) => {
         if (pillContent) {
             switch (display) {
@@ -101,7 +103,7 @@ function HeadNav(props: UploadingProps) {
                 case 1:
                     return buttons1(handleSubmit);
                 case 2:
-                    return buttons2(handleSubmit);
+                    return buttons2(handleSubmit, downloadPic);
                 default:
                     return <h1>No data</h1>
             }
@@ -113,9 +115,6 @@ function HeadNav(props: UploadingProps) {
         }
     }, [display]);//第一次默認
 
-    // useEffect(() => {
-    //     console.log('pillNumber: ', pillnum)
-    // }, [pillnum]);
 
     return (
         <div className='h-fit w-3/4' >
@@ -290,10 +289,11 @@ const buttons1 = (handleSubmit: any) => {
     )
 }
 
-const buttons2 = (handleSubmit: any) => {
+const buttons2 = (handleSubmit: any, downloadPic: any) => {
     // const value = useContext(PillContext);
     return (
-        <div className='flex w-full justify-center'>
+        <div className='flex w-full justify-between md:px-16'>
+            <button className='staffInterfaceBtn' onClick={() => { downloadPic() }}>下载图片</button>
             <button className='staffInterfaceBtn' onClick={() => { handleSubmit('received') }}>设置成最初的状态（测试）</button>
         </div>
     )

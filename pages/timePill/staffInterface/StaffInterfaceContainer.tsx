@@ -20,15 +20,17 @@ const status =  //子组件不用所以这里不放在cxt中
     unused: 0, //完成，未领取
 }
 
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer B7PC44kY7jEgbGPA_Wu1',
+
+interface headerForm {
+    'Content-Type': string,
+    Authorization: string,
 };
 
-export default function StaffInterfaceContainer(PillContext: any) {
-    const [tableDisplay, setTableDisplay] = useState(0)
-    const [checkid, setCheckid] = useState(0)
+export default function StaffInterfaceContainer() {
+    // const [tableDisplay, setTableDisplay] = useState(0)
+    const [checkid, setCheckid] = useState(-1)
     const [targetStatus, setTargetStatus] = useState('')
+    const [headers, setHeader] = useState<headerForm>()
 
     const router = useRouter();
     const [{ data: allPillsData }, getAllPills] = useAxios(
@@ -49,9 +51,9 @@ export default function StaffInterfaceContainer(PillContext: any) {
         return num
     }
 
-    const getPills = async () => {
+    const getPills = async (header: any) => {
         // console.log('GetPills in Interface:')
-        const res = await getAllPills(apiSetting.PillStatus.getAllPills(headers))
+        const res = await getAllPills(apiSetting.PillStatus.getAllPills(header))
 
         if (res.data.success) {
             const pills = res.data.doc
@@ -73,7 +75,6 @@ export default function StaffInterfaceContainer(PillContext: any) {
     }, [router]);
 
     const changePill = async (checkid: number, targetStatus: string) => {
-        // console.log('GetPills in Interface:',checkid, targetStatus)
         const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
         if (res.data.success) {
             const pills = res.data
@@ -87,6 +88,11 @@ export default function StaffInterfaceContainer(PillContext: any) {
         //     localStorage.getItem('authorization') || '';
         const data = localStorage.getItem('authorization');
         if (data) {
+            const header = {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + data,
+            };
+            setHeader(header)
             //do something
             // axios.get('https://futureword.m2mda.com/api/capsules/search')
             // axios.get('https://randomuser.me/api/') // 是可以用的
@@ -98,7 +104,7 @@ export default function StaffInterfaceContainer(PillContext: any) {
             //     .then((res) => {
             //         console.log(res.data)
             //     })
-            getPills()
+            getPills(header)
             // console.log(status)
         } else {
             router.push('./staffLogin');
@@ -108,13 +114,15 @@ export default function StaffInterfaceContainer(PillContext: any) {
     //父组件的function:
     useEffect(() => {
         // console.log('父组件的function：',checkid, targetStatus)
-        changePill(checkid, targetStatus)
+        if (checkid != -1) {
+            changePill(checkid, targetStatus)
+        }
         //记得reload
     }, [checkid, targetStatus])
 
 
     return (
-        <StaffInterfaceView {...{ status, setCheckid, setTargetStatus, Logout }} />
+        <StaffInterfaceView {...{ headers, status, setCheckid, setTargetStatus, Logout }} />
     )
 
 }
