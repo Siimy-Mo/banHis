@@ -28,15 +28,6 @@ export default class PillStatus {
         return requestHeader;
     }
 
-    sendEmailConfirm(headers:any, code:number){
-        const requestHeader: AxiosRequestConfig = {
-            baseURL: baseURL,
-            headers:headers,
-            url: `/api/capsules/${code}/send_email`,
-            method: 'POST',
-        };
-        return requestHeader;
-    }
     // /api/capsules/1
     changePillStatus(headers:any, code:number, status:string) {
         const requestHeader: AxiosRequestConfig = {
@@ -46,10 +37,32 @@ export default class PillStatus {
             method: 'PUT',
             data: {
                 status,
-                
             }
         };
         return requestHeader;
     }
 
+
+    sendEmailConfirm(headers:any, code:number){
+        const requestHeader: AxiosRequestConfig = {
+            baseURL: baseURL,
+            headers:headers,
+            url: `/api/capsules/${code}/send_email`,
+            method: 'POST',
+        };
+        return requestHeader;
+    }
+
+    queryPill(headers:any, code:number){
+        const requestHeader: AxiosRequestConfig = {
+            baseURL: baseURL,
+            headers:headers,
+            url: `/api/capsules/search`,
+            method: 'GET',
+            data: {
+                code,
+            }
+        };
+        return requestHeader;
+    }
 }

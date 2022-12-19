@@ -38,8 +38,10 @@ function HeadNav(props: UploadingProps) {
     const { headers, display = -1, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
     const [pillnum, setPillnum] = useState(0)
-    const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios(
-        {},
+    const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios({},
+        { manual: true }
+    );
+    const [{ data: queryPillData }, queryPill] = useAxios({},
         { manual: true }
     );
 
@@ -73,9 +75,48 @@ function HeadNav(props: UploadingProps) {
         router.reload()
     }
 
-    const downloadPic = () => {
-        console.log('Download function setCheckid:', setCheckid)
+    const downloadPic = async () => { // 下载文件有两种方式，1返回文件流、2 <a>
+        // const res = await queryPill(apiSetting.PillStatus.queryPill(headers, pillnum))// 查询关键词是code不是id，返回没有URL
+        // if (res.data.success) {
+        //     console.log(res.data)
+        // }
+        const testURL = 'https://m2mda.blob.core.windows.net/chyb-document-storage/6c89a6a7-6670-48f6-998f-c2c1c129c54f_image.png'
+        // let img = new Image();
+        // // 解决跨域canvas 污染问题
+        // img.setAttribute("crossOrigin", "anonymous");
+        // img.onload = function() {
+        //     let canvas = document.createElement('canvas');
+        //     canvas.width = img.width;
+        //     canvas.height = img.height;
 
+        //     let context = canvas.getContext("2d");
+        //     context?.drawImage(img, 0, 0, img.width, img.height);
+        //     let url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
+        //     let a = document.createElement("a"); // 生成一个a元素
+        //     let event = new MouseEvent("click"); // 创建一个单击事件
+        //     a.download = '设置名字' || "photo"; // 设置图片名称
+        //     a.href = url; // 将生成的URL设置为a.href属性
+        //     a.dispatchEvent(event); // 触发a的单击事件
+        // }
+        // img.src=testURL
+
+        // 下载文件：
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = testURL
+        a.download = 'PillContent_'+pillnum //她没用啊！还有跨域问题
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+
+        // const URL = window.URL || window.webkitURL
+        // const herf = URL.createObjectURL(testURL) //查看格式
+        // a.href = herf
+        // a.download = 'PillName:?'
+        // document.body.appendChild(a)
+        // a.click()
+        // document.removeChild(a)
+        // window.URL.revokeObjectURL(herf)//查看格式
     }
 
 

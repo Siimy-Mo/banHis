@@ -86,12 +86,18 @@ export default function StaffInterfaceContainer() {
 
     const changePill = async (checkid: number, targetStatus: string) => {
         if (targetStatus == 'informed') {
-            sendEmail(checkid)
+            if (confirm('是否确认发送邮件')) {
+                sendEmail(checkid)
+                const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
+            }
+        } else {
+            const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
+            if (res.data.success) {
+                // console.log(res)
+                // router.reload()
+            };
+
         }
-        const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
-        if (res.data.success) {
-            router.reload()
-        };
     };
 
     // 检查token，不然跳转至login
