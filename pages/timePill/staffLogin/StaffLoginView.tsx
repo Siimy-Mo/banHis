@@ -1,10 +1,12 @@
 // import { CheckIcon, XIcon } from '@heroicons/react/outline'; // react lib的一些icon图标
 import { FormEventHandler } from 'react';
-import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface StaffLoginViewProps {
+    success: any;
+    register: any,
+    setRegister: any,
     handleSignIn: FormEventHandler;
 }
 function classNames(...classes: any) {
@@ -14,8 +16,7 @@ function classNames(...classes: any) {
 
 export default function StaffLoginView(props: StaffLoginViewProps) {
     // export default function LoginView() {
-    const { handleSignIn, } = props;
-    const [register, setRegister] = useState(false)
+    const { success, register, setRegister, handleSignIn } = props;
     const router = useRouter();
 
     return (
@@ -38,9 +39,8 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
                             :
                             'bg-red-100 timePillIntroShadowOn'
                     )}>
-                        {register ? //register form 
+                        {register ? //註冊界面
                             <form className='' onSubmit={handleSignIn}>
-                                {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
                                 <div className='mb-4'>
                                     <label htmlFor="email" className="block text-sm font-medium text-pink-900 dark:text-pink-300"
                                     >郵箱*
@@ -69,24 +69,43 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
                                             placeholder="Code" required />
                                     </label>
                                 </div>
-                                {/* 加载logo：没有效果 */}
-                                {/* {SubmitLoading ? (
-                                <div className="">提交中...</div>
-                            ) : <div></div>} */}
+
+
+                                {success === '' ? (
+                                    <div className="flex flex-row gap-1 invisible">
+                                        <div>登入成功！</div>
+                                    </div>
+                                ) : (success === true ? (
+                                    <div className="flex flex-row gap-1 justify-center text-green-700">
+                                        注册成功，请返回登入
+                                    </div>
+                                ) : (success == 'email taken' ? (
+                                    <div className="flex flex-row gap-1 justify-center text-red-700 ">
+                                        邮箱已被注册
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-row gap-1 justify-center text-red-700 ">
+                                        密码少于6位数
+                                    </div>
+                                )
+
+                                ))}
 
                                 <div className='flex flex-row-reverse w-full justify-between'>
                                     <button type="submit" autoFocus
-                                        className="staffInterfaceBtn after:bg-red-100">註冊</button>
+                                        className="staffInterfaceBtn mb-0 after:bg-red-100">註冊</button>
                                     <button
                                         onClick={() => setRegister(false)}
-                                        className="staffInterfaceBtn after:bg-red-100">返回</button>
+                                        className="staffInterfaceBtn mb-0 after:bg-red-100">返回</button>
                                 </div>
 
                             </form>
 
                             :
+
+
+                            // 登入界面
                             <form className='' onSubmit={handleSignIn}>
-                                {/* 这里不应该写,父级div的子轴上的剧中无才用的 */}
                                 <div className='mb-4'>
                                     <label htmlFor="email" className="block text-sm font-medium text-pink-900 dark:text-pink-300"
                                     >郵箱*
@@ -97,32 +116,39 @@ export default function StaffLoginView(props: StaffLoginViewProps) {
 
                                 <div className='mb-4'>
                                     <label htmlFor="password" className="block text-sm font-medium text-pink-900 dark:text-pink-300"
-                                    >密码*
+                                    >密码* {success}
                                         <input type="password" name="password" className="mt-1 bg-pink-50 border border-pink-300 text-pink-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-pink-700 dark:border-pink-600 dark:placeholder-pink-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
                                             placeholder="Password" required />
                                     </label>
                                 </div>
 
-                                {/* 加载logo：没有效果 */}
-                                {/* {SubmitLoading ? (
-                        <div className="">提交中...</div>
-                    ) : <div></div>} */}
+
+                                {success === '' ? (
+                                    <div className="flex flex-row gap-1 invisible">
+                                        <div>登入成功！</div>
+                                    </div>
+                                ) : (success === true ? (
+                                    <div className="flex flex-row gap-1 justify-center text-green-700">
+                                        登入成功
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-row gap-1 justify-center text-red-700 ">
+                                        帳戶或密碼錯誤
+                                    </div>
+                                ))}
 
                                 <div className='flex flex-row-reverse w-full justify-between'>
                                     <button type="submit" autoFocus
-                                        className="staffInterfaceBtn after:bg-red-200">登入</button>
+                                        className="staffInterfaceBtn mb-0 after:bg-red-200">登入</button>
                                     <button
                                         onClick={() => setRegister(true)}
-                                        className="staffInterfaceBtn after:bg-red-200">註冊</button>
-
+                                        className="staffInterfaceBtn mb-0 after:bg-red-200">註冊</button>
                                 </div>
                             </form>
                         }
 
                     </div>
                 </div>
-                {/* 确认登入之后显示query和update的选项！ */}
-
             </div>
 
         </>
