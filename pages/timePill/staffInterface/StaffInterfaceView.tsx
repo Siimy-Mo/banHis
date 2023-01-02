@@ -17,17 +17,14 @@ const statusName = [
     { order: 2, statusName: '已完成' },
 ]
 
-
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
 }
-
 
 export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
     // export default function LoginView() {
     const { headers, status = [], setCheckid, setTargetStatus, Logout } = props;
     const [tableDisplay, setTableDisplay] = useState(-1)
-    const router = useRouter();
 
     return (
         <>
@@ -108,6 +105,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                         <PillStatusTables
                             headers={headers}
                             display={tableDisplay}
+                            setdisplay={setTableDisplay}
                             setCheckid={setCheckid}
                             setTargetStatus={setTargetStatus} />
                         {/* </Provider> */}

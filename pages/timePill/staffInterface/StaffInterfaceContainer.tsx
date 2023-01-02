@@ -89,11 +89,17 @@ export default function StaffInterfaceContainer() {
             if (confirm('是否确认发送邮件')) {
                 sendEmail(checkid)
                 const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
+                if (res.data.success) {
+                    getPills(headers)
+                    // console.log(res)
+                    // router.reload()
+                };
             }
         } else {
             const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid, targetStatus))
             if (res.data.success) {
                 // console.log(res)
+                getPills(headers)
                 // router.reload()
             };
 

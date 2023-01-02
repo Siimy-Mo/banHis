@@ -23,6 +23,7 @@ const displayLabel = [
 interface UploadingProps {
     headers: any;
     display: number,
+    setdisplay: Function,
     setCheckid: any,
     setTargetStatus: any,
 }
@@ -33,9 +34,8 @@ const cutDate = (date: string) => {
 
 
 function HeadNav(props: UploadingProps) {
-    // const display0 = useContext(AppContext);
     const router = useRouter();
-    const { headers, display = -1, setCheckid, setTargetStatus } = props;
+    const { headers, display = -1,setdisplay, setCheckid, setTargetStatus } = props;
     const [pillContent, setPillContent] = useState([])
     const [pillnum, setPillnum] = useState(0)
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios({},
@@ -46,16 +46,14 @@ function HeadNav(props: UploadingProps) {
     );
 
     const getPills = async (status: Array<string>) => {//两个promise，合并需要Promise.all来处理
-        // console.log('getPills function ! with status:', status)
         const res = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[0]))
         const res1 = await getAllPillsWithStatus(apiSetting.PillStatus.getAllPillsWithStatus(headers, status[1]))
         if (res.data.success && res1.data.success) {
             const content = res.data.doc
             const content1 = res1.data.doc
-            // console.log('status[0]: ', res.data)
-            // console.log('status[1]: ', res1.data)
             Promise.all([content, content1]).then((values) => {
                 setPillContent(values[0].concat(values[1]))
+                // 当没有数据的时候要特殊处理，不然会进入加载loop
             })
         }
     }
@@ -104,7 +102,7 @@ function HeadNav(props: UploadingProps) {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = testURL
-        a.download = 'PillContent_'+pillnum //她没用啊！还有跨域问题
+        a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
@@ -121,40 +119,36 @@ function HeadNav(props: UploadingProps) {
 
 
     const tableList = (display: number) => {
-        if (pillContent) {
-            switch (display) {
-                case 0:
-                    return table0(pillContent, handleChange);
-                case 1:
-                    return table1(pillContent, handleChange);
-                case 2:
-                    return table2(pillContent, handleChange);
-                default:
-                    return <h3 className="mb-4 text-center text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
-                        选择胶囊状态</h3>
-            }
+        switch (display) {
+            case 0:
+                return table0(pillContent, handleChange);
+            case 1:
+                return table1(pillContent, handleChange);
+            case 2:
+                return table2(pillContent, handleChange);
+            default:
+                return <h3 onClick={() => { setdisplay(0) }} className="mb-4 text-center text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
+                    开始同步胶囊状态</h3>
+                    // 这里可以设置检查未到期的胶囊状态！！
         }
     }
 
 
     const buttonList = (display: number) => {
-        if (pillContent) {
-            switch (display) {
-                case 0:
-                    return buttons0(handleSubmit);
-                case 1:
-                    return buttons1(handleSubmit);
-                case 2:
-                    return buttons2(handleSubmit, downloadPic);
-                // default:
-                //     return <h1>No data</h1>
-            }
+        switch (display) {
+            case 0:
+                return buttons0(handleSubmit);
+            case 1:
+                return buttons1(handleSubmit);
+            case 2:
+                return buttons2(handleSubmit, downloadPic);
+            // default:
+            //     return <h1>No data</h1>
         }
     }
     useEffect(() => {
         if (display in [0, 1, 2]) {
             getPills(displayLabel[display])
-            // window.location.reload()
         }
     }, [display]);//第一次默認
 
