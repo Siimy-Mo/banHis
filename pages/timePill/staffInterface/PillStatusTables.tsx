@@ -35,9 +35,11 @@ const cutDate = (date: string) => {
 
 function HeadNav(props: UploadingProps) {
     const router = useRouter();
-    const { headers, display = -1,setdisplay, setCheckid, setTargetStatus } = props;
-    const [pillContent, setPillContent] = useState([])
-    const [pillnum, setPillnum] = useState(0)
+    const { headers, display = -1, setdisplay, setCheckid, setTargetStatus } = props;
+    const [pillContent, setPillContent] = useState([]);
+    const [expireContent, setExpireContent] = useState([]);
+    const [expireCheckFlg, setExpireCheckFlg] = useState(false);
+    const [pillnum, setPillnum] = useState(0);
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios({},
         { manual: true }
     );
@@ -54,6 +56,9 @@ function HeadNav(props: UploadingProps) {
             Promise.all([content, content1]).then((values) => {
                 setPillContent(values[0].concat(values[1]))
                 // 当没有数据的时候要特殊处理，不然会进入加载loop
+                if (status[1] == 'confirmed') {
+                    setExpireContent(values[1])
+                }
             })
         }
     }
@@ -68,16 +73,33 @@ function HeadNav(props: UploadingProps) {
 
     const handleSubmit = (target: string) => {
         // console.log(target)
-        setCheckid(pillnum)
-        setTargetStatus(target)
-        router.reload()
+        setCheckid(pillnum);
+        setTargetStatus([target]);
+    }
+
+    const checkExpire = () => {
+        // 检查时间，到期的就设置成expire
+        let nowDate = new Date(Date.parse(new Date().toString()))
+        // 设置检查
+        setExpireCheckFlg(true)
+        // getPills(displayLabel[0])
+        let array :number[]=[-1]
+        for (let i in expireContent) {
+            let pillDDL = new Date(expireContent[i]['deadline'])
+            if (pillDDL.getTime() < nowDate.getTime()) {
+                array.push(expireContent[i]['id'])
+            }
+        }
+        setTargetStatus(array)
     }
 
     const downloadPic = async () => { // 下载文件有两种方式，1返回文件流、2 <a>
-        // const res = await queryPill(apiSetting.PillStatus.queryPill(headers, pillnum))// 查询关键词是code不是id，返回没有URL
-        // if (res.data.success) {
-        //     console.log(res.data)
-        // }
+        console.log('dwload pic')
+        const res = await queryPill(apiSetting.PillStatus.queryPill(headers, "108418"))// 查询关键词是code不是id，返回没有URL
+        console.log(res.data)
+        if (res.data.success) {
+            console.log(res.data)
+        }
         const testURL = 'https://m2mda.blob.core.windows.net/chyb-document-storage/6c89a6a7-6670-48f6-998f-c2c1c129c54f_image.png'
         // let img = new Image();
         // // 解决跨域canvas 污染问题
@@ -99,13 +121,17 @@ function HeadNav(props: UploadingProps) {
         // img.src=testURL
 
         // 下载文件：
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = testURL
-        a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
+        if (confirm('是否确认下载图片')) {
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = testURL
+            a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+
+        }
+
 
         // const URL = window.URL || window.webkitURL
         // const herf = URL.createObjectURL(testURL) //查看格式
@@ -129,7 +155,7 @@ function HeadNav(props: UploadingProps) {
             default:
                 return <h3 onClick={() => { setdisplay(0) }} className="mb-4 text-center text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
                     开始同步胶囊状态</h3>
-                    // 这里可以设置检查未到期的胶囊状态！！
+            // 这里可以设置检查未到期的胶囊状态！！
         }
     }
 
@@ -137,7 +163,7 @@ function HeadNav(props: UploadingProps) {
     const buttonList = (display: number) => {
         switch (display) {
             case 0:
-                return buttons0(handleSubmit);
+                return buttons0(handleSubmit, checkExpire);
             case 1:
                 return buttons1(handleSubmit);
             case 2:
@@ -288,7 +314,7 @@ const table2 = (pillContent: any, handleChange: any) => {
                                 </div>
                             </td>
                             <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                {row.id}
+                                {row.id} {row.code}
                             </th>
                             <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                 {cutDate(row.deadline)}
@@ -305,12 +331,12 @@ const table2 = (pillContent: any, handleChange: any) => {
     )
 }
 
-const buttons0 = (handleSubmit: any) => {
+const buttons0 = (handleSubmit: any, checkExpire: any) => {
     // const value = useContext(PillContext);
     return (
         <div className='flex w-full justify-between md:px-16'>
             <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('expire') }}>设置到期</button>
+            <button className='staffInterfaceBtn' onClick={() => { checkExpire() }}>一键检查到期</button>
         </div>
     )
 }

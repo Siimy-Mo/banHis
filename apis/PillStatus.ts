@@ -53,14 +53,14 @@ export default class PillStatus {
         return requestHeader;
     }
 
-    queryPill(headers:any, code:number){
+    queryPill(headers:any, code:string){
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
             headers:headers,
             url: `/api/capsules/search`,
             method: 'GET',
             data: {
-                code,
+                "code":"108418",
             }
         };
         return requestHeader;

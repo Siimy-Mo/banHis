@@ -29,7 +29,7 @@ interface headerForm {
 export default function StaffInterfaceContainer() {
     // const [tableDisplay, setTableDisplay] = useState(0)
     const [checkid, setCheckid] = useState(-1)
-    const [targetStatus, setTargetStatus] = useState('')
+    const [targetStatus, setTargetStatus] = useState([])
     const [headers, setHeader] = useState<headerForm>()
 
     const router = useRouter();
@@ -92,7 +92,7 @@ export default function StaffInterfaceContainer() {
                 if (res.data.success) {
                     getPills(headers)
                     // console.log(res)
-                    // router.reload()
+                    router.reload()
                 };
             }
         } else {
@@ -100,10 +100,23 @@ export default function StaffInterfaceContainer() {
             if (res.data.success) {
                 // console.log(res)
                 getPills(headers)
-                // router.reload()
+                router.reload()
             };
 
         }
+    };
+
+    const changePills2expire = async (checkid: Array<number>) => {
+        for (let i in targetStatus) {
+            if (targetStatus[i] != -1) {
+                console.log(checkid[i])
+                const res = await changePillStatus(apiSetting.PillStatus.changePillStatus(headers, checkid[i], 'expire'))
+                if (res.data.success) {
+                    continue
+                };
+            }
+        }
+        router.reload();
     };
 
     // 检查token，不然跳转至login
@@ -138,10 +151,11 @@ export default function StaffInterfaceContainer() {
     //父组件的function:
     useEffect(() => {
         // console.log('父组件的function：',checkid, targetStatus)
-        if (checkid != -1) {
-            changePill(checkid, targetStatus)
+        if (targetStatus[0] == -1) {
+            changePills2expire(targetStatus)
+        } else {
+            changePill(checkid, targetStatus[0])
         }
-        //记得reload
     }, [checkid, targetStatus])
 
 
