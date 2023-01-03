@@ -29,31 +29,39 @@ export default function TableFillHandContainer() {
         const tip = formData.get('tip') as string;
         const date = formData.get('date') as string;
 
-        // 模拟提交成功，做到网页之间的传参！
-        // if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
-        // else router.reload();
+        let pillDDL = new Date(date)
+        let nowDate = new Date(Date.parse(new Date().toString()))
+        let diff = Math.floor(Math.abs(pillDDL.getTime() - nowDate.getTime()) / 1000 / 60 / 60 / 24)
+        if (pillDDL < pillDDL) {
+            if (diff > 30) {
+                alert("寄存日期超过了1个月！")
+            } else {
 
-        // 正式链接：
-        const imgdata = await convertBase64(content);
-        const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email,imgdata,tip,date));
-        if (res.data.success) {
-            console.log(res.data)
-            const info = res.data.doc.capsule;
-            localStorage.setItem('successfulInfo', JSON.stringify(info));
-            if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
-            else router.reload();
-        } else { 
-    }};
+                // 正式链接：
+                const imgdata = await convertBase64(content);
+                const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email, imgdata, tip, date));
+                if (res.data.success) {
+                    console.log(res.data)
+                    const info = res.data.doc.capsule;
+                    localStorage.setItem('successfulInfo', JSON.stringify(info));
+                    if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+                    else router.reload();
+                }
+            }
+        } else {
+            alert("日期错误！")
+        }
+    };
 
-    const convertBase64 = (file:any) => {
+    const convertBase64 = (file: any) => {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
-    
+
             fileReader.onload = () => {
                 resolve(fileReader.result);
             };
-    
+
             fileReader.onerror = (error) => {
                 reject(error);
             };

@@ -56,9 +56,32 @@ export default function TableFillTextContainer() {
 
         const name = formData.get('name') as string;
         const email = formData.get('email') as string;
-        const date = formData.get('date');
+        const date = formData.get('date') as string;
         const content = formData.get('content') as string;
         const tip = formData.get('tip') as string;
+
+        // let pillDDL = new Date(date)
+        // let nowDate = new Date(Date.parse(new Date().toString()))
+        // let diff = Math.floor(Math.abs(pillDDL.getTime() - nowDate.getTime()) / 1000 / 60 / 60 / 24)
+        // if (pillDDL < pillDDL) {
+        //     if (diff > 30) {
+        //         alert("寄存日期超过了1个月！")
+        //     } else {
+
+        //         // 正式链接：
+        //         const imgdata = await convertBase64(content);
+        //         const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email, imgdata, tip, date));
+        //         if (res.data.success) {
+        //             console.log(res.data)
+        //             const info = res.data.doc.capsule;
+        //             localStorage.setItem('successfulInfo', JSON.stringify(info));
+        //             if (router.pathname === '/timePill/tableFillHand') router.push('./submitTip');
+        //             else router.reload();
+        //         }
+        //     }
+        // } else {
+        //     alert("日期错误！")
+        // }
 
         if (PillPreview) { // 如果已经是preview状态：传给server
             // 模拟提交成功，做到网页之间的传参！

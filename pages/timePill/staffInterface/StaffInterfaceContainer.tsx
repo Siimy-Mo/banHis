@@ -102,7 +102,6 @@ export default function StaffInterfaceContainer() {
                 getPills(headers)
                 router.reload()
             };
-
         }
     };
 
@@ -153,7 +152,7 @@ export default function StaffInterfaceContainer() {
         // console.log('父组件的function：',checkid, targetStatus)
         if (targetStatus[0] == -1) {
             changePills2expire(targetStatus)
-        } else {
+        } else if (checkid != -1) { // 初始化的时候有影响
             changePill(checkid, targetStatus[0])
         }
     }, [checkid, targetStatus])
