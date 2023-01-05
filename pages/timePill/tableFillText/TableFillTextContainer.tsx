@@ -8,7 +8,7 @@ import useAxios from 'axios-hooks';
 
 // import imgSynthesis from './imgSynthesis';
 // import {imgSynthesis} from 'img-synthesis/src/imgSynthesis';
-const {imgSynthesis} =  require('img-synthesis/src/imgSynthesis');
+const {imgSynthesis} =  require('../../../components/imgSynthesis');
 
 const apiSetting = new Api(); //调用api设置
 
