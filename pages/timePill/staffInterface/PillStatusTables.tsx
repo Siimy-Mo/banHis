@@ -82,7 +82,6 @@ function HeadNav(props: UploadingProps) {
         let nowDate = new Date(Date.parse(new Date().toString()))
         // 设置检查
         setExpireCheckFlg(true)
-        // getPills(displayLabel[0])
         let array :number[]=[-1]
         for (let i in expireContent) {
             let pillDDL = new Date(expireContent[i]['deadline'])
@@ -94,8 +93,8 @@ function HeadNav(props: UploadingProps) {
     }
 
     const downloadPic = async () => { // 下载文件有两种方式，1返回文件流、2 <a>
-        console.log('dwload pic')
-        const res = await queryPill(apiSetting.PillStatus.queryPill(headers, "108418"))// 查询关键词是code不是id，返回没有URL
+        console.log('----------------dwload pic')
+        const res = await queryPill(apiSetting.PillStatus.queryPill(headers, "884431"))// 查询关键词是code不是id，返回没有URL
         console.log(res.data)
         if (res.data.success) {
             console.log(res.data)
@@ -120,17 +119,17 @@ function HeadNav(props: UploadingProps) {
         // }
         // img.src=testURL
 
-        // 下载文件：
-        if (confirm('是否确认下载图片')) {
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = testURL
-            a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
-            document.body.appendChild(a)
-            a.click()
-            document.body.removeChild(a)
+        // ############# 下载文件：
+        // if (confirm('是否确认下载图片')) {
+        //     const a = document.createElement('a');
+        //     a.style.display = 'none';
+        //     a.href = testURL
+        //     a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
+        //     document.body.appendChild(a)
+        //     a.click()
+        //     document.body.removeChild(a)
 
-        }
+        // }
 
 
         // const URL = window.URL || window.webkitURL

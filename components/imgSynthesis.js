@@ -323,3 +323,5 @@ class imgSynthesis {
     };
   }
 }
+
+export default imgSynthesis ;
