@@ -98,9 +98,11 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                                             flex flex-col items-center">
                                 <div className='mb-6'>您的时光胶囊预览</div>
 
-                                <canvas ref={canvasRef} className='bg-pillCard bg-cover h-full md:h-96 '>
+                                {/* <canvas ref={canvasRef} className='bg-pillCard bg-cover h-full md:h-96 '> */}
+                                {/* <canvas ref={canvasRef} className='h-full md:h-96 '>
                                     Your browser does not support the canvas element.
-                                </canvas>
+                                </canvas> */}
+                                <div id='is' className=''></div>
 
                                 {/* 格式转换成行内元素 */}
                                 {/* <div className='inline'>

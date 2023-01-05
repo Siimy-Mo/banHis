@@ -32,13 +32,13 @@ export default function TableFillHandContainer() {
         let pillDDL = new Date(date)
         let nowDate = new Date(Date.parse(new Date().toString()))
         let diff = Math.floor(Math.abs(pillDDL.getTime() - nowDate.getTime()) / 1000 / 60 / 60 / 24)
-        if (pillDDL < pillDDL) {
+        if (nowDate < pillDDL) {
             if (diff > 30) {
                 alert("寄存日期超过了1个月！")
             } else {
-
                 // 正式链接：
                 const imgdata = await convertBase64(content);
+                // console.log(imgdata)
                 const res = await uploadPillForm(apiSetting.PillForm.uploadPillForm(name, email, imgdata, tip, date));
                 if (res.data.success) {
                     console.log(res.data)
