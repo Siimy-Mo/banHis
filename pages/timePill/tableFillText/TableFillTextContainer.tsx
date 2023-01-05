@@ -47,11 +47,12 @@ export default function TableFillTextContainer() {
 
         //设置宽高和背景颜色
         let is = new imgSynthesis(600, 400, "#0381ff");
-        // {size:"30px",color:"#e3e3e3",align:"center",w:400}
+
+    // * is.addTxt("文本1",100,100,{size:"30px",color:"#e3e3e3",align:"center",w:400})
         // 设置背景图
         is.addImg('../postcard.jpg', 0, 0).then(e => {
             //设置文字
-            is.addTxt(PillText, 100, 100, { color: "#223a70", w: 400 });
+            is.addTxt(PillText, 100, 100, JSON.parse(JSON.stringify({ color: "#223a70", w: 400})));
             // 导出生成的图片
             let img = new Image();
             img.src = is.getImg();
@@ -136,7 +137,6 @@ export default function TableFillTextContainer() {
             alert("日期错误！")
         }
     };
-
 
     const cancelPreview = () => {
         setPillPreview(false)
