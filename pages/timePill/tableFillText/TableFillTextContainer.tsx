@@ -6,7 +6,9 @@ import { useRouter } from 'next/router';
 import Api from '../../../apis';
 import useAxios from 'axios-hooks';
 
-import imgSynthesis from './imgSynthesis';
+// import imgSynthesis from './imgSynthesis';
+// import {imgSynthesis} from 'img-synthesis/src/imgSynthesis';
+const {imgSynthesis} =  require('img-synthesis/src/imgSynthesis');
 
 const apiSetting = new Api(); //调用api设置
 
@@ -25,22 +27,6 @@ export default function TableFillTextContainer() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 
-    const getImg = async () => {
-        const text = '测试文案！！！！！！'
-        //设置宽高和背景颜色
-        let is = new imgSynthesis(400, 400, "#0381ff");
-        // 设置背景图
-
-
-        //设置文字
-        is.addTxt("有人吗？", 100, 100);
-        // 导出生成的图片
-        let img = new Image();
-        img.src = is.getImg();
-        // document.querySelector(".img").appendChild(img);
-    }
-
-
     // 图片+文字的合成
     useEffect(() => {
         const test = document.querySelector("#is") as HTMLImageElement | null;
@@ -50,7 +36,7 @@ export default function TableFillTextContainer() {
 
     // * is.addTxt("文本1",100,100,{size:"30px",color:"#e3e3e3",align:"center",w:400})
         // 设置背景图
-        is.addImg('../postcard.jpg', 0, 0).then(e => {
+        is.addImg('../postcard.jpg', 0, 0).then(() => {
             //设置文字
             is.addTxt(PillText, 100, 100, JSON.parse(JSON.stringify({ color: "#223a70", w: 400})));
             // 导出生成的图片
