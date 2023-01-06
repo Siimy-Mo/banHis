@@ -63,11 +63,9 @@ export default class PillStatus {
         const requestHeader: AxiosRequestConfig = {
             baseURL: baseURL,
             headers:headers,
-            url: `/api/capsules/search`,
+            // url: `/api/capsules/search?code=${code}`,
+            url: `/api/capsules/search?code=884431`,
             method: 'GET',
-            data: {
-                code,
-            }
         };
         return requestHeader;
     }

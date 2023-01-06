@@ -81,11 +81,7 @@ export default function TableFillHandView(props: TableFillHandViewProps) {
                             </label>
                         </div>
 
-                        {/* 加载logo：没有效果 */}
-                        {SubmitLoading ? (
-                            <div className="">提交中...</div>
-                        ) : <div></div>}
-
+                        
                         <div className='flex justify-around mb-6 md:mb-48'>
                             <button type="button"
                                 onClick={() => router.push('../timePill')}

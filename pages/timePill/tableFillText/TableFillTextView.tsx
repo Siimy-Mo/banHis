@@ -84,14 +84,8 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                             </label>
                         </div>
 
-                        {/* 加载logo：没有效果 */}
-                        {SubmitLoading ? (
-                            <div className="">提交中...</div>
-                        ) : <div></div>}
-
 
                         {/* 展示贺卡合成效果 */}
-
                         {PillPreview ? (
                             <div className="absolute left-1/2 top-1/2 p-6 -translate-x-1/2 -translate-y-1/2 shadow-xl bg-cyan-100
                                             flex flex-col items-center">

@@ -2,6 +2,7 @@ import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, us
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
 import { useRouter } from 'next/router';
+import { resolve } from 'path';
 // import {PillContext} from './StaffInterfaceContainer';
 
 const apiSetting = new Api();
@@ -40,6 +41,7 @@ function HeadNav(props: UploadingProps) {
     const [expireContent, setExpireContent] = useState([]);
     const [expireCheckFlg, setExpireCheckFlg] = useState(false);
     const [pillnum, setPillnum] = useState(0);
+    const [pillcode, setPillcode] = useState('');
     const [{ data: allPillsStatusData }, getAllPillsWithStatus] = useAxios({},
         { manual: true }
     );
@@ -65,10 +67,11 @@ function HeadNav(props: UploadingProps) {
 
     // 捕捉选择的胶囊id
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        // console.log(e.target)
+        // console.log(e.target.value.substring(6,))
         if (e.target.checked) {
-            setPillnum(Number(e.target.value))
-        } //else?
+            setPillcode(e.target.value.substring(0, 6))
+            setPillnum(Number(e.target.value.substring(6,)))
+        }
     }
 
     const handleSubmit = (target: string) => {
@@ -82,7 +85,7 @@ function HeadNav(props: UploadingProps) {
         let nowDate = new Date(Date.parse(new Date().toString()))
         // 设置检查
         setExpireCheckFlg(true)
-        let array :number[]=[-1]
+        let array: number[] = [-1]
         for (let i in expireContent) {
             let pillDDL = new Date(expireContent[i]['deadline'])
             if (pillDDL.getTime() < nowDate.getTime()) {
@@ -93,53 +96,22 @@ function HeadNav(props: UploadingProps) {
     }
 
     const downloadPic = async () => { // 下载文件有两种方式，1返回文件流、2 <a>
-        console.log('----------------dwload pic')
-        const res = await queryPill(apiSetting.PillStatus.queryPill(headers, "884431"))// 查询关键词是code不是id，返回没有URL
-        console.log(res.data)
+        console.log('----------------dwload pic\n')
+        const res = await queryPill(apiSetting.PillStatus.queryPill(headers, pillcode))// 查询关键词是code不是id，返回没有URL
         if (res.data.success) {
-            console.log(res.data)
+            const testURL = res.data.doc.content
+            // ############# 下载文件：
+            if (confirm('是否确认下载图片')) {
+                const a = document.createElement('a');
+                a.href = testURL
+                a.style.display = 'none';
+                a.download = 'PillContent_' + pillnum //跨域问题导致重命名失败！ 解决：后端在响应头上添加content-type=application/octet-stream;
+                console.log(a)
+                document.body.appendChild(a)
+                a.click()
+                document.body.removeChild(a)
+            }
         }
-        const testURL = 'https://m2mda.blob.core.windows.net/chyb-document-storage/6c89a6a7-6670-48f6-998f-c2c1c129c54f_image.png'
-        // let img = new Image();
-        // // 解决跨域canvas 污染问题
-        // img.setAttribute("crossOrigin", "anonymous");
-        // img.onload = function() {
-        //     let canvas = document.createElement('canvas');
-        //     canvas.width = img.width;
-        //     canvas.height = img.height;
-
-        //     let context = canvas.getContext("2d");
-        //     context?.drawImage(img, 0, 0, img.width, img.height);
-        //     let url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
-        //     let a = document.createElement("a"); // 生成一个a元素
-        //     let event = new MouseEvent("click"); // 创建一个单击事件
-        //     a.download = '设置名字' || "photo"; // 设置图片名称
-        //     a.href = url; // 将生成的URL设置为a.href属性
-        //     a.dispatchEvent(event); // 触发a的单击事件
-        // }
-        // img.src=testURL
-
-        // ############# 下载文件：
-        // if (confirm('是否确认下载图片')) {
-        //     const a = document.createElement('a');
-        //     a.style.display = 'none';
-        //     a.href = testURL
-        //     a.download = 'PillContent_' + pillnum //她没用啊！还有跨域问题
-        //     document.body.appendChild(a)
-        //     a.click()
-        //     document.body.removeChild(a)
-
-        // }
-
-
-        // const URL = window.URL || window.webkitURL
-        // const herf = URL.createObjectURL(testURL) //查看格式
-        // a.href = herf
-        // a.download = 'PillName:?'
-        // document.body.appendChild(a)
-        // a.click()
-        // document.removeChild(a)
-        // window.URL.revokeObjectURL(herf)//查看格式
     }
 
 
@@ -237,7 +209,6 @@ const table0 = (pillContent: any, handleChange: any) => {
     )
 }
 
-
 const table1 = (pillContent: any, handleChange: any) => {
     return (
         <table className="w-full text-sm text-left  dark:text-gray-400">
@@ -308,12 +279,12 @@ const table2 = (pillContent: any, handleChange: any) => {
                         <tr key={row.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td className="p-4 w-4">
                                 <div className="flex items-center">
-                                    <input id="default-radio-1" onChange={handleChange} type="radio" value={row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    <input id="default-radio-1" onChange={handleChange} type="radio" value={row.code + row.id} name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
                                 </div>
                             </td>
                             <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
-                                {row.id} {row.code}
+                                {row.id}
                             </th>
                             <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap dark:text-white">
                                 {cutDate(row.deadline)}
@@ -331,7 +302,6 @@ const table2 = (pillContent: any, handleChange: any) => {
 }
 
 const buttons0 = (handleSubmit: any, checkExpire: any) => {
-    // const value = useContext(PillContext);
     return (
         <div className='flex w-full justify-between md:px-16'>
             <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
@@ -341,7 +311,6 @@ const buttons0 = (handleSubmit: any, checkExpire: any) => {
 }
 
 const buttons1 = (handleSubmit: any) => {
-    // const value = useContext(PillContext);
     return (
         <div className='flex w-full justify-between'>
             <button className='staffInterfaceBtn' onClick={() => { handleSubmit('informed') }}>致電通知</button>
@@ -352,7 +321,6 @@ const buttons1 = (handleSubmit: any) => {
 }
 
 const buttons2 = (handleSubmit: any, downloadPic: any) => {
-    // const value = useContext(PillContext);
     return (
         <div className='flex w-full justify-between md:px-16'>
             <button className='staffInterfaceBtn' onClick={() => { downloadPic() }}>下载图片</button>
