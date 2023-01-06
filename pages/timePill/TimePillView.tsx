@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const modeStatus = [
-    { intro: '手写扫描模式', cssInfo: 'timePillIntroShadowOn', content: ['手寫創造時光膠囊', '掃描並填寫時光膠囊資料',] },
+    { intro: '- 手寫掃描模式 -', cssInfo: 'timePillIntroShadowOn', content: ['手寫創造時光膠囊', '掃描並填寫時光膠囊資料',] },
     {
-        intro: '电子填表模式', cssInfo: 'timePillIntroShadowOff bg-red-100', content: ['打開秘密連結創造時光膠囊', '填寫時光膠囊詳細資料']
+        intro: '- 電子填表模式 -', cssInfo: 'timePillIntroShadowOff bg-red-100', content: ['打開秘密連結創造時光膠囊', '填寫時光膠囊詳細資料']
     },
 ];
 
@@ -67,10 +67,10 @@ export default function TimePillView(props: TimePillViewProps) {
                     <div className='flex justify-around w-full pl-16 my-6'>
                         <button type="button"
                             onClick={handMode}
-                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">手写扫描</button>
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">手寫上傳</button>
                         <button type="button"
                             onClick={scanMode}
-                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">电子填表</button>
+                            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">文字轉圖</button>
 
                     </div>
 
@@ -79,7 +79,7 @@ export default function TimePillView(props: TimePillViewProps) {
                             <button type="button"
                                 // onClick={() => {mode ? router.push('./timePill/tableFill') : router.push('./timePill/tableFill')}}
                                 onClick={goTableFill}
-                                className="inline text-lime-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sumbit</button>
+                                className="inline text-lime-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">製作膠囊</button>
                         </div>
 
                     </div>

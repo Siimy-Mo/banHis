@@ -30,7 +30,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
 
                         <div className='absolute bottom-4 left-4 mb-6 '>
 
-                            <h1 className="flex items-center text-lime-900 text-3xl md:text-5xl font-extrabold dark:text-white">时光胶囊
+                            <h1 className="flex items-center text-lime-900 text-3xl md:text-5xl font-extrabold dark:text-white">時光膠囊
                             <span className="bg-white text-lime-800 text-xs md:text-xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-lime-200 dark:text-lime-800 ml-2">
                                 Time Capsule</span></h1>
 
@@ -44,7 +44,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                     <form className='p-4 pt-8' onSubmit={handleSubmit}>
                         <div className='mb-6 '>
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
-                            >Your name*
+                            >稱呼 Name*
                                 <input type="text" name="name" className="bg-gray-50 border border-gray-300 text-lime-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
                                     placeholder="John" required />
                             </label>
@@ -52,7 +52,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
 
                         <div className='mb-6'>
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
-                            >Email*
+                            >郵箱 Email*
                                 <input type="email" name="email" className="bg-gray-50 border border-gray-300 text-lime-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
                                     placeholder="test@gmail.com" required />
                             </label>
@@ -60,7 +60,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
 
                         <div className='mb-6'>
                             <label htmlFor="date" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
-                            >Open Time*
+                            >開啟日期 Open Date*
                                 <input type="date" name="date" className="bg-gray-50 border border-gray-300 text-lime-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
                                     required />
                             </label>
@@ -68,7 +68,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
 
                         <div className='mb-6'>
                             <label htmlFor="content" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
-                            >Pill Content*
+                            >膠囊內容Pill Content*
                                 <textarea name="content" id="content" rows={4} className="block p-2.5 w-full text-sm text-lime-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-lime-500 focus:border-lime-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" 
                                 placeholder="Your message..."
                                 ></textarea>
@@ -78,7 +78,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
 
                         <div className='mb-6'>
                             <label htmlFor="tip" className="block mb-2 text-sm font-medium text-lime-900 dark:text-gray-300"
-                            >Tip before date
+                            >到期提示 Tip before date
                                 <input type="text" name="tip" className="bg-gray-50 border border-gray-300 text-lime-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
                                     placeholder="Message to u" />
                             </label>
@@ -89,7 +89,7 @@ export default function TableFillTextView(props: TableFillTextViewProps) {
                         {PillPreview ? (
                             <div className="absolute left-1/2 top-1/2 p-6 -translate-x-1/2 -translate-y-1/2 shadow-xl bg-cyan-100
                                             flex flex-col items-center">
-                                <div className='mb-6'>您的时光胶囊预览</div>
+                                <div className='mb-6'>您的時光膠囊預覽</div>
 
                                 {/* <canvas ref={canvasRef} className='bg-pillCard bg-cover h-full md:h-96 '> */}
                                 {/* <canvas ref={canvasRef} className='h-full md:h-96 '>

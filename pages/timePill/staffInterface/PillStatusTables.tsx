@@ -1,25 +1,15 @@
-import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useContext, useMemo, useEffect, useState } from 'react';
+import { MouseEventHandler, FormEventHandler, ChangeEventHandler, useEffect, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Api from '../../../apis';
 import { useRouter } from 'next/router';
-import { resolve } from 'path';
-// import {PillContext} from './StaffInterfaceContainer';
 
 const apiSetting = new Api();
 
-// received: 0,  //未到期
-// confirmed: 0,  //店员确认
-// informed: 0,  //店员已发邮件
-// expire: 0,  //已到期，未领取
-// finish: 0,  //完成，已领取
-// unused: 0, //完成，未领取
 const displayLabel = [
     ['received', 'confirmed'],
     ['expire', 'informed'],
     ['finish', 'unused'],
 ]
-
-
 
 interface UploadingProps {
     headers: any;
@@ -32,7 +22,6 @@ interface UploadingProps {
 const cutDate = (date: string) => {
     return date.substring(0, 10)
 }
-
 
 function HeadNav(props: UploadingProps) {
     const router = useRouter();
@@ -96,7 +85,8 @@ function HeadNav(props: UploadingProps) {
     }
 
     const downloadPic = async () => { // 下载文件有两种方式，1返回文件流、2 <a>
-        console.log('----------------dwload pic\n')
+        // console.log('----------------dwload pic\n')
+        // console.log(pillnum, pillcode)
         const res = await queryPill(apiSetting.PillStatus.queryPill(headers, pillcode))// 查询关键词是code不是id，返回没有URL
         if (res.data.success) {
             const testURL = res.data.doc.content
@@ -106,7 +96,7 @@ function HeadNav(props: UploadingProps) {
                 a.href = testURL
                 a.style.display = 'none';
                 a.download = 'PillContent_' + pillnum //跨域问题导致重命名失败！ 解决：后端在响应头上添加content-type=application/octet-stream;
-                console.log(a)
+                // console.log(a)
                 document.body.appendChild(a)
                 a.click()
                 document.body.removeChild(a)
@@ -149,7 +139,6 @@ function HeadNav(props: UploadingProps) {
         }
     }, [display]);//第一次默認
 
-
     return (
         <div className='h-fit w-3/4' >
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -163,7 +152,6 @@ function HeadNav(props: UploadingProps) {
 }
 
 const table0 = (pillContent: any, handleChange: any) => {
-    // const value = useContext(PillContext);
     return (
         <table className="w-full text-sm text-left dark:text-gray-400">
             <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -171,13 +159,13 @@ const table0 = (pillContent: any, handleChange: any) => {
                     <th scope="col" className="p-4">
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        胶囊编号
+                        膠囊編號
                     </th>
                     <th scope="col" className="py-3 px-6">
                         到期日期
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        致電確認
+                        確認狀態
                     </th>
                 </tr>
             </thead>
@@ -217,13 +205,13 @@ const table1 = (pillContent: any, handleChange: any) => {
                     <th scope="col" className="p-4">
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        胶囊编号
+                        膠囊編號
                     </th>
                     <th scope="col" className="py-3 px-6">
                         到期日期
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        通知狀態
+                        到期狀態
                     </th>
                 </tr>
             </thead>
@@ -263,13 +251,13 @@ const table2 = (pillContent: any, handleChange: any) => {
                     <th scope="col" className="p-4">
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        胶囊编号
+                        膠囊編號
                     </th>
                     <th scope="col" className="py-3 px-6">
                         到期日期
                     </th>
                     <th scope="col" className="py-3 px-6">
-                        完成方式
+                        完成途徑
                     </th>
                 </tr>
             </thead>
@@ -303,28 +291,48 @@ const table2 = (pillContent: any, handleChange: any) => {
 
 const buttons0 = (handleSubmit: any, checkExpire: any) => {
     return (
-        <div className='flex w-full justify-between md:px-16'>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
-            <button className='staffInterfaceBtn' onClick={() => { checkExpire() }}>一键检查到期</button>
+        <div>
+            <div className='mt-4 px-16 md:px-20'>
+                *received: 已收到。<br />
+                *confirmed: 已確認。可檢查是否到期。
+            </div>
+            <div className='flex w-full justify-between md:px-16'>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('confirmed') }}>確認收件</button>
+                <button className='staffInterfaceBtn' onClick={() => { checkExpire() }}>一鍵檢查到期</button>
+
+            </div>
         </div>
     )
 }
 
 const buttons1 = (handleSubmit: any) => {
     return (
-        <div className='flex w-full justify-between'>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('informed') }}>致電通知</button>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('finish') }}>领取胶囊</button>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('unused') }}>逾期无人领取</button>
+        <div>
+            <div className='mt-4 px-16 md:px-20'>
+                *expire: 已到期。可向用戶發送郵件。<br />
+                *informed: 已通知。可通過操作分類完成途徑。
+            </div>
+            <div className='flex w-full justify-between'>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('informed') }}>致電通知</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('finish') }}>领取胶囊</button>
+                <button className='staffInterfaceBtn' onClick={() => { handleSubmit('unused') }}>逾期无人领取</button>
+
+            </div>
         </div>
     )
 }
 
 const buttons2 = (handleSubmit: any, downloadPic: any) => {
     return (
-        <div className='flex w-full justify-between md:px-16'>
-            <button className='staffInterfaceBtn' onClick={() => { downloadPic() }}>下载图片</button>
-            <button className='staffInterfaceBtn' onClick={() => { handleSubmit('received') }}>设置成最初的状态（测试）</button>
+        <div>
+            <div className='mt-4 px-16 md:px-20'>
+                *finish: 已完成。用户已领取胶囊。<br />
+                *unused: 无用。无人领取。
+            </div>
+            <div className='flex w-full justify-center md:px-16'>
+                <button className='staffInterfaceBtn' onClick={() => { downloadPic() }}>下载图片</button>
+                {/* <button className='staffInterfaceBtn' onClick={() => { handleSubmit('received') }}>设置成最初的状态（测试）</button> */}
+            </div>
         </div>
     )
 }

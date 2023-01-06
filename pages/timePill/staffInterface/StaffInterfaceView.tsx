@@ -33,16 +33,16 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                 <div className='flex flex-col items-center w-full md:w-2/3 text-red-900'>
 
                     <h3 className="mb-4 text-3xl font-semibold tracking-tight leading-none text-red-900 md:text-4xl lg:text-5xl dark:text-white">
-                        staff操作界面</h3>
+                        - Staff 操作界面 -</h3>
 
                     <div className=" block mb-6 text-lg font-normallg:text-xl sm:px-16 xl:px-48">
                         <a onClick={Logout} className="block text-center">
-                            点击退出
+                            點擊此處登出
                         </a>
                     </div>
 
                     <div className='flex flex-col items-center min-w-min w-staffTable py-4 pt-8 md:px-12 md:py-6 rounded-xl bg-red-200 timePillIntroShadowOn '>
-                        <div className='text-center w-screen md:w-full 最頂上的文字應該寫操作介紹和問候'>
+                        <div className='text-center w-screen md:w-full'>
                             點擊胶囊状态，查看對應表格
                         </div>
 
@@ -53,9 +53,6 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                 <thead className="text-base">
                                     <tr>
                                         {statusName.map((item, index) => (
-                                            // <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300">Profile</a>
-                                            // <a href="#" class="inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active " aria-current="page">Dashboard</a>
-
                                             <th key={index} scope="col"
                                                 className={classNames("py-3 px-6 mx-4 rounded-t-lg border-b-2 border-transparent hover:text-red-6500",
                                                     item.order == tableDisplay ?
@@ -67,9 +64,7 @@ export default function StaffInterfaceView(props: StaffInterfaceViewProps) {
                                                     setTableDisplay(item.order)
                                                 }}>{item.statusName} </a>
                                             </th>
-
                                         ))}
-
                                     </tr>
                                 </thead>
                                 <tbody>
