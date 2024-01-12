@@ -31,14 +31,15 @@ function side(idx: number) {
     return idx % 2 == 0;
 }
 
-function getYearArray(){
-    return Array.from(new Set(hisData.map(obj => {return obj.year;}).sort() ))
+function getYearArray() {
+    return Array.from(new Set(hisData.map(obj => { return obj.year; }).sort()))
 }
 
 export default function LoginView(props: LoginViewProps) {
     // export default function LoginView() {
     const { handleSignIn } = props;
     const [year, setYear] = useState(2023)
+    const [search, setSearch] = useState('')
     const yearArray = getYearArray()
     const [banlist, setBanlist] = useState([{
         year: 0,
@@ -57,9 +58,21 @@ export default function LoginView(props: LoginViewProps) {
         setBanlist(newBan.slice()) //数组需要深拷贝
     }, [year])
 
-    function changeYear(change:number) {
-        if(yearArray.indexOf(year+change) !== -1){
-            setYear(year+change)
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value); //是否要设置断流?
+    }
+    const searchBan = () => {
+        if (search.trim() === '') return
+        
+        const newBan = hisData.filter(hisData => hisData.title.includes(search));
+        console.log(newBan);
+        setBanlist(newBan.slice()); //数组需要深拷贝
+        event?.preventDefault()
+    }
+
+    function changeYear(change: number) {
+        if (yearArray.indexOf(year + change) !== -1) {
+            setYear(year + change)
         }
     }
 
@@ -69,27 +82,28 @@ export default function LoginView(props: LoginViewProps) {
                 {/* 搜索框 */}
                 <div >
                     <form className='w-96'>
-                        <label htmlFor="default-search" className="mb-2 text-2xl font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                        <label htmlFor="ban-search" className="mb-2 text-2xl font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
                         <div className="relative">
                             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                 <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
-                            <input type="search" id="default-search" className="block p-4 pl-10 w-full text-sm text-gray-900 bg-bgColor rounded-md shadow-md shadow-gray-400 focus:ring-themeOther1 focus:border-themeOther1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-themeOther1 dark:focus:border-themeOther1"
-                                placeholder="搜索关键字" required />
-                            <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-themeOther1 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md shadow-md shadow-themeOther1 text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-themeOther1 dark:focus:ring-blue-800">Search</button>
+                            <input type="search" id="ban-search" className="block p-4 pl-10 w-full text-sm text-gray-900 bg-bgColor rounded-md shadow-md shadow-gray-400 focus:ring-themeOther1 focus:border-themeOther1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-themeOther1 dark:focus:border-themeOther1"
+                                placeholder="搜索关键字" required onChange={onChange}/>
+                                <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-themeOther1 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md shadow-md shadow-themeOther1 text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-themeOther1 dark:focus:ring-blue-800"
+                                    onClick={searchBan}>Search</button>
                         </div>
                     </form>
                 </div>
 
 
                 <div className="flex my-4">
-                    <a onClick={()=>changeYear(-1)} className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-red-600 bg-white rounded-md shadow-md shadow-red-600/50 hover:text-themeOther1 hover:shadow-gray-700">
+                    <a onClick={() => changeYear(-1)} className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-red-600 bg-white rounded-md shadow-md shadow-red-600/50 hover:text-themeOther1 hover:shadow-gray-700">
                         <svg className="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
                         </svg>
                     </a>
                     <span className="mx-7 text-xl text-red-600 font-semibold">{year}</span>
-                    <a onClick={()=>changeYear(1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-red-600 bg-white rounded-md shadow-md shadow-red-600/50 hover:text-themeOther1 hover:shadow-gray-700">
+                    <a onClick={() => changeYear(1)} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-red-600 bg-white rounded-md shadow-md shadow-red-600/50 hover:text-themeOther1 hover:shadow-gray-700">
                         <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                         </svg>
@@ -136,7 +150,7 @@ export default function LoginView(props: LoginViewProps) {
                                             ? "mr-3"
                                             : "ml-3",
                                         "my-3 text-base italic leading-6")}>
-                                        图片预览
+                                        图片预览<br />
                                         类型：{item.type}<br />
                                         播出于 {item.date_broadcast}<br />
                                         开始观看于 {item.date_start}<br />
