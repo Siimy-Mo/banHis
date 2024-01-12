@@ -1,5 +1,5 @@
 // import useAxios from 'axios-hooks';
-import { FormEventHandler, useEffect } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
 import LoginView from './HisRecordView';
 import { useRouter } from 'next/router';
@@ -9,6 +9,8 @@ const STORAGE_KEY = 'todo-P7oZi9sLs'
 
 export default function LoginContainer() {
     const router = useRouter();
+    const [year, setYear] = useState(2024)
+
     useEffect(() => {
         localStorage.setItem('authorization', 'token');
         localStorage.setItem('email', 'email');
@@ -17,7 +19,6 @@ export default function LoginContainer() {
         // if (router.pathname === 'login') router.push('/');
         // else router.reload();
     }, []);
-
 
     // 子组件需要的逻辑
     const handleSignIn: FormEventHandler<HTMLFormElement> = async (e) => {

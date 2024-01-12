@@ -2,7 +2,7 @@
 import { FormEventHandler } from 'react';
 import { ChangeEvent, createContext } from 'react';
 import React, { useEffect, useState } from 'react';
-import hisData from '../../public/banRecord.json';  // data 多了之后要学缓处理。
+import hisData from '../../public/banRecord.json';  // data以后要存储在远程服务器上,用axios来获得它
 
 
 // 加载json数据之后 需要做的事情：
@@ -29,18 +29,35 @@ function classNames(...classes: any[]) {
 
 function side(idx: number) {
     // return idx%2==1? true:false ;
-    return idx%2==0 ;
+    return idx % 2 == 0;
 }
 
 
 export default function LoginView(props: LoginViewProps) {
     // export default function LoginView() {
     const { handleSignIn } = props;
-    const [msg, setMessage] = useState('')
+    const [year, setYear] = useState(2024)
+    const [banlist, setBanlist] = useState([{
+        year: 0,
+        title: "Title",
+        type: "28集全",
+        date_broadcast: "2023-9-29",
+        date_start: "2023-9-29",
+        date_finish: "2024-4-1",
+        tag: "\\",
+        imgURL: "\\"
+    }])
+    
+
+    useEffect(() => {
+        const newBan = hisData.filter(hisData => hisData.year===year);
+        setBanlist(newBan.slice()) //数组需要深拷贝
+    },[year])
 
     return (
         <>
             <div className='flex flex-col justify-center items-center h-full px-12 my-16 overflow-auto'>
+                {/* 搜索框 */}
                 {/* <div >
                     <form className='w-96'>
                         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
@@ -123,7 +140,8 @@ export default function LoginView(props: LoginViewProps) {
                     </ul>
                 </div> */}
 
-
+                <button onClick={()=>setYear(2023)}>2023</button>
+                <button onClick={()=>setYear(2024)}>2024</button>
                 {/* timeLime reference: https://codepen.io/NilsWe/pen/Axdozd */}
                 <div className='my-0 mx-auto py-4 px-0 list-none'>
                     <span className='absolute left-1/2 top-0 content-none block w-2 h-full -ml-1
@@ -134,7 +152,7 @@ export default function LoginView(props: LoginViewProps) {
                             bg-gradient-to-t from-bgColor to-transparent'></span>
 
                     <ul>
-                        {hisData.map((item,index) => (
+                        {banlist.map((item, index) => (
                             <li className='my-4 py-2 px-0 z-10' key={item.title}>
                                 <div className={classNames("absolute px-7 ",
                                     side(index) ? 'float-right left-1/2' : 'float-left text-right right-1/2')}>
