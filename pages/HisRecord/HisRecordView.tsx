@@ -16,14 +16,8 @@ import hisData from '../../public/banRecord.json';  // data 多了之后要学�
 // 3.data-date值用于横竖 时间线的交互联动。
 
 
-// 4.加载json数据的时候要做上Rside 标签！才能map出来 。hisData ->useEffect来第一次处理文件！
-
 // 5.VT的宽度还是按照内容支撑的，缺少默认宽度。缺少做手机界面
-const banList = [
-    { name: '标题1', date: '2013 - present', Rside: true },
-    { name: '标题2', date: '2013 - present', Rside: false },
-    { name: '标题3', date: '2013 - present', Rside: true }
-];
+
 
 interface LoginViewProps {
     handleSignIn: FormEventHandler;
@@ -31,6 +25,11 @@ interface LoginViewProps {
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
+}
+
+function side(idx: number) {
+    // return idx%2==1? true:false ;
+    return idx%2==0 ;
 }
 
 
@@ -42,7 +41,7 @@ export default function LoginView(props: LoginViewProps) {
     return (
         <>
             <div className='flex flex-col justify-center items-center h-full px-12 my-16 overflow-auto'>
-                <div >
+                {/* <div >
                     <form className='w-96'>
                         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
                         <div className="relative">
@@ -53,23 +52,22 @@ export default function LoginView(props: LoginViewProps) {
                             <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                         </div>
                     </form>
-                </div>
+                </div> */}
 
 
                 {/* https://codepen.io/ritz078/pen/LGRWjE  class=timeline*/}
                 {/* 一个横向的时间线来跳转year Unit
                 data-date 用于和下方div<class="events-content">的li标签的的属性绑定 */}
-                <div className='relative h-28 w-4/5 my-0 mx-auto'>
+                {/* <div className='relative h-28 w-4/5 my-0 mx-auto'>
 
-                    {/* events-wrapper 两侧渐变的伪类*/}
+                     events-wrapper 两侧渐变的伪类
                     <div className='relative h-full my-0 mx-10 overflow-hidden'>
                         <span className='content-none absolute z-20 top-0 h-full w-5
                             left-0 bg-gradient-to-r from-bgColor to-transparent text-transparent'>白色渐变</span>
 
-                        {/* events */}
                         <div className='absolute z-10 left-0 top-14 h-0.5 w-full bg-white transition-transform duration-500'>
                             <ol>
-                                {/* 一个选项单位  额外class 有selected pass 选项,要计算left*/}
+                                 一个选项单位  额外class 有selected pass 选项,要计算left
                                 <li>
                                     <a href="#0" data-date="16/01/2014"
                                         className='absolute bottom-0 z-20 text-center text-lg pb-4 text-themeOther1 transformZ0
@@ -123,68 +121,65 @@ export default function LoginView(props: LoginViewProps) {
                                 overflow-hidden text-transparent indent1_1 whitespace-nowrap rounded-full border-2 border-solid border-themeOther1 transition-colors
                                 right-0'>Next</a></li>
                     </ul>
-                </div>
+                </div> */}
 
 
                 {/* timeLime reference: https://codepen.io/NilsWe/pen/Axdozd */}
-                <div className='relative w-4/5 my-0 mx-auto py-4 px-0 list-none'>
+                <div className='my-0 mx-auto py-4 px-0 list-none'>
                     <span className='absolute left-1/2 top-0 content-none block w-2 h-full -ml-1
-                            bg-themeOther1 text-transparent'>时间线</span>
-                    <span className='content-none absolute z-0 top-0 h-1/6 w-full
+                            bg-themeOther1 text-transparent'>中间的时间线和上下的渐变</span>
+                    <span className=' absolute left-1/2 content-none h-1/6 w-2 top-0 -ml-1
                             bg-gradient-to-b from-bgColor to-transparent'></span>
+                    <span className='absolute left-1/2 content-none h-1/6 w-2 bottom-0 -ml-1
+                            bg-gradient-to-t from-bgColor to-transparent'></span>
 
                     <ul>
-                        {banList.map((item) => (
-                            <li className='py-2 px-0 z-10' key={item.name}>
-                                <div className={classNames(
-                                    item.Rside
-                                        ? 'float-right'
-                                        : 'float-left text-right',
-                                    "relative w-96")}>
+                        {hisData.map((item,index) => (
+                            <li className='my-4 py-2 px-0 z-10' key={item.title}>
+                                <div className={classNames("absolute px-7 ",
+                                    side(index) ? 'float-right left-1/2' : 'float-left text-right right-1/2')}>
 
                                     <div className="relative inline-block text-center">
-                                        <span className="relative inline bg-white py-1 px-2 rounded-md font-semibold text-2xl text-left shadow-md shadow-red-600/50">
+                                        <span className="relative inline bg-white py-1 px-2 rounded-md font-semibold text-2xl shadow-md shadow-red-600/50">
+
                                             <span className={classNames(
-                                                item.Rside
-                                                    ? "-left-7"
-                                                    : "-right-7",
+                                                side(index) ? "-left-9" : "-right-9",
                                                 'absolute content-none top-1/2  w-4 h-4 block -mt-2 bg-white rounded-full border-4 border-solid border-red-600 z-20')}></span>
-                                            {item.name}
+                                            {item.title}
                                             <span className={classNames(
-                                                item.Rside
-                                                ? "right-full border-r-white"
-                                                : "left-full border-l-white",
+                                                side(index) ? "right-full border-r-white" : "left-full border-l-white",
                                                 'content-none absolute top-1/2 h-4 w-4 -mt-2 border-solid border-transparent border-8 pointer-events-none')}></span>
                                         </span>
-
                                         <span className={classNames(
-                                            item.Rside
+                                            side(index)
                                                 ? "float-right"
                                                 : "float-left",
                                             "inline leading-4 text-sm text-red-600 align-middle")}>
-                                            <span className="inline-block py-1 px-1.5 bg-white">{item.date}</span></span>
+                                            <span className="inline-block py-1 px-1.5 bg-white">{item.date_finish}</span></span>
                                     </div>
+
                                     <div className={classNames(
-                                        item.Rside
-                                        ? "mr-3 ml-0"
-                                        : "mr-0 ml-3",
-                                        "mt-4 mb-0 text-base italic leading-6")}>时长：25集全<br/>番剧的tag:悬疑/推理/迷番/偶像</div>
+                                        side(index)
+                                            ? "mr-3"
+                                            : "ml-3",
+                                        "my-3 text-base italic leading-6")}>
+                                        图片预览
+                                        类型：{item.type}<br />
+                                        播出于 {item.date_broadcast}<br />
+                                        开始观看于 {item.date_start}<br />
+                                    </div>
                                 </div>
-                                <span className='content-none block h-0 clear-both invisible'></span>
+                                <span className='content-none block h-10 clear-both invisible'></span>
                             </li>
                         ))}
-
                     </ul>
-                    <span className='content-none absolute z-0 bottom-0 h-1/6 w-full
-                            bg-gradient-to-t from-bgColor to-transparent'></span>
+
+
                 </div>
 
-                <div>
 
+                {/* <div>
                     <ol className="relative border-l border-gray-200 dark:border-gray-700 my-4">
-
-
-
                         <li className="mb-10 ml-6">
                             <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
                                 <svg aria-hidden="true" className="w-3 h-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
@@ -194,10 +189,8 @@ export default function LoginView(props: LoginViewProps) {
                             <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce &amp; Marketing pages.</p>
                             <a href="#" className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg className="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd"></path></svg> Download ZIP</a>
                         </li>
-
-
                     </ol>
-                </div>
+                </div> */}
 
 
             </div>
