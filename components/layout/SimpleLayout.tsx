@@ -16,8 +16,7 @@ function SimpleLayout(props: SimpleLayoutProps) {
                 {/* <div className="opacity-25">
                     <SideNav />
                 </div> */}
-                <SideNav />
-                {children}
+                {/* {children} */}
             </div>
             <Footer />
         </>

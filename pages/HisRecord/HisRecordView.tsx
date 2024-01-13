@@ -5,20 +5,6 @@ import React, { useEffect, useState } from 'react';
 import hisData from '../../public/banRecord.json';  // data以后要存储在远程服务器上,用axios来获得它
 
 
-// 加载json数据之后 需要做的事情：
-// 0.设置加载前的占位组件
-// 1.访问数据，获取时间，计算时间点到left的距离，分别添加到横向时间线的li中。
-//     （tailwind是固定值，要看看怎么做成px。
-
-
-// 2.横向时间线是加载之后overflow-hidden了前后的节点，是否全部加载是要考虑的。
-//     不过好像原来只是单纯用来做年份标记，不需要这么详细！！！
-// 3.data-date值用于横竖 时间线的交互联动。
-
-
-// 5.VT的宽度还是按照内容支撑的，缺少默认宽度。缺少做手机界面
-
-
 interface LoginViewProps {
     handleSignIn: FormEventHandler;
 }
@@ -38,9 +24,9 @@ function getYearArray() {
 export default function LoginView(props: LoginViewProps) {
     // export default function LoginView() {
     const { handleSignIn } = props;
-    const [year, setYear] = useState(2023)
     const [search, setSearch] = useState('')
     const yearArray = getYearArray()
+    const [year, setYear] = useState(2024)
     const [banlist, setBanlist] = useState([{
         year: 0,
         title: "Title",

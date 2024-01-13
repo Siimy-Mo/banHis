@@ -18,10 +18,17 @@
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-    /* background:#9DD9D2; */
-    /* display:flex;  */
-  }
 
+    /* background:#9DD9D2; */
+    /* flex的居中布局 */
+    display:flex; 
+    /* justify-content: center; */
+    align-items:center;
+  }
+  header,
+  footer {
+    @apply font-semibold text-center text-textColor
+  }
 
   a {
     color: inherit;
@@ -31,12 +38,17 @@
   * {
     box-sizing: border-box;
   }
+  .transitionSet1 {
+    @apply transition duration-500 ease-out
+  }
+  
 }
 
 /* content:''是block！！ */
 @layer components {
   /*UI配色參考 https://codepen.io/oliviale/pen/mgWjpq */
 
+  
   .staffInterfaceBtn{
     @apply relative m-1 mt-8 mb-4 md:m-4 font-light text-sm md:text-base tracking-wide py-2 px-4 md:py-3 md:px-8 outline-0 border rounded-3xl border-red-900 text-red-900 cursor-pointer z-0
      after:block after:bg-red-100 after:border-transparent after:w-full after:h-full after:z-[-1] after:absolute after:top-0 after:left-0 after:duration-200

@@ -20,6 +20,13 @@ module.exports = {
       'themeOther2':'#8fe1a2',
       'themeAnother':'#fe938c',
       'themeforeground':'#ebe8d8',
+      //https://coolors.co/palette/e63946-f1faee-a8dadc-457b9d-1d3557
+      // 'bgColor':'#A8DADC',
+      'textColor':'#1D3557',
+      'reverseColor':'#E63946',
+      'opColor1':'#A8DADC',
+      'opColor2':'#457B9D',
+
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,
