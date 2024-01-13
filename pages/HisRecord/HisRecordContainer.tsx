@@ -1,13 +1,13 @@
 // import useAxios from 'axios-hooks';
 import { FormEventHandler, useEffect, useState } from 'react';
 // import Api from '../../apis';
-import LoginView from './HisRecordView';
+import BanHist from './HisRecordView';
 import { useRouter } from 'next/router';
 
 // const apiSetting = new Api();
 const STORAGE_KEY = 'todo-P7oZi9sLs'
 
-export default function LoginContainer() {
+export default function HisRecordContainer() {
     const router = useRouter();
     const [year, setYear] = useState(2024)
 
@@ -37,5 +37,5 @@ export default function LoginContainer() {
     };
 
 
-    return <LoginView {...{ handleSignIn}}/>; // 导出view 传入参数。
+    return <BanHist {...{ handleSignIn}}/>; // 导出view 传入参数。
 }

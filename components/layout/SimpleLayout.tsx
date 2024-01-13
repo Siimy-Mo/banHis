@@ -13,10 +13,7 @@ function SimpleLayout(props: SimpleLayoutProps) {
     return (
         <>
             <HeadNav />
-            <div className='relative flex flex-col md:flex-row w-screen overflow-hidden'>
-                {/* <div className="opacity-25">
-                    <SideNav />
-                </div> */}
+            <div className='relative min-h-screen md:flex-col w-screen overflow-hidden'>
                 {children}
             </div>
             <Footer />

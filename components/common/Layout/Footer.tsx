@@ -3,7 +3,7 @@
 
 function Footer() {
     return (
-        <footer className="absolute flex justify-center bottom-0 w-screen">
+        <footer className="flex justify-center w-screen">
 
             <div className="bg-white w-full max-w-7xl py-6 px-4 overflow-hidden sm:px-6 lg:px-8">
                 <p className="mt-2">
