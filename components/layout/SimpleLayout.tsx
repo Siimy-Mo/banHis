@@ -3,6 +3,7 @@ import HeadNav from '../common/Layout/HeadNav';
 import SideNav from '../common/Layout/SideNav';
 import Footer from '../common/Layout/Footer';
 
+
 interface SimpleLayoutProps {
     children: React.ReactChild;
 }
@@ -16,7 +17,7 @@ function SimpleLayout(props: SimpleLayoutProps) {
                 {/* <div className="opacity-25">
                     <SideNav />
                 </div> */}
-                {/* {children} */}
+                {children}
             </div>
             <Footer />
         </>
